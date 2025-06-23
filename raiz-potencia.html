@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Calculadora de Raíces y Potencias | Raíz Cuadrada, Cúbica y Potencias Online
+    </title>
+    <meta
+      name="description"
+      content="Calculadora de raíces y potencias online gratuita. Calcula raíz cuadrada, cúbica, enésima y potencias con explicación paso a paso."
+    />
+    <meta
+      name="keywords"
+      content="raíz cuadrada, raíz cúbica, potencias, exponentes, calculadora raíz, calculadora potencia, matemáticas"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Raíces y Potencias Online - Raíz Cuadrada y Potencias"
+    />
+    <meta
+      property="og:description"
+      content="Calcula raíces cuadradas, cúbicas y potencias de cualquier número con explicación detallada del proceso."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/raiz-potencia.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta
+      name="twitter:title"
+      content="Calculadora de Raíces y Potencias - Matemáticas Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Herramienta gratuita para calcular raíces y potencias con explicación paso a paso."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/raiz-potencia.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Raíces y Potencias",
+        "url": "https://calculadoras.alexpiral.com/raiz-potencia.html",
+        "description": "Calculadora online de raíces cuadradas, cúbicas y potencias",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Raíz cuadrada",
+          "Raíz cúbica",
+          "Raíz enésima",
+          "Potencias",
+          "Explicación paso a paso",
+          "Ejemplos prácticos"
+        ],
+        "keywords": [
+          "raíz cuadrada",
+          "raíz cúbica",
+          "potencias",
+          "exponentes",
+          "calculadora raíz",
+          "calculadora potencia",
+          "matemáticas"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/raiz-potencia.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Raíces y Potencias</h1>
+        <p>
+          Calcula raíces cuadradas, cúbicas, enésimas y potencias de cualquier número.
+          Obtén resultados precisos con explicación paso a paso del proceso matemático.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Selecciona el Tipo de Cálculo</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="square-root"
+              onclick="changeType('square-root')"
+            >
+              Raíz Cuadrada
+            </button>
+            <button
+              class="type-button"
+              data-type="cube-root"
+              onclick="changeType('cube-root')"
+            >
+              Raíz Cúbica
+            </button>
+            <button
+              class="type-button"
+              data-type="nth-root"
+              onclick="changeType('nth-root')"
+            >
+              Raíz Enésima
+            </button>
+            <button
+              class="type-button"
+              data-type="power"
+              onclick="changeType('power')"
+            >
+              Potencia
+            </button>
+          </div>
+
+          <div class="visual-schema">
+            <div class="formula-display" id="formulaDisplay">√x = ?</div>
+            <div class="schema-description" id="schemaDescription">
+              Calcula la raíz cuadrada de un número
+            </div>
+          </div>
+
+          <form id="calculatorForm">
+            <div id="inputsContainer">
+              <!-- Dynamic inputs will be inserted here -->
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Calcular Resultado
+            </button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText">
+              La raíz cuadrada de un número es el valor que multiplicado por sí mismo da el número original.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-display">
+              <div class="operation-formula" id="operationFormula">-</div>
+              <div class="result-value" id="resultValue">-</div>
+            </div>
+
+            <div class="approximation-section" id="approximationSection">
+              <h3>Aproximaciones:</h3>
+              <div class="approximation-grid" id="approximationGrid"></div>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🔢</p>
+            <p>
+              Selecciona el tipo de cálculo, ingresa los valores y presiona "Calcular"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('square-root', {number: 144})">
+            <h3 class="example-title">√ Raíz Cuadrada</h3>
+            <p class="example-description">
+              √144 = 12 - Un cuadrado perfecto fácil de calcular
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('cube-root', {number: 64})">
+            <h3 class="example-title">∛ Raíz Cúbica</h3>
+            <p class="example-description">
+              ∛64 = 4 - Un cubo perfecto que resulta en número entero
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('nth-root', {number: 32, index: 5})">
+            <h3 class="example-title">ⁿ√ Raíz Enésima</h3>
+            <p class="example-description">
+              ⁵√32 = 2 - La quinta raíz de una potencia de 2
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('power', {base: 3, exponent: 4})">
+            <h3 class="example-title">xⁿ Potencia</h3>
+            <p class="example-description">
+              3⁴ = 81 - Tres elevado a la cuarta potencia
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Conceptos Matemáticos</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">√</div>
+              Raíz Cuadrada
+            </h3>
+            <p>
+              La raíz cuadrada de un número es el valor que multiplicado por sí mismo produce el número original.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>√(a²) = a para números positivos</li>
+              <li>√16 = 4 porque 4² = 16</li>
+              <li>Los números negativos no tienen raíz cuadrada real</li>
+              <li>Los cuadrados perfectos tienen raíces exactas</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">∛</div>
+              Raíz Cúbica
+            </h3>
+            <p>
+              La raíz cúbica de un número es el valor que elevado al cubo produce el número original.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>∛(a³) = a</li>
+              <li>∛27 = 3 porque 3³ = 27</li>
+              <li>Los números negativos sí tienen raíz cúbica real</li>
+              <li>∛(-8) = -2 porque (-2)³ = -8</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">ⁿ√</div>
+              Raíz Enésima
+            </h3>
+            <p>
+              La raíz enésima de un número es el valor que elevado a la potencia n produce el número original.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>ⁿ√(aⁿ) = a</li>
+              <li>⁴√16 = 2 porque 2⁴ = 16</li>
+              <li>Para n par, solo números positivos tienen raíz real</li>
+              <li>Para n impar, todos los números tienen raíz real</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">xⁿ</div>
+              Potencias
+            </h3>
+            <p>
+              Una potencia representa la multiplicación repetida de un número (base) por sí mismo n veces (exponente).
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>aⁿ = a × a × a... (n veces)</li>
+              <li>2⁵ = 2 × 2 × 2 × 2 × 2 = 32</li>
+              <li>a⁰ = 1 para cualquier a ≠ 0</li>
+              <li>a⁻ⁿ = 1/aⁿ (exponentes negativos)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Perfect Numbers Section -->
+      <section class="info-section">
+        <h2>Números Perfectos y Propiedades</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">²</div>
+              Cuadrados Perfectos
+            </h3>
+            <p>Números que son el resultado de elevar un entero al cuadrado:</p>
+            <div class="perfect-numbers">
+              1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144...
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">³</div>
+              Cubos Perfectos
+            </h3>
+            <p>Números que son el resultado de elevar un entero al cubo:</p>
+            <div class="perfect-numbers">
+              1, 8, 27, 64, 125, 216, 343, 512, 729, 1000...
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📐</div>
+              Aplicaciones Prácticas
+            </h3>
+            <p>Las raíces y potencias tienen múltiples aplicaciones:</p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Geometría: área y volumen</li>
+              <li>Física: leyes de potencias</li>
+              <li>Finanzas: interés compuesto</li>
+              <li>Ingeniería: cálculos estructurales</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">∞</div>
+              Propiedades
+            </h3>
+            <p>Relaciones importantes entre raíces y potencias:</p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>√(ab) = √a × √b</li>
+              <li>aᵐ × aⁿ = aᵐ⁺ⁿ</li>
+              <li>(aᵐ)ⁿ = aᵐⁿ</li>
+              <li>ⁿ√a = a^(1/n)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Selecciona el tipo de cálculo:</strong> Elige entre raíz cuadrada,
+              cúbica, enésima o potencia según lo que necesites calcular.
+            </li>
+            <li>
+              <strong>Ingresa los valores:</strong> Completa los campos requeridos
+              con los números que conoces.
+            </li>
+            <li>
+              <strong>Calcula:</strong> Presiona el botón "Calcular Resultado"
+              para obtener la respuesta precisa.
+            </li>
+            <li>
+              <strong>Revisa la explicación:</strong> Observa el procedimiento
+              paso a paso y las aproximaciones del resultado.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/raiz-potencia.js"></script>
+  </body>
+</html>

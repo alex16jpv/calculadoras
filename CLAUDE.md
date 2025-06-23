@@ -12,6 +12,8 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **regla-de-tres.html**: Full-featured rule of three calculator with step-by-step explanations
 - **porcentaje-calculadora.html**: Multi-type percentage calculator (percentage, discount, increase, what percent)
 - **numero-primo.html**: Prime number checker with factorization and mathematical analysis
+- **aritmetica-basica.html**: Basic arithmetic calculator with keypad interface and operation history
+- **raiz-potencia.html**: Root and power calculator for square roots, cube roots, nth roots, and exponential operations
 
 #### CSS Architecture
 
@@ -20,6 +22,8 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **css/regla-de-tres.css**: Rule of three calculator specific styles
 - **css/porcentaje-calculadora.css**: Percentage calculator specific styles
 - **css/numero-primo.css**: Prime number checker specific styles
+- **css/aritmetica-basica.css**: Basic arithmetic calculator specific styles
+- **css/raiz-potencia.css**: Root and power calculator specific styles
 
 #### JavaScript Architecture
 
@@ -28,6 +32,8 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **js/regla-de-tres.js**: Rule of three calculator specific logic
 - **js/porcentaje-calculadora.js**: Percentage calculator specific logic
 - **js/numero-primo.js**: Prime number checker specific logic
+- **js/aritmetica-basica.js**: Basic arithmetic calculator specific logic
+- **js/raiz-potencia.js**: Root and power calculator specific logic
 
 ### Key Features
 
@@ -66,6 +72,8 @@ Each calculator follows a consistent pattern:
 - `/regla-de-tres.html` - Rule of three calculator
 - `/porcentaje-calculadora.html` - Percentage calculator
 - `/numero-primo.html` - Prime number checker
+- `/aritmetica-basica.html` - Basic arithmetic calculator
+- `/raiz-potencia.html` - Root and power calculator
 - External calculators link to separate domains (e.g., 4x1000 tax calculator)
 
 ### Styling Conventions
@@ -77,6 +85,13 @@ Each calculator follows a consistent pattern:
 - Hover and focus states for all interactive elements
 - Shared components (header, footer, buttons, forms) use classes defined in shared.css
 - Calculator-specific styles go in separate CSS files
+
+### Footer Conventions
+
+- All calculator pages use consistent footer structure with shared.css styling
+- Footer contains copyright notice and single "Volver al Hub" link
+- No cross-links between calculators in footer - users navigate via main hub
+- Footer uses `.footer-content` and `.footer-links` classes for consistent styling
 
 ### JavaScript Conventions
 
