@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/</loc>
+    </url>
+    
+    <!-- Mathematics Calculators -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/regla-de-tres.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/porcentaje-calculadora.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/numero-primo.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/aritmetica-basica.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/raiz-potencia.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/factorial.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/mcm-mcd.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/combinaciones-permutaciones.html</loc>
+    </url>
+    
+    <!-- Finance Calculators -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/interes-simple.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/interes-compuesto.html</loc>
+    </url>
+    
+    <!-- Conversion Calculators -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/conversion-bases.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/fracciones-decimales.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/conversion-temperatura.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/conversion-longitud.html</loc>
+    </url>
+    
+    <!-- Health Calculators -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/calculadora-imc.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/calorias-diarias.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/frecuencia-cardiaca.html</loc>
+    </url>
+    
+    <!-- Date and Time Calculators -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/dias-entre-fechas.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/calculadora-edad.html</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/zona-horaria.html</loc>
+    </url>
+    
+    <!-- Static Pages -->
+    <url>
+        <loc>https://calculadoras.alexpiral.com/sobre-nosotros</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/privacidad</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/terminos</loc>
+    </url>
+    
+    <url>
+        <loc>https://calculadoras.alexpiral.com/contacto</loc>
+    </url>
+</urlset>
