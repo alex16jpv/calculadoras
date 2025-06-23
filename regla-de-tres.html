@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora Regla de Tres | Simple, Directa e Inversa Online</title>
+    <meta
+      name="description"
+      content="Calcula proporciones con regla de tres simple directa e inversa. Herramienta gratuita online para resolver problemas de proporcionalidad fácilmente."
+    />
+    <meta
+      name="keywords"
+      content="regla de tres, calculadora proporciones, regla tres simple, regla tres directa, regla tres inversa, proporcionalidad, calcular porcentaje"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora Regla de Tres Online - Simple, Directa e Inversa"
+    />
+    <meta
+      property="og:description"
+      content="Resuelve problemas de proporcionalidad con nuestra calculadora de regla de tres. Simple, directa e inversa."
+    />
+    <meta
+      property="og:image"
+      content="https://calculadoras.alexpiral.com/images/regla-de-tres-og.jpg"
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/regla-de-tres.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Calculadora Regla de Tres - Proporciones Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Calcula proporciones directas e inversas fácilmente con nuestra herramienta gratuita."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/regla-de-tres.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora Regla de Tres",
+        "url": "https://calculadoras.alexpiral.com/regla-de-tres.html",
+        "description": "Calculadora online de regla de tres simple, directa e inversa",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Regla de tres simple directa",
+          "Regla de tres simple inversa",
+          "Explicación paso a paso",
+          "Ejemplos prácticos",
+          "Interfaz intuitiva"
+        ],
+        "keywords": [
+          "regla de tres",
+          "calculadora proporciones",
+          "regla tres simple",
+          "regla tres directa",
+          "regla tres inversa",
+          "proporcionalidad",
+          "calcular porcentaje"
+        ]
+      }
+    </script>
+
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #3b82f6;
+        --success-color: #10b981;
+        --error-color: #ef4444;
+        --text-color: #1f2937;
+        --light-bg: #f9fafb;
+        --card-bg: #ffffff;
+        --border-color: #e5e7eb;
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--light-bg);
+      }
+
+      /* Header */
+      header {
+        background-color: var(--card-bg);
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Main Content */
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* Breadcrumb */
+      .breadcrumb {
+        margin-bottom: 2rem;
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+
+      .breadcrumb a {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: #6b7280;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Calculator Container */
+      .calculator-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      /* Calculator Card */
+      .calculator-card {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+      }
+
+      .calculator-card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      /* Calculator Type Selector */
+      .type-selector {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .type-button {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--border-color);
+        background: var(--card-bg);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .type-button.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .type-button:hover:not(.active) {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      /* Input Groups */
+      .input-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+
+      .input-wrapper {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .input-field {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: var(--accent-color);
+      }
+
+      .input-field.result {
+        background-color: #eff6ff;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      .arrow {
+        color: #6b7280;
+        font-size: 1.5rem;
+      }
+
+      /* Visual Schema */
+      .visual-schema {
+        background: var(--light-bg);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 2px dashed var(--border-color);
+      }
+
+      .schema-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 1rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      .schema-value {
+        font-size: 1.25rem;
+        font-weight: 600;
+        padding: 0.5rem;
+        background: white;
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-color);
+      }
+
+      .schema-arrow {
+        font-size: 2rem;
+        color: var(--primary-color);
+      }
+
+      /* Calculate Button */
+      .calculate-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .calculate-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      }
+
+      .calculate-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Results Section */
+      .results-card {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border: 2px solid var(--primary-color);
+      }
+
+      .result-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-align: center;
+        margin: 1.5rem 0;
+      }
+
+      .steps-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid #dbeafe;
+      }
+
+      .steps-section h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+      }
+
+      .step {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .step-number {
+        background: var(--primary-color);
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .formula {
+        font-family: "Courier New", monospace;
+        background: var(--light-bg);
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        margin: 0.5rem 0;
+        overflow-x: auto;
+      }
+
+      /* Examples Section */
+      .examples-section {
+        margin: 3rem 0;
+      }
+
+      .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .example-card {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .example-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+      }
+
+      .example-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+      }
+
+      .example-description {
+        color: #6b7280;
+        font-size: 0.95rem;
+      }
+
+      /* Info Section */
+      .info-section {
+        margin: 3rem 0;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .info-card {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow);
+      }
+
+      .info-card h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .info-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--primary-color);
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      /* Help Text */
+      .help-text {
+        background: #fef3c7;
+        border: 1px solid #fbbf24;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: #92400e;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .calculator-container {
+          grid-template-columns: 1fr;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .schema-grid {
+          font-size: 0.9rem;
+        }
+
+        .result-value {
+          font-size: 2rem;
+        }
+
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Loading Animation */
+      .calculating {
+        display: none;
+        text-align: center;
+        color: var(--primary-color);
+        margin-top: 1rem;
+      }
+
+      .calculating.active {
+        display: block;
+      }
+
+      /* Error State */
+      .error-message {
+        color: var(--error-color);
+        background: #fee;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      .error-message.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/#matematicas">Matemáticas</a>
+          <a href="/#conversiones">Conversiones</a>
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Inicio</a> / <a href="/#matematicas">Matemáticas</a> /
+        <span>Regla de Tres</span>
+      </nav>
+
+      <section class="hero">
+        <h1>Calculadora de Regla de Tres</h1>
+        <p>
+          Resuelve proporciones directas e inversas de forma rápida y sencilla.
+          Obtén el resultado con explicación paso a paso.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Ingresa los Valores</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="direct"
+              onclick="changeType('direct')"
+            >
+              Regla de Tres Directa
+            </button>
+            <button
+              class="type-button"
+              data-type="inverse"
+              onclick="changeType('inverse')"
+            >
+              Regla de Tres Inversa
+            </button>
+          </div>
+
+          <div class="visual-schema">
+            <div class="schema-grid">
+              <div>
+                <div class="schema-value" id="schema-a">A</div>
+                <div style="margin-top: 0.5rem">
+                  <div class="schema-value" id="schema-c">C</div>
+                </div>
+              </div>
+              <div>
+                <div class="schema-arrow">→</div>
+                <div class="schema-arrow">→</div>
+              </div>
+              <div>
+                <div class="schema-value" id="schema-b">B</div>
+                <div style="margin-top: 0.5rem">
+                  <div class="schema-value" id="schema-x">X</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="ruleOfThreeForm">
+            <div class="input-group">
+              <label>Si A es a B:</label>
+              <div class="input-wrapper">
+                <input
+                  type="number"
+                  class="input-field"
+                  id="valueA"
+                  placeholder="Valor A"
+                  step="any"
+                  required
+                />
+                <span class="arrow">→</span>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="valueB"
+                  placeholder="Valor B"
+                  step="any"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>Entonces C es a X:</label>
+              <div class="input-wrapper">
+                <input
+                  type="number"
+                  class="input-field"
+                  id="valueC"
+                  placeholder="Valor C"
+                  step="any"
+                  required
+                />
+                <span class="arrow">→</span>
+                <input
+                  type="number"
+                  class="input-field result"
+                  id="valueX"
+                  placeholder="X = ?"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Calcular Resultado
+            </button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText"
+              >En la regla de tres directa, cuando una cantidad aumenta, la otra
+              también aumenta proporcionalmente.</span
+            >
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🧮</p>
+            <p>
+              Ingresa los valores y presiona "Calcular" para ver el resultado
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('direct1')">
+            <h3 class="example-title">🛒 Compra en el Supermercado</h3>
+            <p class="example-description">
+              Si 3 kg de manzanas cuestan $12, ¿cuánto costarán 5 kg?
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('direct2')">
+            <h3 class="example-title">⛽ Consumo de Gasolina</h3>
+            <p class="example-description">
+              Si con 20 litros recorres 300 km, ¿cuántos litros necesitas para
+              450 km?
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('inverse1')">
+            <h3 class="example-title">👷 Trabajo en Equipo</h3>
+            <p class="example-description">
+              Si 4 trabajadores tardan 6 días, ¿cuánto tardarán 8 trabajadores?
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('inverse2')">
+            <h3 class="example-title">🚗 Velocidad y Tiempo</h3>
+            <p class="example-description">
+              Si a 60 km/h tardas 2 horas, ¿cuánto tardarás a 80 km/h?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>¿Cuándo usar cada tipo?</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📈</div>
+              Regla de Tres Directa
+            </h3>
+            <p>
+              Se usa cuando las magnitudes son
+              <strong>directamente proporcionales</strong>:
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>A más cantidad, más precio</li>
+              <li>A más distancia, más tiempo</li>
+              <li>A más trabajadores del mismo ritmo, más producción</li>
+              <li>A más velocidad constante, más distancia</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📉</div>
+              Regla de Tres Inversa
+            </h3>
+            <p>
+              Se usa cuando las magnitudes son
+              <strong>inversamente proporcionales</strong>:
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>A más velocidad, menos tiempo</li>
+              <li>A más trabajadores, menos tiempo</li>
+              <li>A más máquinas, menos días de trabajo</li>
+              <li>A más presión, menos volumen</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Selecciona el tipo:</strong> Elige entre regla de tres
+              directa o inversa según tu problema.
+            </li>
+            <li>
+              <strong>Ingresa los valores conocidos:</strong> Completa los
+              campos A, B y C con los datos que conoces.
+            </li>
+            <li>
+              <strong>Calcula:</strong> Presiona el botón "Calcular Resultado"
+              para obtener el valor de X.
+            </li>
+            <li>
+              <strong>Revisa la explicación:</strong> Observa el procedimiento
+              paso a paso para entender cómo se llegó al resultado.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer style="background-color: #1f2937; color: #d1d5db; margin-top: 5rem">
+      <div
+        style="
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 3rem 2rem;
+          text-align: center;
+        "
+      >
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div style="margin-top: 1rem">
+          <a
+            href="/"
+            style="color: #d1d5db; text-decoration: none; margin: 0 1rem"
+            >Volver al Hub</a
+          >
+          <a
+            href="/porcentaje-calculadora.html"
+            style="color: #d1d5db; text-decoration: none; margin: 0 1rem"
+            >Calculadora de Porcentajes</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Calculator state
+      let calculatorType = "direct";
+
+      // DOM elements
+      const form = document.getElementById("ruleOfThreeForm");
+      const valueA = document.getElementById("valueA");
+      const valueB = document.getElementById("valueB");
+      const valueC = document.getElementById("valueC");
+      const valueX = document.getElementById("valueX");
+      const resultSection = document.getElementById("resultSection");
+      const emptyResult = document.getElementById("emptyResult");
+      const resultValue = document.getElementById("resultValue");
+      const stepsContainer = document.getElementById("stepsContainer");
+      const errorMessage = document.getElementById("errorMessage");
+      const helpText = document.getElementById("helpText");
+      const calculating = document.querySelector(".calculating");
+
+      // Change calculator type
+      function changeType(type) {
+        calculatorType = type;
+
+        // Update button states
+        document.querySelectorAll(".type-button").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.type === type);
+        });
+
+        // Update help text
+        if (type === "direct") {
+          helpText.textContent =
+            "En la regla de tres directa, cuando una cantidad aumenta, la otra también aumenta proporcionalmente.";
+        } else {
+          helpText.textContent =
+            "En la regla de tres inversa, cuando una cantidad aumenta, la otra disminuye proporcionalmente.";
+        }
+
+        // Clear results
+        clearResults();
+      }
+
+      // Calculate rule of three
+      function calculate(a, b, c, type) {
+        if (type === "direct") {
+          return (b * c) / a;
+        } else {
+          return (a * b) / c;
+        }
+      }
+
+      // Generate step by step explanation
+      function generateSteps(a, b, c, x, type) {
+        const steps = [];
+
+        if (type === "direct") {
+          steps.push({
+            number: 1,
+            content:
+              "Identificamos que es una regla de tres directa porque las magnitudes son directamente proporcionales.",
+            formula: null,
+          });
+          steps.push({
+            number: 2,
+            content: "Planteamos la proporción:",
+            formula: `${a} → ${b}\n${c} → X`,
+          });
+          steps.push({
+            number: 3,
+            content: "Aplicamos la fórmula de regla de tres directa:",
+            formula: `X = (${b} × ${c}) ÷ ${a}`,
+          });
+          steps.push({
+            number: 4,
+            content: "Realizamos las operaciones:",
+            formula: `X = ${b * c} ÷ ${a} = ${x.toFixed(2)}`,
+          });
+        } else {
+          steps.push({
+            number: 1,
+            content:
+              "Identificamos que es una regla de tres inversa porque las magnitudes son inversamente proporcionales.",
+            formula: null,
+          });
+          steps.push({
+            number: 2,
+            content: "Planteamos la proporción inversa:",
+            formula: `${a} → ${b}\n${c} → X`,
+          });
+          steps.push({
+            number: 3,
+            content: "Aplicamos la fórmula de regla de tres inversa:",
+            formula: `X = (${a} × ${b}) ÷ ${c}`,
+          });
+          steps.push({
+            number: 4,
+            content: "Realizamos las operaciones:",
+            formula: `X = ${a * b} ÷ ${c} = ${x.toFixed(2)}`,
+          });
+        }
+
+        return steps;
+      }
+
+      // Display results
+      function displayResults(a, b, c, x) {
+        // Update schema values
+        document.getElementById("schema-a").textContent = a;
+        document.getElementById("schema-b").textContent = b;
+        document.getElementById("schema-c").textContent = c;
+        document.getElementById("schema-x").textContent = x.toFixed(2);
+
+        // Show result value
+        resultValue.textContent = x.toFixed(2);
+
+        // Generate and display steps
+        const steps = generateSteps(a, b, c, x, calculatorType);
+        stepsContainer.innerHTML = "";
+
+        steps.forEach((step) => {
+          const stepElement = document.createElement("div");
+          stepElement.className = "step";
+          stepElement.innerHTML = `
+                    <div class="step-number">${step.number}</div>
+                    <div class="step-content">
+                        <p>${step.content}</p>
+                        ${
+                          step.formula
+                            ? `<div class="formula">${step.formula}</div>`
+                            : ""
+                        }
+                    </div>
+                `;
+          stepsContainer.appendChild(stepElement);
+        });
+
+        // Show results section
+        resultSection.style.display = "block";
+        emptyResult.style.display = "none";
+
+        // Smooth scroll to results
+        resultSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      // Clear results
+      function clearResults() {
+        resultSection.style.display = "none";
+        emptyResult.style.display = "block";
+        valueX.value = "";
+        errorMessage.classList.remove("active");
+      }
+
+      // Validate input
+      function validateInput(value, fieldName) {
+        if (isNaN(value) || value === "") {
+          throw new Error(`Por favor ingresa un número válido en ${fieldName}`);
+        }
+        if (value === 0) {
+          throw new Error(`El valor de ${fieldName} no puede ser cero`);
+        }
+        return parseFloat(value);
+      }
+
+      // Load example
+      function loadExample(exampleId) {
+        const examples = {
+          direct1: { a: 3, b: 12, c: 5, type: "direct" },
+          direct2: { a: 20, b: 300, c: 30, type: "direct" },
+          inverse1: { a: 4, b: 6, c: 8, type: "inverse" },
+          inverse2: { a: 60, b: 2, c: 80, type: "inverse" },
+        };
+
+        const example = examples[exampleId];
+        if (example) {
+          changeType(example.type);
+          valueA.value = example.a;
+          valueB.value = example.b;
+          valueC.value = example.c;
+
+          // Auto calculate
+          form.dispatchEvent(new Event("submit"));
+        }
+      }
+
+      // Form submission
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        try {
+          // Clear previous errors
+          errorMessage.classList.remove("active");
+          calculating.classList.add("active");
+
+          // Validate inputs
+          const a = validateInput(valueA.value, "A");
+          const b = validateInput(valueB.value, "B");
+          const c = validateInput(valueC.value, "C");
+
+          // Small delay for UX
+          await new Promise((resolve) => setTimeout(resolve, 300));
+
+          // Calculate result
+          const x = calculate(a, b, c, calculatorType);
+
+          // Update X field
+          valueX.value = x.toFixed(2);
+
+          // Display results
+          displayResults(a, b, c, x);
+        } catch (error) {
+          errorMessage.textContent = error.message;
+          errorMessage.classList.add("active");
+          clearResults();
+        } finally {
+          calculating.classList.remove("active");
+        }
+      });
+
+      // Input field updates
+      [valueA, valueB, valueC].forEach((input) => {
+        input.addEventListener("input", () => {
+          clearResults();
+          errorMessage.classList.remove("active");
+        });
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener("keydown", (e) => {
+        // Ctrl/Cmd + Enter to calculate
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+          e.preventDefault();
+          form.dispatchEvent(new Event("submit"));
+        }
+
+        // Escape to clear
+        if (e.key === "Escape") {
+          form.reset();
+          clearResults();
+        }
+      });
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        // Focus first input
+        valueA.focus();
+
+        // Check for URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const exampleParam = urlParams.get("example");
+        if (exampleParam) {
+          loadExample(exampleParam);
+        }
+      });
+    </script>
+  </body>
+</html>
