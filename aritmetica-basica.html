@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Calculadora de Aritmética Básica | Suma, Resta, Multiplicación y División Online
+    </title>
+    <meta
+      name="description"
+      content="Calculadora de aritmética básica online gratuita. Realiza operaciones de suma, resta, multiplicación y división con explicación paso a paso."
+    />
+    <meta
+      name="keywords"
+      content="calculadora básica, aritmética, suma, resta, multiplicación, división, operaciones matemáticas, calculadora online"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Aritmética Básica Online - Operaciones Matemáticas"
+    />
+    <meta
+      property="og:description"
+      content="Realiza operaciones básicas de suma, resta, multiplicación y división con explicación paso a paso."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/aritmetica-basica.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta
+      name="twitter:title"
+      content="Calculadora de Aritmética Básica - Operaciones Matemáticas"
+    />
+    <meta
+      name="twitter:description"
+      content="Herramienta gratuita para realizar operaciones básicas con explicación detallada del proceso."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/aritmetica-basica.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Aritmética Básica",
+        "url": "https://calculadoras.alexpiral.com/aritmetica-basica.html",
+        "description": "Calculadora online de operaciones aritméticas básicas",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Suma de números",
+          "Resta de números",
+          "Multiplicación",
+          "División",
+          "Explicación paso a paso",
+          "Historial de operaciones"
+        ],
+        "keywords": [
+          "calculadora básica",
+          "aritmética",
+          "suma",
+          "resta",
+          "multiplicación",
+          "división",
+          "operaciones matemáticas",
+          "calculadora online"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/aritmetica-basica.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Aritmética Básica</h1>
+        <p>
+          Realiza operaciones matemáticas básicas de suma, resta, multiplicación
+          y división. Obtén resultados precisos con explicación paso a paso del
+          proceso de cálculo.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Calculadora</h2>
+
+          <div class="calculator-display">
+            <div class="display-screen" id="display">0</div>
+            <div class="operation-indicator" id="operationIndicator"></div>
+          </div>
+
+          <div class="calculator-keypad">
+            <div class="keypad-row">
+              <button class="key key-function" onclick="clearAll()">C</button>
+              <button class="key key-function" onclick="clearEntry()">CE</button>
+              <button class="key key-function" onclick="deleteLast()">⌫</button>
+              <button class="key key-operator" onclick="setOperation('÷')">÷</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key key-number" onclick="inputNumber('7')">7</button>
+              <button class="key key-number" onclick="inputNumber('8')">8</button>
+              <button class="key key-number" onclick="inputNumber('9')">9</button>
+              <button class="key key-operator" onclick="setOperation('×')">×</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key key-number" onclick="inputNumber('4')">4</button>
+              <button class="key key-number" onclick="inputNumber('5')">5</button>
+              <button class="key key-number" onclick="inputNumber('6')">6</button>
+              <button class="key key-operator" onclick="setOperation('-')">-</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key key-number" onclick="inputNumber('1')">1</button>
+              <button class="key key-number" onclick="inputNumber('2')">2</button>
+              <button class="key key-number" onclick="inputNumber('3')">3</button>
+              <button class="key key-operator" onclick="setOperation('+')">+</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key key-zero" onclick="inputNumber('0')">0</button>
+              <button class="key key-decimal" onclick="inputDecimal()">.</button>
+              <button class="key key-equals" onclick="calculate()">=</button>
+            </div>
+          </div>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Usa las teclas del teclado numérico para una entrada más rápida.
+              Enter = igual, C = limpiar.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado y Explicación</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="operation-summary">
+              <div class="operation-display" id="operationDisplay"></div>
+              <div class="result-value" id="resultValue">-</div>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🧮</p>
+            <p>
+              Realiza una operación para ver el resultado y su explicación
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- History Section -->
+      <section class="history-section">
+        <div class="calculator-card">
+          <h2>Historial de Operaciones</h2>
+          <div class="history-controls">
+            <button class="clear-history-btn" onclick="clearHistory()">
+              Limpiar Historial
+            </button>
+          </div>
+          <div class="history-list" id="historyList">
+            <p style="text-align: center; color: #6b7280; padding: 2rem">
+              No hay operaciones en el historial
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos de Operaciones</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('125 + 87')">
+            <h3 class="example-title">➕ Suma</h3>
+            <p class="example-description">
+              125 + 87 - Suma de números de tres y dos dígitos
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('1000 - 345')">
+            <h3 class="example-title">➖ Resta</h3>
+            <p class="example-description">
+              1000 - 345 - Resta con llevadas múltiples
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('24 × 13')">
+            <h3 class="example-title">✖️ Multiplicación</h3>
+            <p class="example-description">
+              24 × 13 - Multiplicación de números de dos dígitos
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('144 ÷ 12')">
+            <h3 class="example-title">➗ División</h3>
+            <p class="example-description">
+              144 ÷ 12 - División exacta con resultado entero
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Operaciones Aritméticas Básicas</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">➕</div>
+              Suma (Adición)
+            </h3>
+            <p>
+              La suma combina dos o más números para obtener un total o resultado.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Propiedad conmutativa: a + b = b + a</li>
+              <li>Propiedad asociativa: (a + b) + c = a + (b + c)</li>
+              <li>Elemento neutro: a + 0 = a</li>
+              <li>Se suma de derecha a izquierda llevando cuando es necesario</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">➖</div>
+              Resta (Sustracción)
+            </h3>
+            <p>
+              La resta encuentra la diferencia entre dos números o quita una cantidad.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>No es conmutativa: a - b ≠ b - a</li>
+              <li>Operación inversa de la suma</li>
+              <li>Puede requerir "pedir prestado" en cada columna</li>
+              <li>El resultado puede ser negativo si b > a</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">✖️</div>
+              Multiplicación
+            </h3>
+            <p>
+              La multiplicación es una suma repetida del mismo número.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Propiedad conmutativa: a × b = b × a</li>
+              <li>Propiedad asociativa: (a × b) × c = a × (b × c)</li>
+              <li>Propiedad distributiva: a × (b + c) = a × b + a × c</li>
+              <li>Elemento neutro: a × 1 = a</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">➗</div>
+              División
+            </h3>
+            <p>
+              La división reparte una cantidad en grupos iguales o encuentra cuántas veces cabe un número en otro.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Operación inversa de la multiplicación</li>
+              <li>No es conmutativa: a ÷ b ≠ b ÷ a</li>
+              <li>División por cero está indefinida</li>
+              <li>Puede resultar en números decimales o fracciones</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Introduce números:</strong> Haz clic en los botones numéricos
+              o usa el teclado de tu computadora.
+            </li>
+            <li>
+              <strong>Selecciona operación:</strong> Haz clic en +, -, ×, o ÷
+              para elegir la operación que deseas realizar.
+            </li>
+            <li>
+              <strong>Calcula:</strong> Presiona = o Enter para obtener el resultado
+              con explicación paso a paso.
+            </li>
+            <li>
+              <strong>Revisa el historial:</strong> Todas las operaciones se guardan
+              automáticamente en el historial.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/aritmetica-basica.js"></script>
+  </body>
+</html>
