@@ -1,0 +1,73 @@
+/* Calculator Type Selector - Regla de Tres specific */
+.type-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.type-button {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--border-color);
+  background: var(--card-bg);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.type-button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.type-button:hover:not(.active) {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Arrow for rule of three visualization */
+.arrow {
+  color: #6b7280;
+  font-size: 1.5rem;
+}
+
+/* Visual Schema for Rule of Three */
+.visual-schema {
+  background: var(--light-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px dashed var(--border-color);
+}
+
+.schema-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+}
+
+.schema-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.schema-arrow {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+/* Responsive adjustments for rule of three */
+@media (max-width: 768px) {
+  .schema-grid {
+    font-size: 0.9rem;
+  }
+}

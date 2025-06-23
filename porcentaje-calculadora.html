@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora de Porcentajes | Calcular Porcentajes, Descuentos y Aumentos Online</title>
+    <title>
+      Calculadora de Porcentajes | Calcular Porcentajes, Descuentos y Aumentos
+      Online
+    </title>
     <meta
       name="description"
       content="Calculadora de porcentajes online gratuita. Calcula porcentajes, descuentos, aumentos, diferencias porcentuales y más. Fácil y rápida."
@@ -23,17 +26,12 @@
       content="Calcula porcentajes, descuentos y aumentos de forma rápida y sencilla con nuestra calculadora online gratuita."
     />
     <meta
-      property="og:image"
-      content="https://calculadoras.alexpiral.com/images/porcentaje-og.jpg"
-    />
-    <meta
       property="og:url"
       content="https://calculadoras.alexpiral.com/porcentaje-calculadora.html"
     />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
       content="Calculadora de Porcentajes - Descuentos y Aumentos"
@@ -84,494 +82,26 @@
       }
     </script>
 
-    <style>
-      /* Global Styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --primary-color: #2563eb;
-        --secondary-color: #1e40af;
-        --accent-color: #3b82f6;
-        --success-color: #10b981;
-        --error-color: #ef4444;
-        --text-color: #1f2937;
-        --light-bg: #f9fafb;
-        --card-bg: #ffffff;
-        --border-color: #e5e7eb;
-        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-        --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-        line-height: 1.6;
-        color: var(--text-color);
-        background-color: var(--light-bg);
-      }
-
-      /* Header */
-      header {
-        background-color: var(--card-bg);
-        box-shadow: var(--shadow);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
-
-      .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .logo {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-      }
-
-      .nav-links a {
-        color: var(--text-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s;
-      }
-
-      .nav-links a:hover {
-        color: var(--primary-color);
-      }
-
-      /* Main Content */
-      main {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-      }
-
-      /* Breadcrumb */
-      .breadcrumb {
-        margin-bottom: 2rem;
-        color: #6b7280;
-        font-size: 0.9rem;
-      }
-
-      .breadcrumb a {
-        color: var(--primary-color);
-        text-decoration: none;
-      }
-
-      .breadcrumb a:hover {
-        text-decoration: underline;
-      }
-
-      /* Hero Section */
-      .hero {
-        text-align: center;
-        margin-bottom: 3rem;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: var(--text-color);
-      }
-
-      .hero p {
-        font-size: 1.25rem;
-        color: #6b7280;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-
-      /* Calculator Container */
-      .calculator-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 3rem;
-      }
-
-      /* Calculator Card */
-      .calculator-card {
-        background: var(--card-bg);
-        border-radius: 1rem;
-        padding: 2rem;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border-color);
-      }
-
-      .calculator-card h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: var(--primary-color);
-      }
-
-      /* Calculator Type Selector */
-      .type-selector {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .type-button {
-        padding: 0.75rem 1rem;
-        border: 2px solid var(--border-color);
-        background: var(--card-bg);
-        border-radius: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-align: center;
-      }
-
-      .type-button.active {
-        background: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-      }
-
-      .type-button:hover:not(.active) {
-        border-color: var(--primary-color);
-        color: var(--primary-color);
-      }
-
-      /* Input Groups */
-      .input-group {
-        margin-bottom: 1.5rem;
-      }
-
-      .input-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        color: var(--text-color);
-      }
-
-      .input-wrapper {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-      }
-
-      .input-field {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        border: 2px solid var(--border-color);
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        transition: border-color 0.3s;
-      }
-
-      .input-field:focus {
-        outline: none;
-        border-color: var(--accent-color);
-      }
-
-      .input-field.result {
-        background-color: #eff6ff;
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-
-      .symbol {
-        color: #6b7280;
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-
-      /* Visual Schema */
-      .visual-schema {
-        background: var(--light-bg);
-        border-radius: 0.75rem;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border: 2px dashed var(--border-color);
-        text-align: center;
-      }
-
-      .schema-formula {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--primary-color);
-        font-family: "Courier New", monospace;
-      }
-
-      .schema-description {
-        margin-top: 0.5rem;
-        color: #6b7280;
-        font-size: 0.9rem;
-      }
-
-      /* Calculate Button */
-      .calculate-btn {
-        width: 100%;
-        padding: 1rem 2rem;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .calculate-btn:hover {
-        background: var(--secondary-color);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      }
-
-      .calculate-btn:active {
-        transform: translateY(0);
-      }
-
-      /* Results Section */
-      .results-card {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-        border: 2px solid var(--primary-color);
-      }
-
-      .result-value {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        text-align: center;
-        margin: 1.5rem 0;
-      }
-
-      .steps-section {
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 2px solid #dbeafe;
-      }
-
-      .steps-section h3 {
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
-        color: var(--text-color);
-      }
-
-      .step {
-        background: white;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .step-number {
-        background: var(--primary-color);
-        color: white;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        flex-shrink: 0;
-      }
-
-      .step-content {
-        flex: 1;
-      }
-
-      .formula {
-        font-family: "Courier New", monospace;
-        background: var(--light-bg);
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        margin: 0.5rem 0;
-        overflow-x: auto;
-      }
-
-      /* Examples Section */
-      .examples-section {
-        margin: 3rem 0;
-      }
-
-      .examples-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
-      }
-
-      .example-card {
-        background: var(--card-bg);
-        padding: 1.5rem;
-        border-radius: 0.75rem;
-        border: 1px solid var(--border-color);
-        transition: all 0.3s;
-        cursor: pointer;
-      }
-
-      .example-card:hover {
-        border-color: var(--primary-color);
-        box-shadow: var(--shadow-hover);
-        transform: translateY(-2px);
-      }
-
-      .example-title {
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--primary-color);
-      }
-
-      .example-description {
-        color: #6b7280;
-        font-size: 0.95rem;
-      }
-
-      /* Info Section */
-      .info-section {
-        margin: 3rem 0;
-      }
-
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
-      }
-
-      .info-card {
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 0.75rem;
-        box-shadow: var(--shadow);
-      }
-
-      .info-card h3 {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-        color: var(--primary-color);
-      }
-
-      .info-icon {
-        width: 32px;
-        height: 32px;
-        background: var(--primary-color);
-        border-radius: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-      }
-
-      /* Help Text */
-      .help-text {
-        background: #fef3c7;
-        border: 1px solid #fbbf24;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        color: #92400e;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .calculator-container {
-          grid-template-columns: 1fr;
-        }
-
-        .hero h1 {
-          font-size: 2rem;
-        }
-
-        .nav-links {
-          display: none;
-        }
-
-        .result-value {
-          font-size: 2rem;
-        }
-
-        .info-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .type-selector {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* Loading Animation */
-      .calculating {
-        display: none;
-        text-align: center;
-        color: var(--primary-color);
-        margin-top: 1rem;
-      }
-
-      .calculating.active {
-        display: block;
-      }
-
-      /* Error State */
-      .error-message {
-        color: var(--error-color);
-        background: #fee;
-        padding: 0.75rem;
-        border-radius: 0.5rem;
-        margin-top: 1rem;
-        display: none;
-      }
-
-      .error-message.active {
-        display: block;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/porcentaje-calculadora.css" />
   </head>
   <body>
     <header>
       <div class="header-content">
         <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
         <nav class="nav-links">
-          <a href="/#matematicas">Matemáticas</a>
-          <a href="/#conversiones">Conversiones</a>
           <a href="/">Todas las Herramientas</a>
         </nav>
       </div>
     </header>
 
     <main>
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Inicio</a> / <a href="/#matematicas">Matemáticas</a> /
-        <span>Calculadora de Porcentajes</span>
-      </nav>
-
       <section class="hero">
         <h1>Calculadora de Porcentajes</h1>
         <p>
-          Calcula porcentajes, descuentos, aumentos y diferencias porcentuales de forma rápida y sencilla.
-          Obtén resultados precisos con explicación paso a paso.
+          Calcula porcentajes, descuentos, aumentos y diferencias porcentuales
+          de forma rápida y sencilla. Obtén resultados precisos con explicación
+          paso a paso.
         </p>
       </section>
 
@@ -637,7 +167,8 @@
           <div class="help-text">
             <strong>💡 Tip:</strong>
             <span id="helpText">
-              Usa el punto (.) como separador decimal. Por ejemplo: 12.5 para doce punto cinco.
+              Usa el punto (.) como separador decimal. Por ejemplo: 12.5 para
+              doce punto cinco.
             </span>
           </div>
         </div>
@@ -661,7 +192,8 @@
           >
             <p style="font-size: 3rem; margin-bottom: 1rem">🧮</p>
             <p>
-              Selecciona el tipo de cálculo, ingresa los valores y presiona "Calcular"
+              Selecciona el tipo de cálculo, ingresa los valores y presiona
+              "Calcular"
             </p>
           </div>
         </div>
@@ -707,13 +239,11 @@
               <div class="info-icon">%</div>
               Porcentaje de un Número
             </h3>
-            <p>
-              Calcula cuánto es un determinado porcentaje de un número.
-            </p>
-            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem;">
+            <p>Calcula cuánto es un determinado porcentaje de un número.</p>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
               <strong>Fórmula:</strong> (Porcentaje ÷ 100) × Número
             </p>
-            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem;">
+            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
               <strong>Ejemplo:</strong> 20% de 150 = 30
             </p>
           </div>
@@ -722,13 +252,11 @@
               <div class="info-icon">?</div>
               Qué Porcentaje Representa
             </h3>
-            <p>
-              Calcula qué porcentaje representa un número respecto a otro.
-            </p>
-            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem;">
+            <p>Calcula qué porcentaje representa un número respecto a otro.</p>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
               <strong>Fórmula:</strong> (Número ÷ Total) × 100
             </p>
-            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem;">
+            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
               <strong>Ejemplo:</strong> 30 de 150 = 20%
             </p>
           </div>
@@ -737,13 +265,11 @@
               <div class="info-icon">↓</div>
               Descuento
             </h3>
-            <p>
-              Calcula el precio final después de aplicar un descuento.
-            </p>
-            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem;">
+            <p>Calcula el precio final después de aplicar un descuento.</p>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
               <strong>Fórmula:</strong> Precio - (Precio × Descuento ÷ 100)
             </p>
-            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem;">
+            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
               <strong>Ejemplo:</strong> $100 con 20% descuento = $80
             </p>
           </div>
@@ -752,13 +278,11 @@
               <div class="info-icon">↑</div>
               Aumento
             </h3>
-            <p>
-              Calcula el valor final después de aplicar un aumento.
-            </p>
-            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem;">
+            <p>Calcula el valor final después de aplicar un aumento.</p>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
               <strong>Fórmula:</strong> Precio + (Precio × Aumento ÷ 100)
             </p>
-            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem;">
+            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
               <strong>Ejemplo:</strong> $100 con 15% aumento = $115
             </p>
           </div>
@@ -771,448 +295,40 @@
         <div class="calculator-card">
           <ol style="line-height: 2; margin-left: 1.5rem">
             <li>
-              <strong>Selecciona el tipo de cálculo:</strong> Elige entre calcular porcentaje, descuento, aumento o qué porcentaje representa un número.
+              <strong>Selecciona el tipo de cálculo:</strong> Elige entre
+              calcular porcentaje, descuento, aumento o qué porcentaje
+              representa un número.
             </li>
             <li>
-              <strong>Ingresa los valores:</strong> Completa los campos requeridos con los números que conoces.
+              <strong>Ingresa los valores:</strong> Completa los campos
+              requeridos con los números que conoces.
             </li>
             <li>
-              <strong>Calcula:</strong> Presiona el botón "Calcular Resultado" para obtener la respuesta.
+              <strong>Calcula:</strong> Presiona el botón "Calcular Resultado"
+              para obtener la respuesta.
             </li>
             <li>
-              <strong>Revisa la explicación:</strong> Observa el procedimiento paso a paso para entender cómo se llegó al resultado.
+              <strong>Revisa la explicación:</strong> Observa el procedimiento
+              paso a paso para entender cómo se llegó al resultado.
             </li>
           </ol>
         </div>
       </section>
     </main>
 
-    <footer style="background-color: #1f2937; color: #d1d5db; margin-top: 5rem">
-      <div
-        style="
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 3rem 2rem;
-          text-align: center;
-        "
-      >
+    <footer>
+      <div class="footer-content">
         <p>
           &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
           online.
         </p>
-        <div style="margin-top: 1rem">
-          <a
-            href="/"
-            style="color: #d1d5db; text-decoration: none; margin: 0 1rem"
-            >Volver al Hub</a
-          >
-          <a
-            href="/regla-de-tres.html"
-            style="color: #d1d5db; text-decoration: none; margin: 0 1rem"
-            >Regla de Tres</a
-          >
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
         </div>
       </div>
     </footer>
 
-    <script>
-      // Calculator state
-      let calculatorType = "percentage";
-
-      // DOM elements
-      const form = document.getElementById("percentageForm");
-      const inputsContainer = document.getElementById("inputsContainer");
-      const resultSection = document.getElementById("resultSection");
-      const emptyResult = document.getElementById("emptyResult");
-      const resultValue = document.getElementById("resultValue");
-      const stepsContainer = document.getElementById("stepsContainer");
-      const errorMessage = document.getElementById("errorMessage");
-      const helpText = document.getElementById("helpText");
-      const calculating = document.querySelector(".calculating");
-      const schemaFormula = document.getElementById("schemaFormula");
-      const schemaDescription = document.getElementById("schemaDescription");
-
-      // Calculator configurations
-      const calculatorConfigs = {
-        percentage: {
-          formula: "X% de Y = ?",
-          description: "Calcula el porcentaje de un número",
-          inputs: [
-            { id: "percent", label: "Porcentaje (%)", placeholder: "25" },
-            { id: "number", label: "Número", placeholder: "200" }
-          ],
-          helpText: "Ejemplo: 25% de 200 = 50"
-        },
-        whatPercent: {
-          formula: "X de Y = ?%",
-          description: "Calcula qué porcentaje representa un número",
-          inputs: [
-            { id: "part", label: "Número (parte)", placeholder: "45" },
-            { id: "total", label: "Total", placeholder: "180" }
-          ],
-          helpText: "Ejemplo: 45 de 180 = 25%"
-        },
-        discount: {
-          formula: "Precio - X% = ?",
-          description: "Calcula el precio final con descuento",
-          inputs: [
-            { id: "price", label: "Precio original", placeholder: "200" },
-            { id: "discount", label: "Descuento (%)", placeholder: "25" }
-          ],
-          helpText: "Ejemplo: $200 con 25% descuento = $150"
-        },
-        increase: {
-          formula: "Precio + X% = ?",
-          description: "Calcula el valor final con aumento",
-          inputs: [
-            { id: "price", label: "Valor original", placeholder: "1500" },
-            { id: "increase", label: "Aumento (%)", placeholder: "12" }
-          ],
-          helpText: "Ejemplo: $1500 con 12% aumento = $1680"
-        }
-      };
-
-      // Change calculator type
-      function changeType(type) {
-        calculatorType = type;
-
-        // Update button states
-        document.querySelectorAll(".type-button").forEach((btn) => {
-          btn.classList.toggle("active", btn.dataset.type === type);
-        });
-
-        // Update visual schema
-        const config = calculatorConfigs[type];
-        schemaFormula.textContent = config.formula;
-        schemaDescription.textContent = config.description;
-        helpText.textContent = config.helpText;
-
-        // Update inputs
-        updateInputs();
-
-        // Clear results
-        clearResults();
-      }
-
-      // Update inputs based on calculator type
-      function updateInputs() {
-        const config = calculatorConfigs[calculatorType];
-        inputsContainer.innerHTML = "";
-
-        config.inputs.forEach((input) => {
-          const inputGroup = document.createElement("div");
-          inputGroup.className = "input-group";
-          inputGroup.innerHTML = `
-            <label for="${input.id}">${input.label}:</label>
-            <input
-              type="number"
-              class="input-field"
-              id="${input.id}"
-              placeholder="${input.placeholder}"
-              step="any"
-              required
-            />
-          `;
-          inputsContainer.appendChild(inputGroup);
-        });
-      }
-
-      // Calculate based on type
-      function calculate(values, type) {
-        switch (type) {
-          case "percentage":
-            return (values.percent / 100) * values.number;
-          case "whatPercent":
-            return (values.part / values.total) * 100;
-          case "discount":
-            return values.price - (values.price * values.discount / 100);
-          case "increase":
-            return values.price + (values.price * values.increase / 100);
-          default:
-            return 0;
-        }
-      }
-
-      // Generate step by step explanation
-      function generateSteps(values, result, type) {
-        const steps = [];
-
-        switch (type) {
-          case "percentage":
-            steps.push({
-              number: 1,
-              content: "Identificamos los valores:",
-              formula: `Porcentaje: ${values.percent}%\nNúmero: ${values.number}`
-            });
-            steps.push({
-              number: 2,
-              content: "Aplicamos la fórmula del porcentaje:",
-              formula: `(${values.percent} ÷ 100) × ${values.number}`
-            });
-            steps.push({
-              number: 3,
-              content: "Realizamos las operaciones:",
-              formula: `${values.percent / 100} × ${values.number} = ${result.toFixed(2)}`
-            });
-            break;
-
-          case "whatPercent":
-            steps.push({
-              number: 1,
-              content: "Identificamos los valores:",
-              formula: `Parte: ${values.part}\nTotal: ${values.total}`
-            });
-            steps.push({
-              number: 2,
-              content: "Aplicamos la fórmula del porcentaje:",
-              formula: `(${values.part} ÷ ${values.total}) × 100`
-            });
-            steps.push({
-              number: 3,
-              content: "Realizamos las operaciones:",
-              formula: `${(values.part / values.total).toFixed(4)} × 100 = ${result.toFixed(2)}%`
-            });
-            break;
-
-          case "discount":
-            const discountAmount = values.price * values.discount / 100;
-            steps.push({
-              number: 1,
-              content: "Identificamos los valores:",
-              formula: `Precio original: $${values.price}\nDescuento: ${values.discount}%`
-            });
-            steps.push({
-              number: 2,
-              content: "Calculamos el monto del descuento:",
-              formula: `$${values.price} × ${values.discount}% = $${discountAmount.toFixed(2)}`
-            });
-            steps.push({
-              number: 3,
-              content: "Restamos el descuento del precio original:",
-              formula: `$${values.price} - $${discountAmount.toFixed(2)} = $${result.toFixed(2)}`
-            });
-            break;
-
-          case "increase":
-            const increaseAmount = values.price * values.increase / 100;
-            steps.push({
-              number: 1,
-              content: "Identificamos los valores:",
-              formula: `Valor original: $${values.price}\nAumento: ${values.increase}%`
-            });
-            steps.push({
-              number: 2,
-              content: "Calculamos el monto del aumento:",
-              formula: `$${values.price} × ${values.increase}% = $${increaseAmount.toFixed(2)}`
-            });
-            steps.push({
-              number: 3,
-              content: "Sumamos el aumento al valor original:",
-              formula: `$${values.price} + $${increaseAmount.toFixed(2)} = $${result.toFixed(2)}`
-            });
-            break;
-        }
-
-        return steps;
-      }
-
-      // Display results
-      function displayResults(values, result) {
-        // Show result value
-        let resultText = result.toFixed(2);
-        if (calculatorType === "whatPercent") {
-          resultText += "%";
-        } else if (calculatorType === "discount" || calculatorType === "increase") {
-          resultText = "$" + resultText;
-        }
-        resultValue.textContent = resultText;
-
-        // Generate and display steps
-        const steps = generateSteps(values, result, calculatorType);
-        stepsContainer.innerHTML = "";
-
-        steps.forEach((step) => {
-          const stepElement = document.createElement("div");
-          stepElement.className = "step";
-          stepElement.innerHTML = `
-            <div class="step-number">${step.number}</div>
-            <div class="step-content">
-              <p>${step.content}</p>
-              ${step.formula ? `<div class="formula">${step.formula}</div>` : ""}
-            </div>
-          `;
-          stepsContainer.appendChild(stepElement);
-        });
-
-        // Show results section
-        resultSection.style.display = "block";
-        emptyResult.style.display = "none";
-
-        // Smooth scroll to results
-        resultSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
-
-      // Clear results
-      function clearResults() {
-        resultSection.style.display = "none";
-        emptyResult.style.display = "block";
-        errorMessage.classList.remove("active");
-      }
-
-      // Validate input
-      function validateInput(value, fieldName) {
-        if (isNaN(value) || value === "") {
-          throw new Error(`Por favor ingresa un número válido en ${fieldName}`);
-        }
-        if (value < 0) {
-          throw new Error(`El valor de ${fieldName} no puede ser negativo`);
-        }
-        return parseFloat(value);
-      }
-
-      // Load example
-      function loadExample(exampleId) {
-        const examples = {
-          percentage1: { type: "discount", values: { price: 200, discount: 25 } },
-          percentage2: { type: "whatPercent", values: { part: 45, total: 180 } },
-          increase1: { type: "increase", values: { price: 1500, increase: 12 } },
-          whatPercent1: { type: "whatPercent", values: { part: 8, total: 10 } }
-        };
-
-        const example = examples[exampleId];
-        if (example) {
-          changeType(example.type);
-          
-          // Wait for inputs to be created
-          setTimeout(() => {
-            Object.keys(example.values).forEach(key => {
-              const input = document.getElementById(key);
-              if (input) {
-                input.value = example.values[key];
-              }
-            });
-
-            // Auto calculate
-            form.dispatchEvent(new Event("submit"));
-          }, 100);
-        }
-      }
-
-      // Form submission
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        try {
-          // Clear previous errors
-          errorMessage.classList.remove("active");
-          calculating.classList.add("active");
-
-          // Get values from inputs
-          const values = {};
-          const config = calculatorConfigs[calculatorType];
-          
-          config.inputs.forEach(input => {
-            const element = document.getElementById(input.id);
-            if (element) {
-              values[input.id] = validateInput(element.value, input.label);
-            }
-          });
-
-          // Additional validation
-          if (calculatorType === "whatPercent" && values.total === 0) {
-            throw new Error("El total no puede ser cero");
-          }
-
-          // Small delay for UX
-          await new Promise((resolve) => setTimeout(resolve, 300));
-
-          // Calculate result
-          const result = calculate(values, calculatorType);
-
-          // Display results
-          displayResults(values, result);
-        } catch (error) {
-          errorMessage.textContent = error.message;
-          errorMessage.classList.add("active");
-          clearResults();
-        } finally {
-          calculating.classList.remove("active");
-        }
-      });
-
-      // Input field updates
-      function setupInputListeners() {
-        const inputs = inputsContainer.querySelectorAll("input");
-        inputs.forEach((input) => {
-          input.addEventListener("input", () => {
-            clearResults();
-            errorMessage.classList.remove("active");
-          });
-        });
-      }
-
-      // Keyboard shortcuts
-      document.addEventListener("keydown", (e) => {
-        // Ctrl/Cmd + Enter to calculate
-        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-          e.preventDefault();
-          form.dispatchEvent(new Event("submit"));
-        }
-
-        // Escape to clear
-        if (e.key === "Escape") {
-          form.reset();
-          clearResults();
-        }
-      });
-
-      // Initialize
-      document.addEventListener("DOMContentLoaded", () => {
-        // Initialize with percentage calculator
-        changeType("percentage");
-
-        // Setup input listeners
-        setTimeout(setupInputListeners, 100);
-
-        // Focus first input
-        setTimeout(() => {
-          const firstInput = inputsContainer.querySelector("input");
-          if (firstInput) firstInput.focus();
-        }, 100);
-
-        // Check for URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const exampleParam = urlParams.get("example");
-        if (exampleParam) {
-          loadExample(exampleParam);
-        }
-      });
-
-      // Re-setup listeners when inputs change
-      function updateInputs() {
-        const config = calculatorConfigs[calculatorType];
-        inputsContainer.innerHTML = "";
-
-        config.inputs.forEach((input) => {
-          const inputGroup = document.createElement("div");
-          inputGroup.className = "input-group";
-          inputGroup.innerHTML = `
-            <label for="${input.id}">${input.label}:</label>
-            <input
-              type="number"
-              class="input-field"
-              id="${input.id}"
-              placeholder="${input.placeholder}"
-              step="any"
-              required
-            />
-          `;
-          inputsContainer.appendChild(inputGroup);
-        });
-
-        // Re-setup listeners
-        setTimeout(setupInputListeners, 50);
-      }
-    </script>
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/porcentaje-calculadora.js"></script>
   </body>
 </html>

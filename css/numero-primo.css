@@ -1,0 +1,233 @@
+/* Prime Number Checker Specific Styles */
+
+/* Visual Schema for Prime Checker */
+.visual-schema {
+  background: var(--light-bg);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border: 2px dashed var(--border-color);
+  text-align: center;
+}
+
+.schema-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.number-display {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.arrow-down {
+  font-size: 2rem;
+  color: var(--primary-color);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.result-badge {
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  background: #f3f4f6;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.result-badge.prime {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-color: #059669;
+}
+
+.result-badge.composite {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-color: #dc2626;
+}
+
+.result-badge.special {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  border-color: #d97706;
+}
+
+.badge-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Results Display */
+.result-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.result-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.result-status {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+}
+
+.result-status.prime {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.result-status.composite {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.result-status.special {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* Factorization Display */
+.factorization-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--light-bg);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.factorization-display {
+  font-family: "Courier New", monospace;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Factors List */
+.factors-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--light-bg);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.factors-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.factor-item {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.factor-item.prime {
+  background: #10b981;
+}
+
+/* Input Customization */
+.input-field {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Special states for different number types */
+.number-display.analyzing {
+  animation: pulse 1.5s infinite;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.number-display.prime {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  border-color: #10b981;
+  color: #059669;
+}
+
+.number-display.composite {
+  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.number-display.special {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: #f59e0b;
+  color: #d97706;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .number-display {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .result-number {
+    font-size: 3rem;
+  }
+  
+  .factorization-display {
+    font-size: 1rem;
+  }
+  
+  .factors-list {
+    justify-content: center;
+  }
+}

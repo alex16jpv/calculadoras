@@ -5,15 +5,7 @@ User-agent: *
 Allow: /
 
 # Disallow access to internal directories
-Disallow: /js/
-Disallow: /css/
-Disallow: /images/
 Disallow: /.git/
-
-# Allow access to specific resources
-Allow: /css/style.css
-Allow: /js/script.js
-Allow: /images/og-image.jpg
 
 # Sitemap location
 # Sitemap: https://calculadoras.alexpiral.com/sitemap.xml

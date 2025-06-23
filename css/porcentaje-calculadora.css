@@ -1,0 +1,67 @@
+/* Calculator Type Selector - Percentage specific */
+.type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.type-button {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  background: var(--card-bg);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.type-button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.type-button:hover:not(.active) {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Symbol styling for percentage calculator */
+.symbol {
+  color: #6b7280;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Visual Schema for Percentage */
+.visual-schema {
+  background: var(--light-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px dashed var(--border-color);
+  text-align: center;
+}
+
+.schema-formula {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-family: "Courier New", monospace;
+}
+
+.schema-description {
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments for percentage calculator */
+@media (max-width: 768px) {
+  .type-selector {
+    grid-template-columns: 1fr;
+  }
+}

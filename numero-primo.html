@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Verificador de Números Primos | Comprobar si un Número es Primo Online
+    </title>
+    <meta
+      name="description"
+      content="Verificador de números primos online gratuito. Comprueba si un número es primo, obtén factorización y lista de números primos. Rápido y preciso."
+    />
+    <meta
+      name="keywords"
+      content="números primos, verificador primo, comprobar primo, factorización, lista primos, matemáticas, calculadora primos"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Verificador de Números Primos Online - Comprobar si es Primo"
+    />
+    <meta
+      property="og:description"
+      content="Comprueba si un número es primo de forma rápida y obtén su factorización completa con nuestra herramienta gratuita."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/numero-primo.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta
+      name="twitter:title"
+      content="Verificador de Números Primos - Comprobar Primos"
+    />
+    <meta
+      name="twitter:description"
+      content="Herramienta gratuita para verificar si un número es primo y obtener su factorización completa."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/numero-primo.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Verificador de Números Primos",
+        "url": "https://calculadoras.alexpiral.com/numero-primo.html",
+        "description": "Verificador online de números primos con factorización",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Verificar si un número es primo",
+          "Factorización completa de números",
+          "Lista de factores primos",
+          "Explicación del resultado",
+          "Interfaz intuitiva"
+        ],
+        "keywords": [
+          "números primos",
+          "verificador primo",
+          "comprobar primo",
+          "factorización",
+          "lista primos",
+          "matemáticas",
+          "calculadora primos"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/numero-primo.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Verificador de Números Primos</h1>
+        <p>
+          Comprueba si un número es primo, obtén su factorización completa y
+          descubre los factores primos. Herramienta rápida y precisa para
+          análisis matemático.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Verificar Número</h2>
+
+          <div class="visual-schema">
+            <div class="schema-display">
+              <div class="number-display" id="numberDisplay">?</div>
+              <div class="arrow-down">↓</div>
+              <div class="result-badge" id="resultBadge">
+                <span class="badge-text">Ingresa un número</span>
+              </div>
+            </div>
+          </div>
+
+          <form id="primeForm">
+            <div class="input-group">
+              <label for="numberInput">Número a verificar:</label>
+              <input
+                type="number"
+                class="input-field"
+                id="numberInput"
+                placeholder="Ej: 17, 100, 1997"
+                min="1"
+                max="1000000"
+                required
+              />
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Verificar si es Primo
+            </button>
+
+            <div class="calculating">
+              <span>Analizando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Un número primo solo es divisible por 1 y por sí mismo. El 2 es el
+              único número primo par.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado del Análisis</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-header">
+              <div class="result-number" id="resultNumber">-</div>
+              <div class="result-status" id="resultStatus">-</div>
+            </div>
+
+            <div class="factorization-section" id="factorizationSection">
+              <h3>Factorización Prima:</h3>
+              <div
+                class="factorization-display"
+                id="factorizationDisplay"
+              ></div>
+            </div>
+
+            <div class="factors-section" id="factorsSection">
+              <h3>Todos los Factores:</h3>
+              <div class="factors-list" id="factorsList"></div>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🔢</p>
+            <p>
+              Ingresa un número y presiona "Verificar" para comprobar si es
+              primo
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos de Números</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample(17)">
+            <h3 class="example-title">🟢 Número Primo</h3>
+            <p class="example-description">
+              17 - Un número primo clásico que solo se divide por 1 y 17
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample(100)">
+            <h3 class="example-title">🔴 Número Compuesto</h3>
+            <p class="example-description">
+              100 - Un número con múltiples factores: 2² × 5²
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample(97)">
+            <h3 class="example-title">🟢 Primo Grande</h3>
+            <p class="example-description">
+              97 - Un número primo de dos dígitos difícil de identificar
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample(1024)">
+            <h3 class="example-title">🔢 Potencia de 2</h3>
+            <p class="example-description">1024 - Una potencia perfecta: 2¹⁰</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Acerca de los Números Primos</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🎯</div>
+              ¿Qué es un Número Primo?
+            </h3>
+            <p>
+              Un número primo es un número natural mayor que 1 que tiene
+              exactamente dos divisores: 1 y él mismo.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>El 2 es el único número primo par</li>
+              <li>Los primeros primos: 2, 3, 5, 7, 11, 13, 17...</li>
+              <li>No hay una fórmula para generar todos los primos</li>
+              <li>Son infinitos (demostrado por Euclides)</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔍</div>
+              Factorización Prima
+            </h3>
+            <p>
+              Todo número entero mayor que 1 puede expresarse como producto de
+              números primos de manera única.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Ejemplo: 12 = 2² × 3</li>
+              <li>Ejemplo: 60 = 2² × 3 × 5</li>
+              <li>Los primos solo se factorizan como ellos mismos</li>
+              <li>Base fundamental de la teoría de números</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">⚡</div>
+              Aplicaciones Prácticas
+            </h3>
+            <p>
+              Los números primos tienen importantes aplicaciones en matemáticas
+              y tecnología.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Criptografía y seguridad informática</li>
+              <li>Algoritmos de hash y codificación</li>
+              <li>Teoría de números y matemática pura</li>
+              <li>Generación de números aleatorios</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📊</div>
+              Curiosidades
+            </h3>
+            <p>
+              Los números primos han fascinado a matemáticos durante milenios.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>
+                El primo más grande conocido tiene más de 24 millones de dígitos
+              </li>
+              <li>Los primos gemelos: pares como (3,5), (11,13), (17,19)</li>
+              <li>Conjetura de Goldbach: todo par > 2 es suma de dos primos</li>
+              <li>Distribución: se vuelven más escasos conforme aumentan</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar el verificador?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Ingresa el número:</strong> Escribe cualquier número
+              entero positivo entre 1 y 1,000,000.
+            </li>
+            <li>
+              <strong>Verifica:</strong> Presiona el botón "Verificar si es
+              Primo" para analizar el número.
+            </li>
+            <li>
+              <strong>Revisa el resultado:</strong> Obtén información completa
+              sobre si es primo o compuesto.
+            </li>
+            <li>
+              <strong>Explora la factorización:</strong> Si no es primo, ve su
+              descomposición en factores primos.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/numero-primo.js"></script>
+  </body>
+</html>
