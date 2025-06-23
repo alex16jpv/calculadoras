@@ -14,6 +14,7 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **numero-primo.html**: Prime number checker with factorization and mathematical analysis
 - **aritmetica-basica.html**: Basic arithmetic calculator with keypad interface and operation history
 - **raiz-potencia.html**: Root and power calculator for square roots, cube roots, nth roots, and exponential operations
+- **factorial.html**: Factorial calculator with large number support and combinatorial applications
 
 #### CSS Architecture
 
@@ -24,6 +25,7 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **css/numero-primo.css**: Prime number checker specific styles
 - **css/aritmetica-basica.css**: Basic arithmetic calculator specific styles
 - **css/raiz-potencia.css**: Root and power calculator specific styles
+- **css/factorial.css**: Factorial calculator specific styles
 
 #### JavaScript Architecture
 
@@ -34,6 +36,7 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **js/numero-primo.js**: Prime number checker specific logic
 - **js/aritmetica-basica.js**: Basic arithmetic calculator specific logic
 - **js/raiz-potencia.js**: Root and power calculator specific logic
+- **js/factorial.js**: Factorial calculator specific logic
 
 ### Key Features
 
@@ -74,6 +77,7 @@ Each calculator follows a consistent pattern:
 - `/numero-primo.html` - Prime number checker
 - `/aritmetica-basica.html` - Basic arithmetic calculator
 - `/raiz-potencia.html` - Root and power calculator
+- `/factorial.html` - Factorial calculator
 - External calculators link to separate domains (e.g., 4x1000 tax calculator)
 
 ### Styling Conventions
