@@ -15,6 +15,8 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **aritmetica-basica.html**: Basic arithmetic calculator with keypad interface and operation history
 - **raiz-potencia.html**: Root and power calculator for square roots, cube roots, nth roots, and exponential operations
 - **factorial.html**: Factorial calculator with large number support and combinatorial applications
+- **mcm-mcd.html**: LCM and GCD calculator for multiple numbers with Euclidean algorithm and prime factorization
+- **combinaciones-permutaciones.html**: Combinations and permutations calculator with C(n,r), P(n,r), variations, and circular permutations
 
 #### CSS Architecture
 
@@ -26,6 +28,8 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **css/aritmetica-basica.css**: Basic arithmetic calculator specific styles
 - **css/raiz-potencia.css**: Root and power calculator specific styles
 - **css/factorial.css**: Factorial calculator specific styles
+- **css/mcm-mcd.css**: LCM and GCD calculator specific styles
+- **css/combinaciones-permutaciones.css**: Combinations and permutations calculator specific styles
 
 #### JavaScript Architecture
 
@@ -37,6 +41,8 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **js/aritmetica-basica.js**: Basic arithmetic calculator specific logic
 - **js/raiz-potencia.js**: Root and power calculator specific logic
 - **js/factorial.js**: Factorial calculator specific logic
+- **js/mcm-mcd.js**: LCM and GCD calculator specific logic
+- **js/combinaciones-permutaciones.js**: Combinations and permutations calculator specific logic
 
 ### Key Features
 
@@ -78,6 +84,8 @@ Each calculator follows a consistent pattern:
 - `/aritmetica-basica.html` - Basic arithmetic calculator
 - `/raiz-potencia.html` - Root and power calculator
 - `/factorial.html` - Factorial calculator
+- `/mcm-mcd.html` - LCM and GCD calculator
+- `/combinaciones-permutaciones.html` - Combinations and permutations calculator
 - External calculators link to separate domains (e.g., 4x1000 tax calculator)
 
 ### Styling Conventions

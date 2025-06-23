@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Calculadora MCM y MCD | Mínimo Común Múltiplo y Máximo Común Divisor Online
+    </title>
+    <meta
+      name="description"
+      content="Calculadora de MCM y MCD online gratuita. Calcula el Mínimo Común Múltiplo y Máximo Común Divisor de dos o más números con explicación paso a paso."
+    />
+    <meta
+      name="keywords"
+      content="MCM, MCD, mínimo común múltiplo, máximo común divisor, lcm, gcd, algoritmo euclidiano, matemáticas"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora MCM y MCD Online - Mínimo Común Múltiplo y Máximo Común Divisor"
+    />
+    <meta
+      property="og:description"
+      content="Calcula MCM y MCD de múltiples números con explicación detallada del algoritmo de Euclides y factorización."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/mcm-mcd.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta
+      name="twitter:title"
+      content="Calculadora MCM y MCD - Matemáticas Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Herramienta gratuita para calcular MCM y MCD con algoritmo de Euclides y explicación paso a paso."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/mcm-mcd.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora MCM y MCD",
+        "url": "https://calculadoras.alexpiral.com/mcm-mcd.html",
+        "description": "Calculadora online de Mínimo Común Múltiplo y Máximo Común Divisor",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Cálculo de MCM",
+          "Cálculo de MCD",
+          "Algoritmo de Euclides",
+          "Factorización prima",
+          "Múltiples números",
+          "Explicación paso a paso"
+        ],
+        "keywords": [
+          "MCM",
+          "MCD",
+          "mínimo común múltiplo",
+          "máximo común divisor",
+          "lcm",
+          "gcd",
+          "algoritmo euclidiano",
+          "matemáticas"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/mcm-mcd.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora MCM y MCD</h1>
+        <p>
+          Calcula el Mínimo Común Múltiplo (MCM) y Máximo Común Divisor (MCD) de dos o más números.
+          Utiliza el algoritmo de Euclides y factorización prima con explicación paso a paso detallada.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Selecciona el Tipo de Cálculo</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="gcd"
+              onclick="changeType('gcd')"
+            >
+              MCD (Máximo Común Divisor)
+            </button>
+            <button
+              class="type-button"
+              data-type="lcm"
+              onclick="changeType('lcm')"
+            >
+              MCM (Mínimo Común Múltiplo)
+            </button>
+            <button
+              class="type-button"
+              data-type="both"
+              onclick="changeType('both')"
+            >
+              MCM y MCD
+            </button>
+          </div>
+
+          <div class="visual-schema">
+            <div class="formula-display" id="formulaDisplay">MCD(a, b) = ?</div>
+            <div class="schema-description" id="schemaDescription">
+              Encuentra el mayor número que divide exactamente a ambos números
+            </div>
+          </div>
+
+          <form id="calculatorForm">
+            <div class="numbers-input-section">
+              <h3>Números a calcular:</h3>
+              <div class="numbers-container" id="numbersContainer">
+                <div class="number-input-group">
+                  <label>Número 1:</label>
+                  <input
+                    type="number"
+                    class="input-field number-input"
+                    placeholder="12"
+                    min="1"
+                    step="1"
+                    required
+                  />
+                  <button type="button" class="remove-number-btn" onclick="removeNumber(this)" style="display: none;">×</button>
+                </div>
+                <div class="number-input-group">
+                  <label>Número 2:</label>
+                  <input
+                    type="number"
+                    class="input-field number-input"
+                    placeholder="18"
+                    min="1"
+                    step="1"
+                    required
+                  />
+                  <button type="button" class="remove-number-btn" onclick="removeNumber(this)" style="display: none;">×</button>
+                </div>
+              </div>
+              <button type="button" class="add-number-btn" onclick="addNumber()">
+                + Agregar otro número
+              </button>
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Calcular Resultado
+            </button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText">
+              El MCD es el mayor número que divide exactamente a todos los números dados.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-display">
+              <div class="calculation-summary" id="calculationSummary">-</div>
+              <div class="result-values" id="resultValues">-</div>
+            </div>
+
+            <div class="factorization-section" id="factorizationSection">
+              <h3>Factorización Prima:</h3>
+              <div class="factorization-display" id="factorizationDisplay"></div>
+            </div>
+
+            <div class="algorithm-section" id="algorithmSection">
+              <h3>Algoritmo de Euclides:</h3>
+              <div class="algorithm-steps" id="algorithmSteps"></div>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🔢</p>
+            <p>
+              Selecciona el tipo de cálculo, ingresa los números y presiona "Calcular"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('gcd', [12, 18])">
+            <h3 class="example-title">MCD Básico</h3>
+            <p class="example-description">
+              MCD(12, 18) = 6 - Encuentra el divisor común más grande
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('lcm', [4, 6])">
+            <h3 class="example-title">MCM Básico</h3>
+            <p class="example-description">
+              MCM(4, 6) = 12 - Encuentra el múltiplo común más pequeño
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('both', [15, 25, 35])">
+            <h3 class="example-title">Tres Números</h3>
+            <p class="example-description">
+              MCM y MCD de 15, 25, 35 - Ejemplo con múltiples números
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('gcd', [48, 72, 96])">
+            <h3 class="example-title">Números Grandes</h3>
+            <p class="example-description">
+              MCD(48, 72, 96) = 24 - Ejemplo con números más grandes
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Conceptos Matemáticos</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">↗️</div>
+              Máximo Común Divisor (MCD)
+            </h3>
+            <p>
+              El MCD es el mayor número entero que divide exactamente a dos o más números.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>También conocido como GCD (Greatest Common Divisor)</li>
+              <li>MCD(a, 0) = a para cualquier número a</li>
+              <li>MCD(a, b) = MCD(b, a mod b) (Algoritmo de Euclides)</li>
+              <li>Si MCD(a, b) = 1, entonces a y b son coprimos</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">↖️</div>
+              Mínimo Común Múltiplo (MCM)
+            </h3>
+            <p>
+              El MCM es el menor número entero positivo que es múltiplo de dos o más números.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>También conocido como LCM (Least Common Multiple)</li>
+              <li>MCM(a, b) = (a × b) / MCD(a, b)</li>
+              <li>MCM(a, 1) = a para cualquier número a</li>
+              <li>Útil para sumar fracciones con denominadores diferentes</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔄</div>
+              Algoritmo de Euclides
+            </h3>
+            <p>
+              Método eficiente para calcular el MCD de dos números usando divisiones sucesivas.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Basado en: MCD(a, b) = MCD(b, a mod b)</li>
+              <li>Se repite hasta que el residuo sea cero</li>
+              <li>Muy eficiente computacionalmente</li>
+              <li>Funciona con números muy grandes</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🧮</div>
+              Aplicaciones Prácticas
+            </h3>
+            <p>
+              MCM y MCD tienen múltiples aplicaciones en matemáticas y vida cotidiana.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Simplificación de fracciones (MCD)</li>
+              <li>Suma de fracciones (MCM)</li>
+              <li>Problemas de sincronización y ciclos</li>
+              <li>Criptografía y teoría de números</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Properties Section -->
+      <section class="info-section">
+        <h2>Propiedades y Relaciones</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📊</div>
+              Relación Fundamental
+            </h3>
+            <p>Para dos números a y b, siempre se cumple:</p>
+            <div class="mathematical-formula">
+              MCD(a, b) × MCM(a, b) = a × b
+            </div>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
+              Esta relación es muy útil para calcular uno cuando conoces el otro.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔢</div>
+              Propiedades del MCD
+            </h3>
+            <ul style="margin-left: 1.5rem; color: #6b7280">
+              <li>MCD(a, b) = MCD(b, a) (Conmutativo)</li>
+              <li>MCD(a, MCD(b, c)) = MCD(MCD(a, b), c) (Asociativo)</li>
+              <li>MCD(a, b) ≤ min(a, b)</li>
+              <li>MCD(ka, kb) = k × MCD(a, b)</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔣</div>
+              Propiedades del MCM
+            </h3>
+            <ul style="margin-left: 1.5rem; color: #6b7280">
+              <li>MCM(a, b) = MCM(b, a) (Conmutativo)</li>
+              <li>MCM(a, MCM(b, c)) = MCM(MCM(a, b), c) (Asociativo)</li>
+              <li>MCM(a, b) ≥ max(a, b)</li>
+              <li>MCM(ka, kb) = k × MCM(a, b)</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">⚡</div>
+              Casos Especiales
+            </h3>
+            <ul style="margin-left: 1.5rem; color: #6b7280">
+              <li>Si a divide a b, entonces MCD(a, b) = a</li>
+              <li>Si a divide a b, entonces MCM(a, b) = b</li>
+              <li>MCD(a, a) = a y MCM(a, a) = a</li>
+              <li>MCD(a, 1) = 1 y MCM(a, 1) = a</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Selecciona el tipo de cálculo:</strong> Elige si quieres calcular
+              MCD, MCM, o ambos valores.
+            </li>
+            <li>
+              <strong>Ingresa los números:</strong> Introduce al menos dos números
+              enteros positivos. Puedes agregar más números si es necesario.
+            </li>
+            <li>
+              <strong>Calcula:</strong> Presiona el botón "Calcular Resultado"
+              para obtener la respuesta completa.
+            </li>
+            <li>
+              <strong>Revisa la explicación:</strong> Observa la factorización prima,
+              el algoritmo de Euclides y la explicación paso a paso.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/mcm-mcd.js"></script>
+  </body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Calculadora de Combinaciones y Permutaciones | Combinatoria Online
+    </title>
+    <meta
+      name="description"
+      content="Calculadora de combinaciones y permutaciones online gratuita. Calcula C(n,r), P(n,r), variaciones y arreglos con explicación paso a paso y aplicaciones."
+    />
+    <meta
+      name="keywords"
+      content="combinaciones, permutaciones, combinatoria, C(n,r), P(n,r), arreglos, variaciones, coeficiente binomial, factorial"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Combinaciones y Permutaciones Online - Combinatoria"
+    />
+    <meta
+      property="og:description"
+      content="Calcula combinaciones, permutaciones y variaciones con explicación detallada y aplicaciones en probabilidad y estadística."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/combinaciones-permutaciones.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta
+      name="twitter:title"
+      content="Calculadora de Combinaciones y Permutaciones - Matemáticas Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Herramienta gratuita para calcular combinaciones y permutaciones con explicación paso a paso y ejemplos prácticos."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/combinaciones-permutaciones.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Combinaciones y Permutaciones",
+        "url": "https://calculadoras.alexpiral.com/combinaciones-permutaciones.html",
+        "description": "Calculadora online de combinaciones y permutaciones para análisis combinatorio",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Cálculo de combinaciones C(n,r)",
+          "Cálculo de permutaciones P(n,r)",
+          "Variaciones con repetición",
+          "Permutaciones circulares",
+          "Explicación paso a paso",
+          "Aplicaciones prácticas",
+          "Coeficientes binomiales"
+        ],
+        "keywords": [
+          "combinaciones",
+          "permutaciones",
+          "combinatoria",
+          "C(n,r)",
+          "P(n,r)",
+          "arreglos",
+          "variaciones",
+          "coeficiente binomial",
+          "factorial"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/combinaciones-permutaciones.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Combinaciones y Permutaciones</h1>
+        <p>
+          Calcula combinaciones C(n,r), permutaciones P(n,r), variaciones y arreglos.
+          Herramienta esencial para análisis combinatorio, probabilidad y estadística
+          con explicación paso a paso detallada.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Selecciona el Tipo de Cálculo</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="combinations"
+              onclick="changeType('combinations')"
+            >
+              Combinaciones C(n,r)
+            </button>
+            <button
+              class="type-button"
+              data-type="permutations"
+              onclick="changeType('permutations')"
+            >
+              Permutaciones P(n,r)
+            </button>
+            <button
+              class="type-button"
+              data-type="variations"
+              onclick="changeType('variations')"
+            >
+              Variaciones con Repetición
+            </button>
+            <button
+              class="type-button"
+              data-type="circular"
+              onclick="changeType('circular')"
+            >
+              Permutaciones Circulares
+            </button>
+          </div>
+
+          <div class="visual-schema">
+            <div class="formula-display" id="formulaDisplay">C(n,r) = ?</div>
+            <div class="schema-description" id="schemaDescription">
+              Número de formas de elegir r elementos de n elementos sin importar el orden
+            </div>
+            <div class="binomial-notation" id="binomialNotation">
+              También conocido como coeficiente binomial
+            </div>
+          </div>
+
+          <form id="calculatorForm">
+            <div class="inputs-container" id="inputsContainer">
+              <div class="input-group">
+                <label for="nInput">Total de elementos (n):</label>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="nInput"
+                  placeholder="10"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label for="rInput">Elementos a elegir (r):</label>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="rInput"
+                  placeholder="3"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="constraint-info" id="constraintInfo">
+              <strong>Restricción:</strong> <span id="constraintText">r ≤ n</span>
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Calcular Resultado
+            </button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText">
+              Las combinaciones no consideran el orden: elegir {A,B,C} es igual que elegir {C,A,B}.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-display">
+              <div class="calculation-summary" id="calculationSummary">-</div>
+              <div class="result-value" id="resultValue">-</div>
+            </div>
+
+            <div class="formula-breakdown" id="formulaBreakdown">
+              <h3>Fórmula aplicada:</h3>
+              <div class="formula-display-detailed" id="formulaDetailed"></div>
+            </div>
+
+            <div class="calculation-steps" id="calculationSteps">
+              <h3>Cálculo paso a paso:</h3>
+              <div class="steps-display" id="stepsDisplay"></div>
+            </div>
+
+            <div class="interpretation-section" id="interpretationSection">
+              <h3>Interpretación:</h3>
+              <div class="interpretation-text" id="interpretationText"></div>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación detallada:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🔢</p>
+            <p>
+              Selecciona el tipo de cálculo, ingresa los valores y presiona "Calcular"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('combinations', {n: 5, r: 3})">
+            <h3 class="example-title">Combinaciones Básicas</h3>
+            <p class="example-description">
+              C(5,3) = 10 - Elegir 3 elementos de 5 sin importar el orden
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('permutations', {n: 6, r: 2})">
+            <h3 class="example-title">Permutaciones</h3>
+            <p class="example-description">
+              P(6,2) = 30 - Ordenar 2 elementos tomados de 6
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('variations', {n: 4, r: 3})">
+            <h3 class="example-title">Variaciones con Repetición</h3>
+            <p class="example-description">
+              V(4,3) = 64 - Elegir 3 elementos de 4 con repetición permitida
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('circular', {n: 6})">
+            <h3 class="example-title">Permutaciones Circulares</h3>
+            <p class="example-description">
+              PC(6) = 120 - Arreglar 6 personas en círculo
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section class="info-section">
+        <h2>Comparación de Métodos</h2>
+        <div class="comparison-table">
+          <div class="comparison-header">
+            <div class="comparison-cell">Tipo</div>
+            <div class="comparison-cell">Fórmula</div>
+            <div class="comparison-cell">¿Importa el orden?</div>
+            <div class="comparison-cell">¿Permite repetición?</div>
+            <div class="comparison-cell">Ejemplo</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-cell">
+              <strong>Combinaciones</strong><br>
+              <small>C(n,r)</small>
+            </div>
+            <div class="comparison-cell">
+              <span class="formula">n! / (r!(n-r)!)</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="no">No</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="no">No</span>
+            </div>
+            <div class="comparison-cell">
+              <small>Elegir 3 colores de 5 disponibles</small>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-cell">
+              <strong>Permutaciones</strong><br>
+              <small>P(n,r)</small>
+            </div>
+            <div class="comparison-cell">
+              <span class="formula">n! / (n-r)!</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="yes">Sí</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="no">No</span>
+            </div>
+            <div class="comparison-cell">
+              <small>Ordenar 3 personas en 5 sillas</small>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-cell">
+              <strong>Variaciones</strong><br>
+              <small>V(n,r)</small>
+            </div>
+            <div class="comparison-cell">
+              <span class="formula">n^r</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="yes">Sí</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="yes">Sí</span>
+            </div>
+            <div class="comparison-cell">
+              <small>Códigos de 3 dígitos usando 0-9</small>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-cell">
+              <strong>Circulares</strong><br>
+              <small>PC(n)</small>
+            </div>
+            <div class="comparison-cell">
+              <span class="formula">(n-1)!</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="yes">Sí</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="no">No</span>
+            </div>
+            <div class="comparison-cell">
+              <small>Sentar personas en mesa redonda</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="info-section">
+        <h2>Aplicaciones Prácticas</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🎯</div>
+              Probabilidad
+            </h3>
+            <p>
+              Fundamental para calcular probabilidades de eventos complejos.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Probabilidad de ganar la lotería</li>
+              <li>Distribuciones binomiales</li>
+              <li>Análisis de eventos múltiples</li>
+              <li>Teorema de Bayes aplicado</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📊</div>
+              Estadística
+            </h3>
+            <p>
+              Esencial en diseño experimental y análisis estadístico.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Diseño de experimentos</li>
+              <li>Muestreo estadístico</li>
+              <li>Análisis de varianza (ANOVA)</li>
+              <li>Pruebas de hipótesis</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🧬</div>
+              Genética
+            </h3>
+            <p>
+              Análisis de herencia genética y combinaciones alélicas.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Cruces genéticos</li>
+              <li>Frecuencias alélicas</li>
+              <li>Equilibrio de Hardy-Weinberg</li>
+              <li>Análisis de poblaciones</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🎮</div>
+              Teoría de Juegos
+            </h3>
+            <p>
+              Análisis estratégico y optimización de decisiones.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Estrategias de juego</li>
+              <li>Análisis de competencia</li>
+              <li>Optimización combinatoria</li>
+              <li>Algoritmos de decisión</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mathematical Properties -->
+      <section class="info-section">
+        <h2>Propiedades Matemáticas</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📐</div>
+              Identidades Fundamentales
+            </h3>
+            <div class="mathematical-formulas">
+              <div class="formula-item">
+                <span class="formula-label">Simetría:</span>
+                <span class="formula">C(n,r) = C(n,n-r)</span>
+              </div>
+              <div class="formula-item">
+                <span class="formula-label">Relación:</span>
+                <span class="formula">P(n,r) = r! × C(n,r)</span>
+              </div>
+              <div class="formula-item">
+                <span class="formula-label">Pascal:</span>
+                <span class="formula">C(n,r) = C(n-1,r-1) + C(n-1,r)</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔢</div>
+              Casos Especiales
+            </h3>
+            <ul style="margin-left: 1.5rem; color: #6b7280">
+              <li>C(n,0) = 1 (no elegir nada)</li>
+              <li>C(n,n) = 1 (elegir todo)</li>
+              <li>C(n,1) = n (elegir uno)</li>
+              <li>P(n,n) = n! (permutación total)</li>
+              <li>P(n,0) = 1 (no ordenar nada)</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📈</div>
+              Crecimiento
+            </h3>
+            <p>
+              Las combinaciones y permutaciones crecen exponencialmente.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>C(n,n/2) es máximo para n par</li>
+              <li>P(n,r) ≥ C(n,r) para r > 1</li>
+              <li>Crecimiento factorial en permutaciones</li>
+              <li>Triángulo de Pascal para combinaciones</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">⚡</div>
+              Cálculo Eficiente
+            </h3>
+            <p>
+              Métodos optimizados para evitar desbordamiento numérico.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Cancelación de factoriales</li>
+              <li>Multiplicación iterativa</li>
+              <li>Simetría para r > n/2</li>
+              <li>Aproximaciones para n grandes</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real World Examples -->
+      <section class="info-section">
+        <h2>Ejemplos del Mundo Real</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🍕</div>
+              Menús de Restaurante
+            </h3>
+            <p>
+              <strong>Problema:</strong> Un restaurante ofrece 8 ingredientes para pizza.
+              ¿Cuántas pizzas diferentes se pueden hacer eligiendo 3 ingredientes?
+            </p>
+            <div class="solution-box">
+              <strong>Solución:</strong> C(8,3) = 56 pizzas diferentes
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">👥</div>
+              Equipos de Trabajo
+            </h3>
+            <p>
+              <strong>Problema:</strong> De 12 empleados, ¿de cuántas formas se puede
+              formar un comité de 4 personas donde el orden no importa?
+            </p>
+            <div class="solution-box">
+              <strong>Solución:</strong> C(12,4) = 495 formas diferentes
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🏆</div>
+              Competencias Deportivas
+            </h3>
+            <p>
+              <strong>Problema:</strong> En una carrera de 10 corredores,
+              ¿cuántas formas hay de asignar los primeros 3 lugares?
+            </p>
+            <div class="solution-box">
+              <strong>Solución:</strong> P(10,3) = 720 formas diferentes
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔐</div>
+              Contraseñas Seguras
+            </h3>
+            <p>
+              <strong>Problema:</strong> ¿Cuántas contraseñas de 4 dígitos se pueden
+              formar usando los dígitos 0-9 con repetición?
+            </p>
+            <div class="solution-box">
+              <strong>Solución:</strong> V(10,4) = 10,000 contraseñas
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Selecciona el tipo de cálculo:</strong> Elige entre
+              combinaciones, permutaciones, variaciones o permutaciones circulares.
+            </li>
+            <li>
+              <strong>Ingresa los valores:</strong> Introduce n (total de elementos)
+              y r (elementos a elegir). Para permutaciones circulares solo necesitas n.
+            </li>
+            <li>
+              <strong>Verifica restricciones:</strong> Asegúrate de que los valores
+              cumplan las condiciones (generalmente r ≤ n).
+            </li>
+            <li>
+              <strong>Calcula:</strong> Presiona "Calcular Resultado" para obtener
+              la respuesta con explicación detallada.
+            </li>
+            <li>
+              <strong>Interpreta el resultado:</strong> Revisa la explicación
+              paso a paso y las aplicaciones prácticas del resultado.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/combinaciones-permutaciones.js"></script>
+  </body>
+</html>
