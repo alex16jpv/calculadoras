@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hub de Calculadoras | Herramientas de Cálculo Online Gratis</title>
+    <meta
+      name="description"
+      content="Portal centralizado con más de 20 calculadoras online gratuitas. Herramientas de matemáticas, conversiones, porcentajes, impuestos, salud y más."
+    />
+    <meta
+      name="keywords"
+      content="calculadoras online, herramientas matemáticas, calculadora porcentaje, calculadora 4x1000, regla de tres, conversión unidades, calculadora IMC"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Hub de Calculadoras - Herramientas de Cálculo Online"
+    />
+    <meta
+      property="og:description"
+      content="Accede a más de 20 calculadoras online gratuitas en un solo lugar. Matemáticas, conversiones, finanzas y más."
+    />
+    <meta property="og:image" content="/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://calculadoras.alexpiral.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hub de Calculadoras" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Hub de Calculadoras - Herramientas Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Portal con calculadoras gratuitas para matemáticas, conversiones, finanzas y más."
+    />
+    <meta name="twitter:image" content="/images/og-image.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hub de Calculadoras",
+        "description": "Portal centralizado de calculadoras online gratuitas",
+        "url": "https://calculadoras.alexpiral.com",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://calculadoras.alexpiral.com/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        },
+        "inLanguage": "es-ES",
+        "isAccessibleForFree": true,
+        "keywords": [
+          "calculadoras online",
+          "herramientas matemáticas",
+          "calculadora porcentaje",
+          "calculadora 4x1000",
+          "regla de tres",
+          "conversión unidades",
+          "calculadora IMC"
+        ],
+        "applicationSubCategory": [
+          "Calculadora",
+          "Matemáticas",
+          "Finanzas",
+          "Conversiones",
+          "Salud"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo" aria-label="Hub de Calculadoras - Inicio"
+          >📊 Hub de Calculadoras</a
+        >
+        <div class="search-container">
+          <input
+            type="search"
+            class="search-input"
+            placeholder="Buscar calculadora..."
+            aria-label="Buscar calculadora"
+            id="searchInput"
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Tu Portal de Calculadoras Online</h1>
+        <p>
+          Accede a más de 20 herramientas de cálculo gratuitas, organizadas para
+          facilitar tu día a día
+        </p>
+      </section>
+
+      <section class="stats">
+        <div class="stat-card">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Calculadoras</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Categorías</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Gratuito</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Disponible</div>
+        </div>
+      </section>
+
+      <div class="loading">Cargando calculadoras...</div>
+      <div class="no-results">
+        No se encontraron calculadoras que coincidan con tu búsqueda.
+      </div>
+
+      <section class="categories" id="categoriesContainer">
+        <!-- Mathematics Category -->
+        <div class="category" data-category="matematicas">
+          <div class="category-header">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 14h-2v-4H9v-2h4V7h2v4h4v2h-4v4z"
+                />
+              </svg>
+            </div>
+            <h2>Matemáticas</h2>
+          </div>
+          <div class="calculator-grid">
+            <a href="/regla-de-tres.html" class="calculator-card">
+              <h3 class="calculator-title">Regla de Tres</h3>
+              <p class="calculator-description">
+                Calcula proporciones directas e inversas de forma rápida y
+                sencilla
+              </p>
+              <span class="calculator-tag">Popular</span>
+            </a>
+            <a href="/porcentaje-calculadora.html" class="calculator-card">
+              <h3 class="calculator-title">Calculadora de Porcentajes</h3>
+              <p class="calculator-description">
+                Encuentra porcentajes, aumentos y descuentos al instante
+              </p>
+              <span class="calculator-tag">Más usado</span>
+            </a>
+            <a href="/numero-primo.html" class="calculator-card">
+              <h3 class="calculator-title">Verificador de Números Primos</h3>
+              <p class="calculator-description">
+                Comprueba si un número es primo o compuesto
+              </p>
+            </a>
+            <a href="/aritmetica-basica.html" class="calculator-card">
+              <h3 class="calculator-title">Aritmética Básica</h3>
+              <p class="calculator-description">
+                Suma, resta, multiplicación y división con precisión
+              </p>
+            </a>
+            <a href="/raiz-potencia.html" class="calculator-card">
+              <h3 class="calculator-title">Raíz Cuadrada y Potencias</h3>
+              <p class="calculator-description">
+                Calcula raíces cuadradas y potencias de cualquier número
+              </p>
+            </a>
+            <a href="/factorial.html" class="calculator-card">
+              <h3 class="calculator-title">Cálculo de Factorial</h3>
+              <p class="calculator-description">
+                Obtén el factorial de cualquier número entero
+              </p>
+            </a>
+            <a href="/mcm-mcd.html" class="calculator-card">
+              <h3 class="calculator-title">MCM y MCD</h3>
+              <p class="calculator-description">
+                Mínimo común múltiplo y máximo común divisor
+              </p>
+            </a>
+            <a href="/combinaciones-permutaciones.html" class="calculator-card">
+              <h3 class="calculator-title">Combinaciones y Permutaciones</h3>
+              <p class="calculator-description">
+                Resuelve problemas de combinatoria fácilmente
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Finance Category -->
+        <div class="category" data-category="finanzas">
+          <div class="category-header">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1.93.66 1.64 2.08 1.64 1.96 0 2.37-.79 2.37-1.54 0-1.06-.92-1.38-2.67-1.81-2.48-.62-4.17-1.36-4.17-3.78 0-1.84 1.52-3.11 3.33-3.44V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.05-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.31 2.67 1.81 2.79.71 4.17 1.53 4.17 3.69 0 1.88-1.37 3.16-3.28 3.48z"
+                />
+              </svg>
+            </div>
+            <h2>Finanzas</h2>
+          </div>
+          <div class="calculator-grid">
+            <a
+              href="https://calculadora4x1000.alexpiral.com"
+              class="calculator-card"
+              target="_blank"
+              rel="noopener"
+            >
+              <h3 class="calculator-title">Impuesto 4x1000</h3>
+              <p class="calculator-description">
+                Calcula el impuesto a las transacciones financieras en Colombia.
+              </p>
+              <span class="calculator-tag">Colombia</span>
+            </a>
+            <a href="/interes-simple.html" class="calculator-card">
+              <h3 class="calculator-title">Interés Simple</h3>
+              <p class="calculator-description">
+                Calcula intereses simples sobre préstamos o inversiones
+              </p>
+            </a>
+            <a href="/interes-compuesto.html" class="calculator-card">
+              <h3 class="calculator-title">Interés Compuesto</h3>
+              <p class="calculator-description">
+                Proyecta el crecimiento de tus inversiones a largo plazo
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Conversions Category -->
+        <div class="category" data-category="conversiones">
+          <div class="category-header">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <h2>Conversión de Unidades</h2>
+          </div>
+          <div class="calculator-grid">
+            <a href="/conversion-bases.html" class="calculator-card">
+              <h3 class="calculator-title">Conversión de Bases</h3>
+              <p class="calculator-description">
+                Convierte entre decimal, binario, hexadecimal y octal
+              </p>
+              <span class="calculator-tag">Programación</span>
+            </a>
+            <a href="/fracciones-decimales.html" class="calculator-card">
+              <h3 class="calculator-title">Fracciones a Decimales</h3>
+              <p class="calculator-description">
+                Convierte fracciones a decimales y viceversa
+              </p>
+            </a>
+            <a href="/conversion-temperatura.html" class="calculator-card">
+              <h3 class="calculator-title">Conversión de Temperatura</h3>
+              <p class="calculator-description">Celsius, Fahrenheit y Kelvin</p>
+            </a>
+            <a href="/conversion-longitud.html" class="calculator-card">
+              <h3 class="calculator-title">Conversión de Longitud</h3>
+              <p class="calculator-description">
+                Metros, pies, pulgadas, kilómetros y más
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Health Category -->
+        <div class="category" data-category="salud">
+          <div class="category-header">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
+              </svg>
+            </div>
+            <h2>Salud</h2>
+          </div>
+          <div class="calculator-grid">
+            <a href="/calculadora-imc.html" class="calculator-card">
+              <h3 class="calculator-title">Índice de Masa Corporal (IMC)</h3>
+              <p class="calculator-description">
+                Evalúa tu peso corporal en relación con tu altura
+              </p>
+              <span class="calculator-tag">Recomendado</span>
+            </a>
+            <a href="/calorias-diarias.html" class="calculator-card">
+              <h3 class="calculator-title">Calorías Diarias</h3>
+              <p class="calculator-description">
+                Calcula tu requerimiento calórico diario
+              </p>
+            </a>
+            <a href="/frecuencia-cardiaca.html" class="calculator-card">
+              <h3 class="calculator-title">Frecuencia Cardíaca Ideal</h3>
+              <p class="calculator-description">
+                Encuentra tu zona de frecuencia cardíaca para ejercicio
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Date and Time Category -->
+        <div class="category" data-category="fechas">
+          <div class="category-header">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"
+                />
+              </svg>
+            </div>
+            <h2>Fechas y Tiempo</h2>
+          </div>
+          <div class="calculator-grid">
+            <a href="/dias-entre-fechas.html" class="calculator-card">
+              <h3 class="calculator-title">Días Entre Fechas</h3>
+              <p class="calculator-description">
+                Calcula la diferencia en días entre dos fechas
+              </p>
+              <span class="calculator-tag">Útil</span>
+            </a>
+            <a href="/calculadora-edad.html" class="calculator-card">
+              <h3 class="calculator-title">Calculadora de Edad</h3>
+              <p class="calculator-description">
+                Calcula tu edad exacta en años, meses y días
+              </p>
+            </a>
+            <a href="/zona-horaria.html" class="calculator-card">
+              <h3 class="calculator-title">Conversor de Zona Horaria</h3>
+              <p class="calculator-description">
+                Convierte horarios entre diferentes zonas del mundo
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <!-- <div class="footer-links">
+          <a href="/sobre-nosotros">Sobre Nosotros</a>
+          <a href="/privacidad">Política de Privacidad</a>
+          <a href="/terminos">Términos de Uso</a>
+          <a href="/contacto">Contacto</a>
+        </div> -->
+        <p>
+          &copy; 2024 Hub de Calculadoras. Todas las herramientas son gratuitas
+          y de libre acceso.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
