@@ -17,6 +17,7 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **factorial.html**: Factorial calculator with large number support and combinatorial applications
 - **mcm-mcd.html**: LCM and GCD calculator for multiple numbers with Euclidean algorithm and prime factorization
 - **combinaciones-permutaciones.html**: Combinations and permutations calculator with C(n,r), P(n,r), variations, and circular permutations
+- **interes-simple.html**: Simple interest calculator for financial planning with multiple calculation modes
 
 #### CSS Architecture
 
@@ -30,6 +31,7 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **css/factorial.css**: Factorial calculator specific styles
 - **css/mcm-mcd.css**: LCM and GCD calculator specific styles
 - **css/combinaciones-permutaciones.css**: Combinations and permutations calculator specific styles
+- **css/interes-simple.css**: Simple interest calculator specific styles
 
 #### JavaScript Architecture
 
@@ -43,6 +45,7 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 - **js/factorial.js**: Factorial calculator specific logic
 - **js/mcm-mcd.js**: LCM and GCD calculator specific logic
 - **js/combinaciones-permutaciones.js**: Combinations and permutations calculator specific logic
+- **js/interes-simple.js**: Simple interest calculator specific logic
 
 ### Key Features
 
@@ -86,6 +89,7 @@ Each calculator follows a consistent pattern:
 - `/factorial.html` - Factorial calculator
 - `/mcm-mcd.html` - LCM and GCD calculator
 - `/combinaciones-permutaciones.html` - Combinations and permutations calculator
+- `/interes-simple.html` - Simple interest calculator
 - External calculators link to separate domains (e.g., 4x1000 tax calculator)
 
 ### Styling Conventions

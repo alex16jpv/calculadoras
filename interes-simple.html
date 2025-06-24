@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Calculadora de Interés Simple | Calcular Interés, Capital y Tiempo Online
+    </title>
+    <meta
+      name="description"
+      content="Calculadora de interés simple online gratuita. Calcula interés, capital inicial, tasa de interés o tiempo con explicación paso a paso y ejemplos prácticos."
+    />
+    <meta
+      name="keywords"
+      content="interés simple, calculadora financiera, capital, tasa de interés, tiempo, inversión, préstamos, finanzas"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Interés Simple Online - Finanzas y Inversiones"
+    />
+    <meta
+      property="og:description"
+      content="Calcula interés simple, capital, tasa de interés o tiempo con explicación detallada y aplicaciones financieras."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/interes-simple.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta
+      name="twitter:title"
+      content="Calculadora de Interés Simple - Finanzas Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Herramienta gratuita para calcular interés simple con explicación paso a paso y ejemplos de inversiones."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/interes-simple.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Interés Simple",
+        "url": "https://calculadoras.alexpiral.com/interes-simple.html",
+        "description": "Calculadora online de interés simple para inversiones y préstamos",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Cálculo de interés simple",
+          "Cálculo de capital inicial",
+          "Cálculo de tasa de interés",
+          "Cálculo de tiempo",
+          "Explicación paso a paso",
+          "Ejemplos financieros",
+          "Tabla de crecimiento"
+        ],
+        "keywords": [
+          "interés simple",
+          "calculadora financiera",
+          "capital",
+          "tasa de interés",
+          "tiempo",
+          "inversión",
+          "préstamos",
+          "finanzas"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/interes-simple.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Interés Simple</h1>
+        <p>
+          Calcula interés simple, capital inicial, tasa de interés o tiempo de inversión.
+          Herramienta esencial para planificación financiera, inversiones y préstamos
+          con explicación detallada y ejemplos prácticos.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Selecciona qué calcular</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="interest"
+              onclick="changeType('interest')"
+            >
+              Calcular Interés
+            </button>
+            <button
+              class="type-button"
+              data-type="principal"
+              onclick="changeType('principal')"
+            >
+              Calcular Capital
+            </button>
+            <button
+              class="type-button"
+              data-type="rate"
+              onclick="changeType('rate')"
+            >
+              Calcular Tasa
+            </button>
+            <button
+              class="type-button"
+              data-type="time"
+              onclick="changeType('time')"
+            >
+              Calcular Tiempo
+            </button>
+          </div>
+
+          <div class="visual-schema">
+            <div class="formula-display" id="formulaDisplay">I = P × r × t</div>
+            <div class="schema-description" id="schemaDescription">
+              Fórmula del interés simple: Interés = Capital × Tasa × Tiempo
+            </div>
+            <div class="formula-variables" id="formulaVariables">
+              <div class="variable-item">
+                <span class="variable">I</span> = Interés ganado o pagado
+              </div>
+              <div class="variable-item">
+                <span class="variable">P</span> = Capital inicial (principal)
+              </div>
+              <div class="variable-item">
+                <span class="variable">r</span> = Tasa de interés anual
+              </div>
+              <div class="variable-item">
+                <span class="variable">t</span> = Tiempo en años
+              </div>
+            </div>
+          </div>
+
+          <form id="calculatorForm">
+            <div class="inputs-container" id="inputsContainer">
+              <div class="input-group" id="principalGroup">
+                <label for="principalInput">Capital inicial (P):</label>
+                <div class="input-with-currency">
+                  <span class="currency-symbol">$</span>
+                  <input
+                    type="number"
+                    class="input-field"
+                    id="principalInput"
+                    placeholder="10000"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div class="input-group" id="rateGroup">
+                <label for="rateInput">Tasa de interés anual (r):</label>
+                <div class="input-with-percent">
+                  <input
+                    type="number"
+                    class="input-field"
+                    id="rateInput"
+                    placeholder="5"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                  <span class="percent-symbol">%</span>
+                </div>
+              </div>
+              
+              <div class="input-group" id="timeGroup">
+                <label for="timeInput">Tiempo:</label>
+                <div class="time-input-container">
+                  <input
+                    type="number"
+                    class="input-field"
+                    id="timeInput"
+                    placeholder="2"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                  <select class="time-unit-select" id="timeUnitSelect">
+                    <option value="years">Años</option>
+                    <option value="months">Meses</option>
+                    <option value="days">Días</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="input-group" id="interestGroup" style="display: none;">
+                <label for="interestInput">Interés ganado/pagado (I):</label>
+                <div class="input-with-currency">
+                  <span class="currency-symbol">$</span>
+                  <input
+                    type="number"
+                    class="input-field"
+                    id="interestInput"
+                    placeholder="1000"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="calculation-info" id="calculationInfo">
+              <strong>Calculando:</strong> <span id="calculationText">Interés simple ganado</span>
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Calcular Resultado
+            </button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText">
+              El interés simple se calcula sobre el capital inicial y no se capitaliza.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-display">
+              <div class="calculation-summary" id="calculationSummary">-</div>
+              <div class="result-value" id="resultValue">-</div>
+            </div>
+
+            <div class="financial-breakdown" id="financialBreakdown">
+              <h3>Resumen financiero:</h3>
+              <div class="breakdown-grid" id="breakdownGrid"></div>
+            </div>
+
+            <div class="growth-visualization" id="growthVisualization">
+              <h3>Crecimiento del capital:</h3>
+              <div class="growth-chart" id="growthChart"></div>
+            </div>
+
+            <div class="calculation-details" id="calculationDetails">
+              <h3>Detalles del cálculo:</h3>
+              <div class="formula-breakdown" id="formulaBreakdown"></div>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">💰</p>
+            <p>
+              Selecciona qué calcular, ingresa los valores y presiona "Calcular"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('interest', {principal: 10000, rate: 5, time: 2, timeUnit: 'years'})">
+            <h3 class="example-title">Inversión Básica</h3>
+            <p class="example-description">
+              $10,000 al 5% anual durante 2 años - Calcular interés ganado
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('principal', {interest: 1500, rate: 6, time: 18, timeUnit: 'months'})">
+            <h3 class="example-title">Capital Necesario</h3>
+            <p class="example-description">
+              ¿Cuánto invertir para ganar $1,500 al 6% en 18 meses?
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('rate', {principal: 5000, interest: 750, time: 3, timeUnit: 'years'})">
+            <h3 class="example-title">Tasa de Rendimiento</h3>
+            <p class="example-description">
+              ¿Qué tasa necesito para ganar $750 con $5,000 en 3 años?
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('time', {principal: 8000, interest: 1200, rate: 4.5, timeUnit: 'years'})">
+            <h3 class="example-title">Tiempo de Inversión</h3>
+            <p class="example-description">
+              ¿Cuánto tiempo necesito para ganar $1,200 con $8,000 al 4.5%?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Financial Concepts Section -->
+      <section class="info-section">
+        <h2>Conceptos Financieros</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📈</div>
+              Interés Simple
+            </h3>
+            <p>
+              El interés simple se calcula únicamente sobre el capital inicial.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>No hay capitalización de intereses</li>
+              <li>Crecimiento lineal del capital</li>
+              <li>Fórmula: I = P × r × t</li>
+              <li>Común en préstamos a corto plazo</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">💰</div>
+              Capital Principal
+            </h3>
+            <p>
+              Es la cantidad inicial de dinero invertida o prestada.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Base para el cálculo de intereses</li>
+              <li>No cambia durante el período</li>
+              <li>También llamado principal</li>
+              <li>Determina el monto de interés</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📊</div>
+              Tasa de Interés
+            </h3>
+            <p>
+              Porcentaje que se aplica al capital durante un período determinado.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Se expresa como porcentaje anual</li>
+              <li>Puede ser fija o variable</li>
+              <li>Determina la rentabilidad</li>
+              <li>Varía según el riesgo</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">⏰</div>
+              Tiempo de Inversión
+            </h3>
+            <p>
+              Período durante el cual el capital genera intereses.
+            </p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #6b7280">
+              <li>Puede expresarse en años, meses o días</li>
+              <li>Relación directa con el interés</li>
+              <li>A mayor tiempo, mayor interés</li>
+              <li>Importante para planificación</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="info-section">
+        <h2>Aplicaciones del Interés Simple</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🏦</div>
+              Cuentas de Ahorro
+            </h3>
+            <p>
+              Muchas cuentas de ahorro utilizan interés simple para periodos cortos.
+            </p>
+            <div class="application-example">
+              <strong>Ejemplo:</strong> Cuenta de ahorro que paga 3% anual sobre el saldo promedio mensual.
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">💳</div>
+              Préstamos Personales
+            </h3>
+            <p>
+              Algunos préstamos a corto plazo utilizan interés simple.
+            </p>
+            <div class="application-example">
+              <strong>Ejemplo:</strong> Préstamo de $5,000 al 8% anual por 6 meses = $200 de interés.
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📝</div>
+              Bonos y Pagarés
+            </h3>
+            <p>
+              Instrumentos financieros que pagan interés simple periódicamente.
+            </p>
+            <div class="application-example">
+              <strong>Ejemplo:</strong> Bono de $10,000 que paga 4% anual durante 5 años.
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🏗️</div>
+              Inversiones a Corto Plazo
+            </h3>
+            <p>
+              Inversiones temporales donde no se reinvierten los intereses.
+            </p>
+            <div class="application-example">
+              <strong>Ejemplo:</strong> Depósito a plazo fijo donde los intereses se retiran mensualmente.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section class="info-section">
+        <h2>Interés Simple vs Interés Compuesto</h2>
+        <div class="comparison-container">
+          <div class="comparison-table">
+            <div class="comparison-header">
+              <div class="comparison-cell">Característica</div>
+              <div class="comparison-cell">Interés Simple</div>
+              <div class="comparison-cell">Interés Compuesto</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-cell"><strong>Cálculo</strong></div>
+              <div class="comparison-cell">Solo sobre capital inicial</div>
+              <div class="comparison-cell">Sobre capital + intereses acumulados</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-cell"><strong>Fórmula</strong></div>
+              <div class="comparison-cell">I = P × r × t</div>
+              <div class="comparison-cell">A = P(1 + r)^t</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-cell"><strong>Crecimiento</strong></div>
+              <div class="comparison-cell">Lineal</div>
+              <div class="comparison-cell">Exponencial</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-cell"><strong>Uso común</strong></div>
+              <div class="comparison-cell">Préstamos cortos, bonos</div>
+              <div class="comparison-cell">Inversiones a largo plazo</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-cell"><strong>Ejemplo (10% anual, 5 años)</strong></div>
+              <div class="comparison-cell">$1,000 → $1,500</div>
+              <div class="comparison-cell">$1,000 → $1,610.51</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips Section -->
+      <section class="info-section">
+        <h2>Consejos Financieros</h2>
+        <div class="tips-container">
+          <div class="tip-card">
+            <div class="tip-icon">💡</div>
+            <h4>Planificación</h4>
+            <p>
+              Usa el interés simple para calcular ganancias exactas en inversiones 
+              a corto plazo donde no reinviertes los intereses.
+            </p>
+          </div>
+          <div class="tip-card">
+            <div class="tip-icon">🎯</div>
+            <h4>Comparación</h4>
+            <p>
+              Compara diferentes opciones de inversión calculando el interés 
+              simple para periodos equivalentes.
+            </p>
+          </div>
+          <div class="tip-card">
+            <div class="tip-icon">📊</div>
+            <h4>Presupuesto</h4>
+            <p>
+              Incluye los intereses esperados en tu presupuesto personal 
+              para una planificación financiera más precisa.
+            </p>
+          </div>
+          <div class="tip-card">
+            <div class="tip-icon">⚠️</div>
+            <h4>Limitaciones</h4>
+            <p>
+              Recuerda que el interés simple no considera la inflación 
+              ni la capitalización de intereses.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Selecciona qué calcular:</strong> Elige si quieres calcular
+              interés, capital, tasa de interés o tiempo.
+            </li>
+            <li>
+              <strong>Ingresa los valores conocidos:</strong> Completa los campos
+              con los datos que tienes disponibles.
+            </li>
+            <li>
+              <strong>Selecciona la unidad de tiempo:</strong> Puedes trabajar
+              con años, meses o días según tu necesidad.
+            </li>
+            <li>
+              <strong>Calcula:</strong> Presiona "Calcular Resultado" para obtener
+              la respuesta completa con explicación.
+            </li>
+            <li>
+              <strong>Analiza los resultados:</strong> Revisa el resumen financiero,
+              la visualización de crecimiento y los detalles del cálculo.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/interes-simple.js"></script>
+  </body>
+</html>
