@@ -378,3 +378,8 @@
 .number-separator {
   color: #6b7280;
 }
+/* Long exact values (up to 1000!) must wrap */
+.breakdown-result,
+.factorial-expression {
+  overflow-wrap: anywhere;
+}

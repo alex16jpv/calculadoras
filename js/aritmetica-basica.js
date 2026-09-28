@@ -17,24 +17,34 @@ const display = document.getElementById('display');
 const operationIndicator = document.getElementById('operationIndicator');
 const historyList = document.getElementById('historyList');
 
-// Calculator operations
+// Calculator operations (rounded to remove floating point noise: 0.1 + 0.2 = 0.3)
 const Operations = {
-  '+': (a, b) => a + b,
-  '-': (a, b) => a - b,
-  '×': (a, b) => a * b,
-  '÷': (a, b) => b !== 0 ? a / b : null
+  '+': (a, b) => CalculatorUtils.round(a + b),
+  '-': (a, b) => CalculatorUtils.round(a - b),
+  '×': (a, b) => CalculatorUtils.round(a * b),
+  '÷': (a, b) => b !== 0 ? CalculatorUtils.round(a / b) : null
 };
+
+// Short alias for number formatting
+const fmt = (value) => CalculatorUtils.formatNumber(value, 10);
 
 // Update display
 function updateDisplay() {
   display.textContent = calculator.display;
-  
+
   // Update operation indicator
   if (calculator.operator && calculator.firstOperand !== null) {
-    operationIndicator.textContent = `${calculator.firstOperand} ${calculator.operator}`;
+    operationIndicator.textContent = `${fmt(calculator.firstOperand)} ${calculator.operator}`;
   } else {
     operationIndicator.textContent = '';
   }
+}
+
+// Highlight the active operator key
+function highlightOperator(operator) {
+  document.querySelectorAll('.key-operator').forEach(key => {
+    key.classList.toggle('active', key.textContent.trim() === operator);
+  });
 }
 
 // Input number
@@ -42,6 +52,9 @@ function inputNumber(number) {
   if (calculator.waitingForOperand) {
     calculator.display = number;
     calculator.waitingForOperand = false;
+  } else if (calculator.display.replace(/[-.]/g, '').length >= 15) {
+    // Avoid digits beyond double precision
+    return;
   } else {
     calculator.display = calculator.display === '0' ? number : calculator.display + number;
   }
@@ -59,6 +72,19 @@ function inputDecimal() {
   updateDisplay();
 }
 
+// Toggle sign of the current entry
+function toggleSign() {
+  if (calculator.display === '0') return;
+  calculator.display = calculator.display.startsWith('-')
+    ? calculator.display.slice(1)
+    : '-' + calculator.display;
+  if (calculator.waitingForOperand && calculator.operator === null) {
+    // Toggling a previous result keeps it as the current entry
+    calculator.waitingForOperand = false;
+  }
+  updateDisplay();
+}
+
 // Clear all
 function clearAll() {
   calculator.display = '0';
@@ -66,6 +92,7 @@ function clearAll() {
   calculator.operator = null;
   calculator.waitingForOperand = false;
   calculator.lastOperation = null;
+  highlightOperator(null);
   updateDisplay();
   CalculatorUtils.clearResults();
 }
@@ -78,11 +105,9 @@ function clearEntry() {
 
 // Delete last character
 function deleteLast() {
-  if (calculator.display.length > 1) {
-    calculator.display = calculator.display.slice(0, -1);
-  } else {
-    calculator.display = '0';
-  }
+  if (calculator.waitingForOperand) return;
+  const trimmed = calculator.display.slice(0, -1);
+  calculator.display = trimmed === '' || trimmed === '-' ? '0' : trimmed;
   updateDisplay();
 }
 
@@ -90,11 +115,18 @@ function deleteLast() {
 function setOperation(nextOperator) {
   const inputValue = parseFloat(calculator.display);
 
+  // Pressing another operator right after one just replaces it
+  if (calculator.operator && calculator.waitingForOperand) {
+    calculator.operator = nextOperator;
+    highlightOperator(nextOperator);
+    updateDisplay();
+    return;
+  }
+
   if (calculator.firstOperand === null) {
     calculator.firstOperand = inputValue;
   } else if (calculator.operator) {
-    const currentValue = calculator.firstOperand || 0;
-    const newValue = Operations[calculator.operator](currentValue, inputValue);
+    const newValue = Operations[calculator.operator](calculator.firstOperand, inputValue);
 
     if (newValue === null) {
       showError('No se puede dividir por cero');
@@ -108,13 +140,7 @@ function setOperation(nextOperator) {
   calculator.waitingForOperand = true;
   calculator.operator = nextOperator;
   updateDisplay();
-  
-  // Visual feedback for active operator
-  document.querySelectorAll('.key-operator').forEach(key => {
-    key.classList.remove('active');
-  });
-  
-  event.target.classList.add('active');
+  highlightOperator(nextOperator);
 }
 
 // Calculate result
@@ -122,11 +148,16 @@ function calculate() {
   const inputValue = parseFloat(calculator.display);
 
   if (calculator.firstOperand !== null && calculator.operator) {
-    const currentValue = calculator.firstOperand || 0;
+    const currentValue = calculator.firstOperand;
     const result = Operations[calculator.operator](currentValue, inputValue);
 
     if (result === null) {
       showError('No se puede dividir por cero');
+      return;
+    }
+
+    if (!Number.isFinite(result)) {
+      showError('El resultado es demasiado grande');
       return;
     }
 
@@ -136,7 +167,7 @@ function calculate() {
       operator: calculator.operator,
       operand2: inputValue,
       result: result,
-      expression: `${currentValue} ${calculator.operator} ${inputValue}`,
+      expression: `${fmt(currentValue)} ${calculator.operator} ${fmt(inputValue)}`,
       timestamp: new Date()
     };
 
@@ -153,11 +184,9 @@ function calculate() {
     showExplanation(operation);
 
     updateDisplay();
-    
+
     // Remove active operator styling
-    document.querySelectorAll('.key-operator').forEach(key => {
-      key.classList.remove('active');
-    });
+    highlightOperator(null);
   }
 }
 
@@ -165,11 +194,12 @@ function calculate() {
 function showError(message) {
   const errorDiv = document.createElement('div');
   errorDiv.className = 'error-display';
+  errorDiv.setAttribute('role', 'alert');
   errorDiv.textContent = message;
-  
+
   const calculatorCard = document.querySelector('.calculator-card');
   calculatorCard.appendChild(errorDiv);
-  
+
   setTimeout(() => {
     errorDiv.remove();
   }, 3000);
@@ -179,11 +209,14 @@ function showError(message) {
 function generateSteps(operation) {
   const steps = [];
   const { operand1, operator, operand2, result } = operation;
-  
+  const a = fmt(operand1);
+  const b = fmt(operand2);
+  const r = fmt(result);
+
   steps.push({
     number: 1,
     content: "Identificamos la operación:",
-    formula: `${operand1} ${operator} ${operand2}`
+    formula: `${a} ${operator} ${b}`
   });
 
   switch (operator) {
@@ -191,9 +224,9 @@ function generateSteps(operation) {
       steps.push({
         number: 2,
         content: "Realizamos la suma:",
-        formula: `${operand1} + ${operand2} = ${result}`
+        formula: `${a} + ${b} = ${r}`
       });
-      if (operand1 > 10 && operand2 > 10) {
+      if (Math.abs(operand1) >= 10 && Math.abs(operand2) >= 10) {
         steps.push({
           number: 3,
           content: "Proceso de suma por columnas:",
@@ -201,56 +234,65 @@ function generateSteps(operation) {
         });
       }
       break;
-      
+
     case '-':
       steps.push({
         number: 2,
         content: "Realizamos la resta:",
-        formula: `${operand1} - ${operand2} = ${result}`
+        formula: `${a} - ${b} = ${r}`
       });
-      if (operand1 > operand2 && operand1 > 10) {
+      if (operand1 > operand2 && operand1 >= 10) {
         steps.push({
           number: 3,
           content: "Proceso de resta por columnas:",
           formula: "Restamos unidades, decenas, centenas... pidiendo prestado cuando es necesario"
         });
+      } else if (operand2 > operand1) {
+        steps.push({
+          number: 3,
+          content: "Resultado negativo:",
+          formula: `Como ${b} es mayor que ${a}, el resultado es negativo`
+        });
       }
       break;
-      
+
     case '×':
       steps.push({
         number: 2,
         content: "Realizamos la multiplicación:",
-        formula: `${operand1} × ${operand2} = ${result}`
+        formula: `${a} × ${b} = ${r}`
       });
-      if (operand2 > 1) {
+      if (Number.isInteger(operand2) && operand2 > 1 && operand2 <= 1000) {
         steps.push({
           number: 3,
           content: "Interpretación:",
-          formula: `Sumamos ${operand1} un total de ${operand2} veces`
+          formula: `Sumamos ${a} un total de ${b} veces`
         });
       }
       break;
-      
-    case '÷':
+
+    case '÷': {
       steps.push({
         number: 2,
         content: "Realizamos la división:",
-        formula: `${operand1} ÷ ${operand2} = ${result}`
+        formula: `${a} ÷ ${b} = ${r}`
       });
       steps.push({
         number: 3,
         content: "Interpretación:",
-        formula: `¿Cuántas veces cabe ${operand2} en ${operand1}? ${result} veces`
+        formula: `¿Cuántas veces cabe ${b} en ${a}? ${r} veces`
       });
-      if (result % 1 !== 0) {
+      if (Number.isInteger(operand1) && Number.isInteger(operand2) && result % 1 !== 0) {
+        const quotient = Math.trunc(operand1 / operand2);
+        const remainder = operand1 - quotient * operand2;
         steps.push({
           number: 4,
-          content: "Resultado decimal:",
-          formula: `La división no es exacta, el resultado es ${result}`
+          content: "División entera (cociente y residuo):",
+          formula: `${a} = ${b} × ${fmt(quotient)} + ${fmt(remainder)}`
         });
       }
       break;
+    }
   }
 
   return steps;
@@ -259,16 +301,16 @@ function generateSteps(operation) {
 // Show explanation
 function showExplanation(operation) {
   // Update operation display
-  document.getElementById('operationDisplay').textContent = 
-    `${operation.expression} = ${operation.result}`;
-  
+  document.getElementById('operationDisplay').textContent =
+    `${operation.expression} = ${fmt(operation.result)}`;
+
   // Update result value
-  CalculatorUtils.displayResultValue(operation.result.toString());
-  
+  CalculatorUtils.displayResultValue(fmt(operation.result));
+
   // Generate and display steps
   const steps = generateSteps(operation);
   CalculatorUtils.displaySteps(steps);
-  
+
   // Show results
   CalculatorUtils.showResults();
 }
@@ -276,12 +318,12 @@ function showExplanation(operation) {
 // Add to history
 function addToHistory(operation) {
   operationHistory.unshift(operation);
-  
+
   // Limit history to 50 items
   if (operationHistory.length > 50) {
     operationHistory = operationHistory.slice(0, 50);
   }
-  
+
   updateHistoryDisplay();
 }
 
@@ -295,22 +337,22 @@ function updateHistoryDisplay() {
     `;
     return;
   }
-  
+
   historyList.innerHTML = '';
-  
+
   operationHistory.forEach(operation => {
     const historyItem = document.createElement('div');
     historyItem.className = 'history-item';
     historyItem.onclick = () => loadFromHistory(operation);
-    
+
     historyItem.innerHTML = `
       <div>
         <span class="history-operation">${operation.expression}</span>
-        <span class="history-result">= ${operation.result}</span>
+        <span class="history-result">= ${fmt(operation.result)}</span>
       </div>
       <span class="history-time">${formatTime(operation.timestamp)}</span>
     `;
-    
+
     historyList.appendChild(historyItem);
   });
 }
@@ -330,7 +372,7 @@ function loadFromHistory(operation) {
   calculator.operator = null;
   calculator.waitingForOperand = true;
   updateDisplay();
-  
+
   // Show explanation for the selected operation
   showExplanation(operation);
 }
@@ -345,26 +387,23 @@ function clearHistory() {
 function loadExample(expression) {
   // Parse expression like "125 + 87"
   const parts = expression.split(' ');
-  if (parts.length === 3) {
+  if (parts.length === 3 && Operations[parts[1]]) {
     const [operand1, operator, operand2] = parts;
-    
+    if (isNaN(parseFloat(operand1)) || isNaN(parseFloat(operand2))) return;
+
     // Clear calculator
     clearAll();
-    
-    // Input first operand
-    calculator.display = operand1;
+
+    // Input first operand and operation
     calculator.firstOperand = parseFloat(operand1);
-    updateDisplay();
-    
-    // Set operation
     calculator.operator = operator;
-    calculator.waitingForOperand = true;
-    updateDisplay();
-    
+    highlightOperator(operator);
+
     // Input second operand
     calculator.display = operand2;
+    calculator.waitingForOperand = false;
     updateDisplay();
-    
+
     // Calculate
     setTimeout(() => {
       calculate();
@@ -374,23 +413,20 @@ function loadExample(expression) {
 
 // Keyboard support
 function handleKeyPress(event) {
+  // Leave browser shortcuts (Ctrl+C, Ctrl+R...) untouched
+  if (event.ctrlKey || event.metaKey || event.altKey) return;
+
   const key = event.key;
-  
-  // Add visual feedback
-  document.body.classList.add('keyboard-active');
-  setTimeout(() => {
-    document.body.classList.remove('keyboard-active');
-  }, 100);
-  
+
   if (key >= '0' && key <= '9') {
     inputNumber(key);
-  } else if (key === '.') {
+  } else if (key === '.' || key === ',') {
     inputDecimal();
   } else if (key === '+') {
     setOperation('+');
   } else if (key === '-') {
     setOperation('-');
-  } else if (key === '*') {
+  } else if (key === '*' || key === 'x') {
     setOperation('×');
   } else if (key === '/') {
     event.preventDefault();
@@ -410,25 +446,22 @@ function handleKeyPress(event) {
 document.addEventListener('DOMContentLoaded', () => {
   updateDisplay();
   updateHistoryDisplay();
-  
+
   // Setup keyboard events
   document.addEventListener('keydown', handleKeyPress);
-  
-  // Focus on the calculator for keyboard input
-  document.body.tabIndex = 0;
-  document.body.focus();
-  
+
   // Check for URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const exampleParam = urlParams.get('example');
   if (exampleParam) {
-    loadExample(decodeURIComponent(exampleParam));
+    loadExample(exampleParam);
   }
 });
 
 // Make functions globally available for onclick handlers
 window.inputNumber = inputNumber;
 window.inputDecimal = inputDecimal;
+window.toggleSign = toggleSign;
 window.setOperation = setOperation;
 window.calculate = calculate;
 window.clearAll = clearAll;

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de IVA | Agregar o Quitar IVA a un Precio</title>
+    <meta
+      name="description"
+      content="Calcula el IVA de un precio: agrega el impuesto a un valor neto o descuéntalo de un precio final. Incluye las tasas generales de España y Latinoamérica."
+    />
+    <meta
+      name="keywords"
+      content="calculadora iva, calcular iva, quitar iva, sumar iva, iva 19%, iva 16%, iva 21%, precio sin iva, base imponible"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de IVA - Agregar o Quitar IVA"
+    />
+    <meta
+      property="og:description"
+      content="Suma o descuenta el IVA de cualquier precio con las tasas de tu país."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/calculadora-iva.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de IVA" />
+    <meta
+      name="twitter:description"
+      content="Precio con IVA, sin IVA y monto del impuesto."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/calculadora-iva.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de IVA",
+        "url": "https://calculadoras.alexpiral.com/calculadora-iva.html",
+        "description": "Agrega o quita el IVA de un precio con tasas de España y Latinoamérica",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Agregar IVA a un precio neto",
+          "Quitar IVA de un precio final",
+          "Tasas generales por país",
+          "Tasa personalizada"
+        ],
+        "keywords": [
+          "calculadora iva",
+          "quitar iva",
+          "sumar iva",
+          "precio sin iva"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/calculadora-iva.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de IVA</h1>
+        <p>
+          Agrega el IVA a un precio neto o descuéntalo de un precio final.
+          Selecciona tu país o usa cualquier tasa personalizada.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>¿Qué quieres calcular?</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="add"
+              onclick="changeType('add')"
+            >
+              Agregar IVA
+            </button>
+            <button
+              class="type-button"
+              data-type="remove"
+              onclick="changeType('remove')"
+            >
+              Quitar IVA
+            </button>
+          </div>
+
+          <form id="vatForm">
+            <div class="input-group">
+              <label for="amountInput" id="amountLabel">Precio sin IVA ($):</label>
+              <input type="number" class="input-field" id="amountInput" placeholder="100" min="0" step="any" required />
+            </div>
+
+            <div class="input-row">
+              <div class="input-group">
+                <label for="countrySelect">País / tasa:</label>
+                <select class="select-field" id="countrySelect"></select>
+              </div>
+              <div class="input-group">
+                <label for="rateInput">Tasa de IVA (%):</label>
+                <input type="number" class="input-field" id="rateInput" min="0" max="100" step="any" required />
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Para quitar el IVA no se resta el porcentaje al precio final: se
+              divide entre (1 + tasa). Ej: $119 con IVA del 19% → $119 ÷ 1.19 =
+              $100.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🧾</p>
+            <p>Ingresa un precio para calcular el IVA</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('add', 100000, 'CO')">
+            <h3 class="example-title">🇨🇴 Agregar IVA del 19%</h3>
+            <p class="example-description">$100,000 más IVA en Colombia</p>
+          </div>
+          <div class="example-card" onclick="loadExample('remove', 1160, 'MX')">
+            <h3 class="example-title">🇲🇽 Quitar IVA del 16%</h3>
+            <p class="example-description">Precio final de $1,160 en México</p>
+          </div>
+          <div class="example-card" onclick="loadExample('remove', 121, 'ES')">
+            <h3 class="example-title">🇪🇸 Base imponible con 21%</h3>
+            <p class="example-description">¿Cuánto es sin IVA una factura de 121 €?</p>
+          </div>
+          <div class="example-card" onclick="loadExample('add', 500, 'PE')">
+            <h3 class="example-title">🇵🇪 IGV del 18%</h3>
+            <p class="example-description">S/ 500 más IGV en Perú</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Fórmulas del IVA</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">+</div>
+              Agregar IVA
+            </h3>
+            <ul>
+              <li>IVA = Precio neto × tasa</li>
+              <li>Precio final = Precio neto × (1 + tasa)</li>
+              <li>Ej: 100 × 1.19 = 119</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">−</div>
+              Quitar IVA
+            </h3>
+            <ul>
+              <li>Precio neto = Precio final ÷ (1 + tasa)</li>
+              <li>IVA = Precio final - Precio neto</li>
+              <li>Ej: 119 ÷ 1.19 = 100</li>
+            </ul>
+          </div>
+        </div>
+        <p class="disclaimer">
+          Las tasas precargadas corresponden a la tarifa general de cada país y
+          pueden cambiar. Algunos productos y servicios tienen tarifas reducidas
+          o están exentos; verifica la tasa vigente con la autoridad tributaria
+          de tu país.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/calculadora-iva.js"></script>
+  </body>
+</html>

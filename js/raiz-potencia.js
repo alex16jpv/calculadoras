@@ -51,6 +51,15 @@ const calculatorConfigs = {
   }
 };
 
+// Round results like 2.0000000000000004 to the nearby integer
+function snapToInteger(value) {
+  const rounded = Math.round(value);
+  return Math.abs(value - rounded) < 1e-9 * Math.max(1, Math.abs(value)) ? rounded : value;
+}
+
+// Short alias for number formatting
+const fmt = (value) => CalculatorUtils.formatNumber(value, 10);
+
 // Mathematical operations
 const MathOperations = {
   // Square root
@@ -61,25 +70,22 @@ const MathOperations = {
     return Math.sqrt(number);
   },
 
-  // Cube root
+  // Cube root (Math.cbrt is exact for perfect cubes: ∛64 = 4, not 3.9999…)
   cubeRoot(number) {
-    return number >= 0 ? Math.pow(number, 1/3) : -Math.pow(-number, 1/3);
+    return snapToInteger(Math.cbrt(number));
   },
 
   // Nth root
   nthRoot(number, index) {
-    if (index <= 0) {
-      throw new Error("El índice debe ser mayor que cero");
+    if (!Number.isInteger(index) || index < 2) {
+      throw new Error("El índice debe ser un número entero mayor o igual a 2");
     }
     if (index % 2 === 0 && number < 0) {
       throw new Error("No se puede calcular la raíz de índice par de un número negativo");
     }
-    
-    if (number >= 0) {
-      return Math.pow(number, 1/index);
-    } else {
-      return -Math.pow(-number, 1/index);
-    }
+
+    const root = Math.pow(Math.abs(number), 1 / index);
+    return snapToInteger(number < 0 ? -root : root);
   },
 
   // Power
@@ -87,7 +93,10 @@ const MathOperations = {
     if (base === 0 && exponent < 0) {
       throw new Error("No se puede elevar cero a una potencia negativa");
     }
-    return Math.pow(base, exponent);
+    if (base < 0 && !Number.isInteger(exponent)) {
+      throw new Error("Una base negativa con exponente decimal no tiene resultado real");
+    }
+    return CalculatorUtils.round(Math.pow(base, exponent), 15);
   },
 
   // Check if number is perfect square
@@ -372,13 +381,35 @@ function generateSteps(values, result, type) {
         steps.push({
           number: 3,
           content: "Calculamos el resultado:",
-          formula: `${base}^${exponent} = ${result}`
+          formula: `${base}^${exponent} = ${fmt(result)}`
+        });
+      } else if (exponent < 0) {
+        steps.push({
+          number: 2,
+          content: "Aplicamos la regla del exponente negativo:",
+          formula: `${base}^${exponent} = 1 ÷ ${base}^${-exponent}`
+        });
+        steps.push({
+          number: 3,
+          content: "Calculamos el resultado:",
+          formula: `1 ÷ ${fmt(Math.pow(base, -exponent))} = ${fmt(result)}`
+        });
+      } else if (!Number.isInteger(exponent)) {
+        steps.push({
+          number: 2,
+          content: "Un exponente decimal equivale a una raíz:",
+          formula: `${base}^${exponent} = e^(${exponent} × ln ${base})`
+        });
+        steps.push({
+          number: 3,
+          content: "Calculamos el resultado:",
+          formula: `${base}^${exponent} ≈ ${fmt(result)}`
         });
       } else {
         steps.push({
           number: 2,
           content: "Calculamos la potencia:",
-          formula: `${base}^${exponent} = ${result}`
+          formula: `${base}^${exponent} = ${fmt(result)}`
         });
       }
       break;
@@ -401,6 +432,11 @@ function generateApproximations(result, type, values) {
     approximations.push({
       label: "Valor Exacto",
       value: Math.round(Math.cbrt(Math.abs(values.number))) * Math.sign(values.number)
+    });
+  } else if (Number.isInteger(result)) {
+    approximations.push({
+      label: "Valor Exacto",
+      value: fmt(result)
     });
   } else {
     // Decimal approximations
@@ -467,22 +503,22 @@ function displayResults(values, result) {
   let formulaText = "";
   switch (calculatorType) {
     case "square-root":
-      formulaText = `√${values.number} = ${result.toFixed(6)}`;
+      formulaText = `√${values.number} = ${fmt(result)}`;
       break;
     case "cube-root":
-      formulaText = `∛${values.number} = ${result.toFixed(6)}`;
+      formulaText = `∛${values.number} = ${fmt(result)}`;
       break;
     case "nth-root":
-      formulaText = `${values.index}√${values.number} = ${result.toFixed(6)}`;
+      formulaText = `${values.index}√${values.number} = ${fmt(result)}`;
       break;
     case "power":
-      formulaText = `${values.base}^${values.exponent} = ${result}`;
+      formulaText = `${values.base}^${values.exponent} = ${fmt(result)}`;
       break;
   }
   operationFormula.textContent = formulaText;
 
   // Show result value
-  CalculatorUtils.displayResultValue(result.toString());
+  CalculatorUtils.displayResultValue(fmt(result));
 
   // Generate and display approximations
   const approximations = generateApproximations(result, calculatorType, values);
@@ -547,7 +583,8 @@ async function performCalculation() {
   config.inputs.forEach((input) => {
     const element = document.getElementById(input.id);
     if (element) {
-      values[input.id] = CalculatorUtils.validateInput(element.value, input.label);
+      // Negative values are valid here (∛-27, 2^-3); each operation validates its own domain
+      values[input.id] = CalculatorUtils.parseNumber(element.value, input.label);
     }
   });
 

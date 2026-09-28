@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de Bases Numéricas | Binario, Decimal, Hexadecimal y Octal</title>
+    <meta
+      name="description"
+      content="Convierte números entre binario, octal, decimal, hexadecimal y cualquier base de 2 a 36. Con explicación paso a paso de divisiones sucesivas."
+    />
+    <meta
+      name="keywords"
+      content="conversor de bases, binario a decimal, decimal a binario, hexadecimal, octal, convertir bases numéricas, sistema binario"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Conversor de Bases Numéricas - Binario, Decimal, Hexadecimal"
+    />
+    <meta
+      property="og:description"
+      content="Convierte números entre sistemas de numeración con explicación paso a paso."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/conversion-bases.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Conversor de Bases Numéricas" />
+    <meta
+      name="twitter:description"
+      content="Binario, octal, decimal, hexadecimal y cualquier base de 2 a 36."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/conversion-bases.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Conversor de Bases Numéricas",
+        "url": "https://calculadoras.alexpiral.com/conversion-bases.html",
+        "description": "Convierte números enteros entre binario, octal, decimal, hexadecimal y cualquier base de 2 a 36",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Binario, octal, decimal y hexadecimal",
+          "Cualquier base de 2 a 36",
+          "Números enteros de cualquier tamaño",
+          "Explicación paso a paso"
+        ],
+        "keywords": [
+          "conversor de bases",
+          "binario a decimal",
+          "decimal a binario",
+          "hexadecimal",
+          "octal"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/conversion-bases.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Conversor de Bases Numéricas</h1>
+        <p>
+          Convierte números enteros entre binario, octal, decimal, hexadecimal y
+          cualquier base de 2 a 36. Incluye la explicación del método de
+          divisiones sucesivas.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Número a Convertir</h2>
+
+          <form id="basesForm">
+            <div class="input-group">
+              <label for="numberInput">Número:</label>
+              <input
+                type="text"
+                class="input-field mono"
+                id="numberInput"
+                placeholder="Ej: 255, 11111111, FF"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+            </div>
+
+            <div class="input-row">
+              <div class="input-group">
+                <label for="fromBase">Base de origen:</label>
+                <select class="select-field" id="fromBase">
+                  <option value="2">Binario (2)</option>
+                  <option value="8">Octal (8)</option>
+                  <option value="10" selected>Decimal (10)</option>
+                  <option value="16">Hexadecimal (16)</option>
+                  <option value="custom">Otra base...</option>
+                </select>
+              </div>
+              <div class="input-group" id="customBaseGroup" hidden>
+                <label for="customBase">Base (2-36):</label>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="customBase"
+                  min="2"
+                  max="36"
+                  step="1"
+                  value="3"
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="targetBase">Base extra de destino (opcional):</label>
+              <input
+                type="number"
+                class="input-field"
+                id="targetBase"
+                min="2"
+                max="36"
+                step="1"
+                placeholder="Ej: 3, 5, 36"
+              />
+            </div>
+
+            <button type="submit" class="calculate-btn">Convertir</button>
+
+            <div class="calculating">
+              <span>Convirtiendo...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Puedes escribir prefijos como 0b (binario), 0o (octal) o 0x
+              (hexadecimal) y se detectará la base automáticamente.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle">Valor en decimal</p>
+
+            <div class="base-results" id="baseResults"></div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🔢</p>
+            <p>Escribe un número y elige su base para convertirlo</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('255', '10')">
+            <h3 class="example-title">🎨 255 en decimal</h3>
+            <p class="example-description">
+              El valor máximo de un byte: 11111111 en binario, FF en hexadecimal
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('101010', '2')">
+            <h3 class="example-title">💻 101010 en binario</h3>
+            <p class="example-description">
+              Convierte un número binario a decimal (42)
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('1A3F', '16')">
+            <h3 class="example-title">🔷 1A3F en hexadecimal</h3>
+            <p class="example-description">
+              Muy usado en colores y direcciones de memoria
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('755', '8')">
+            <h3 class="example-title">🔐 755 en octal</h3>
+            <p class="example-description">
+              Los permisos de archivos en Linux usan base 8
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Sistemas de Numeración</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">➗</div>
+              De decimal a otra base
+            </h3>
+            <p>
+              Divide el número entre la base de destino repetidamente y anota los
+              residuos. El resultado se lee de abajo hacia arriba.
+            </p>
+            <ul>
+              <li>13 ÷ 2 = 6, residuo 1</li>
+              <li>6 ÷ 2 = 3, residuo 0</li>
+              <li>3 ÷ 2 = 1, residuo 1</li>
+              <li>1 ÷ 2 = 0, residuo 1 → 1101</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">✖️</div>
+              De otra base a decimal
+            </h3>
+            <p>
+              Multiplica cada dígito por la base elevada a su posición (empezando
+              en 0 por la derecha) y suma.
+            </p>
+            <ul>
+              <li>1101₂ = 1×2³ + 1×2² + 0×2¹ + 1×2⁰</li>
+              <li>= 8 + 4 + 0 + 1 = 13</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔤</div>
+              Dígitos mayores que 9
+            </h3>
+            <p>
+              A partir de la base 11 se usan letras: A = 10, B = 11, ..., F = 15,
+              ..., Z = 35.
+            </p>
+            <ul>
+              <li>Hexadecimal: 0-9 y A-F</li>
+              <li>Base 36: 0-9 y A-Z</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/conversion-bases.js"></script>
+  </body>
+</html>

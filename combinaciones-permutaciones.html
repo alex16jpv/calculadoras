@@ -65,6 +65,7 @@
           "Cálculo de combinaciones C(n,r)",
           "Cálculo de permutaciones P(n,r)",
           "Variaciones con repetición",
+          "Combinaciones con repetición",
           "Permutaciones circulares",
           "Explicación paso a paso",
           "Aplicaciones prácticas",
@@ -133,6 +134,13 @@
               onclick="changeType('variations')"
             >
               Variaciones con Repetición
+            </button>
+            <button
+              class="type-button"
+              data-type="combinations-repetition"
+              onclick="changeType('combinations-repetition')"
+            >
+              Combinaciones con Repetición
             </button>
             <button
               class="type-button"
@@ -266,7 +274,13 @@
           <div class="example-card" onclick="loadExample('variations', {n: 4, r: 3})">
             <h3 class="example-title">Variaciones con Repetición</h3>
             <p class="example-description">
-              V(4,3) = 64 - Elegir 3 elementos de 4 con repetición permitida
+              VR(4,3) = 64 - Secuencias de 3 elementos elegidos de 4, con repetición
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('combinations-repetition', {n: 5, r: 3})">
+            <h3 class="example-title">Combinaciones con Repetición</h3>
+            <p class="example-description">
+              CR(5,3) = 35 - Elegir 3 bolas de helado entre 5 sabores
             </p>
           </div>
           <div class="example-card" onclick="loadExample('circular', {n: 6})">
@@ -327,8 +341,8 @@
           </div>
           <div class="comparison-row">
             <div class="comparison-cell">
-              <strong>Variaciones</strong><br>
-              <small>V(n,r)</small>
+              <strong>Variaciones con repetición</strong><br>
+              <small>VR(n,r)</small>
             </div>
             <div class="comparison-cell">
               <span class="formula">n^r</span>
@@ -341,6 +355,24 @@
             </div>
             <div class="comparison-cell">
               <small>Códigos de 3 dígitos usando 0-9</small>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-cell">
+              <strong>Combinaciones con repetición</strong><br>
+              <small>CR(n,r)</small>
+            </div>
+            <div class="comparison-cell">
+              <span class="formula">(n+r-1)! / (r!(n-1)!)</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="no">No</span>
+            </div>
+            <div class="comparison-cell">
+              <span class="yes">Sí</span>
+            </div>
+            <div class="comparison-cell">
+              <small>Elegir 3 bolas de helado de 5 sabores</small>
             </div>
           </div>
           <div class="comparison-row">

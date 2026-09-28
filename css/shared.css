@@ -211,6 +211,7 @@ main {
   color: var(--primary-color);
   text-align: center;
   margin: 1.5rem 0;
+  overflow-wrap: anywhere;
 }
 
 .steps-section {
@@ -259,6 +260,8 @@ main {
   border-radius: 0.25rem;
   margin: 0.5rem 0;
   overflow-x: auto;
+  white-space: pre-line;
+  word-break: break-word;
 }
 
 /* Examples Section */
@@ -268,7 +271,7 @@ main {
 
 .examples-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -306,7 +309,7 @@ main {
 
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -418,5 +421,246 @@ footer {
 
   .info-grid {
     grid-template-columns: 1fr;
+  }
+}
+/* ------------------------------------------------------------------ */
+/* Shared components for calculators (type selector, selects, grids)  */
+/* Page-specific stylesheets load after this file and may override.   */
+/* ------------------------------------------------------------------ */
+
+/* Grid children must be allowed to shrink so wide tables scroll inside their card */
+.calculator-container > * {
+  min-width: 0;
+}
+
+/* Keyboard focus */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Type selector */
+.type-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.type-button {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.type-button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.type-button:hover:not(.active) {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Visual schema */
+.visual-schema {
+  background: var(--light-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px dashed var(--border-color);
+  text-align: center;
+}
+
+.schema-formula {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-family: "Courier New", monospace;
+  overflow-wrap: anywhere;
+}
+
+.schema-description {
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* Selects and inline field rows */
+.select-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: border-color 0.3s;
+}
+
+.select-field:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.input-group > .input-field {
+  width: 100%;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.input-hint {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.secondary-btn {
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--primary-color);
+  background: var(--card-bg);
+  color: var(--primary-color);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.secondary-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Result summary grid */
+.result-subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin-top: -0.75rem;
+  margin-bottom: 1rem;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.result-item {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 0.85rem;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.result-item-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.result-item-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-color);
+  overflow-wrap: anywhere;
+}
+
+.result-note {
+  background: white;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 0.5rem;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.result-note.warning {
+  border-left-color: #f59e0b;
+}
+
+/* Data table */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background: white;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: right;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.data-table th:first-child,
+.data-table td:first-child {
+  text-align: left;
+}
+
+.data-table th {
+  background: var(--light-bg);
+  font-weight: 600;
+}
+
+.data-table tr.highlight td {
+  background: #eff6ff;
+  font-weight: 600;
+}
+
+/* Info card lists */
+.info-card ul {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  color: #6b7280;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+
+  .header-content {
+    padding: 1rem;
+  }
+
+  .calculator-card {
+    padding: 1.25rem;
+  }
+
+  .input-wrapper .input-field {
+    min-width: 0;
   }
 }

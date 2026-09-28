@@ -1,0 +1,14 @@
+/* Daily Calories Calculator specific styles */
+
+.table-title {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.data-table td {
+  white-space: normal;
+}
+
+.data-table tr.below-minimum td {
+  color: #b45309;
+}

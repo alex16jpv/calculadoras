@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Edad | Calcula tu Edad Exacta en Años, Meses y Días</title>
+    <meta
+      name="description"
+      content="Calcula tu edad exacta en años, meses y días a partir de tu fecha de nacimiento. Descubre cuántos días has vivido y cuánto falta para tu próximo cumpleaños."
+    />
+    <meta
+      name="keywords"
+      content="calculadora de edad, calcular edad, edad exacta, cuántos años tengo, fecha de nacimiento, próximo cumpleaños, días vividos"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Edad Exacta - Años, Meses y Días"
+    />
+    <meta
+      property="og:description"
+      content="Tu edad exacta, los días que has vivido y la cuenta regresiva a tu cumpleaños."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/calculadora-edad.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de Edad" />
+    <meta
+      name="twitter:description"
+      content="Calcula tu edad exacta en años, meses y días."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/calculadora-edad.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Edad",
+        "url": "https://calculadoras.alexpiral.com/calculadora-edad.html",
+        "description": "Calcula la edad exacta en años, meses y días y el tiempo hasta el próximo cumpleaños",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Edad exacta en años, meses y días",
+          "Total de meses, semanas, días y horas vividos",
+          "Cuenta regresiva al próximo cumpleaños",
+          "Edad en una fecha específica"
+        ],
+        "keywords": [
+          "calculadora de edad",
+          "edad exacta",
+          "próximo cumpleaños",
+          "días vividos"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/calculadora-edad.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Edad</h1>
+        <p>
+          Calcula tu edad exacta en años, meses y días, el total de días que has
+          vivido y cuánto falta para tu próximo cumpleaños.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Fecha de Nacimiento</h2>
+
+          <form id="ageForm">
+            <div class="input-group">
+              <label for="birthDate">Fecha de nacimiento:</label>
+              <input type="date" class="input-field" id="birthDate" required />
+            </div>
+
+            <div class="input-group">
+              <label for="referenceDate">Calcular la edad al:</label>
+              <input type="date" class="input-field" id="referenceDate" required />
+              <div class="input-hint">Por defecto es la fecha de hoy.</div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular Edad</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Cambia la segunda fecha para saber qué edad tenías (o tendrás) en
+              un día concreto, por ejemplo al graduarte o al jubilarte.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="birthday-card" id="birthdayCard"></div>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="steps-section">
+              <h3>Detalle del cálculo:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🎂</p>
+            <p>Ingresa tu fecha de nacimiento para calcular tu edad</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('2000-01-01')">
+            <h3 class="example-title">🎉 Nacido el 1 de enero de 2000</h3>
+            <p class="example-description">Edad exacta a la fecha de hoy</p>
+          </div>
+          <div class="example-card" onclick="loadExample('1990-06-15')">
+            <h3 class="example-title">🌞 15 de junio de 1990</h3>
+            <p class="example-description">Edad y días hasta el próximo cumpleaños</p>
+          </div>
+          <div class="example-card" onclick="loadExample('2004-02-29')">
+            <h3 class="example-title">📅 29 de febrero de 2004</h3>
+            <p class="example-description">Un cumpleaños en año bisiesto</p>
+          </div>
+          <div class="example-card" onclick="loadExample('1969-07-20', '2019-07-20')">
+            <h3 class="example-title">🌙 50 años de la llegada a la Luna</h3>
+            <p class="example-description">Del 20/07/1969 al 20/07/2019</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>¿Cómo se Calcula la Edad?</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📆</div>
+              Años, meses y días
+            </h3>
+            <p>
+              Se cuentan los años completos transcurridos desde el nacimiento,
+              luego los meses completos y finalmente los días restantes,
+              respetando la duración real de cada mes.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">29</div>
+              Nacidos el 29 de febrero
+            </h3>
+            <p>
+              En años no bisiestos, esta calculadora considera que el año se
+              cumple el 1 de marzo (el día siguiente al 28 de febrero). La norma
+              legal puede variar según el país.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/calculadora-edad.js"></script>
+  </body>
+</html>

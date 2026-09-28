@@ -32,7 +32,7 @@ const calculatorConfigs = {
   "both": {
     formula: "MCD y MCM = ?",
     description: "Calcula tanto el máximo común divisor como el mínimo común múltiplo",
-    helpText: "Calcula ambos valores usando la relación: MCD(a,b) × MCM(a,b) = a × b"
+    helpText: "Para dos números se cumple: MCD(a,b) × MCM(a,b) = a × b"
   }
 };
 
@@ -65,7 +65,7 @@ const MathOperations = {
     }
     
     steps.push({
-      equation: `${a} = ${0} × ? + ${a}`,
+      equation: `El último residuo distinto de cero es ${a}`,
       operation: `MCD(${original_a}, ${original_b}) = ${a}`,
       final: true
     });
@@ -104,7 +104,11 @@ const MathOperations = {
     if (a === 0 || b === 0) return { result: 0, steps: [] };
     
     const gcdResult = this.gcd(a, b);
-    const result = Math.abs(a * b) / gcdResult.result;
+    // Divide before multiplying to stay within safe integer precision
+    const result = (Math.abs(a) / gcdResult.result) * Math.abs(b);
+    if (!Number.isSafeInteger(result)) {
+      throw new Error("El MCM es demasiado grande para calcularse con precisión");
+    }
     
     const steps = [
       {
@@ -168,8 +172,8 @@ const MathOperations = {
   // Format prime factorization with powers
   formatPrimeFactorization(n) {
     const factors = this.primeFactorization(n);
-    if (factors.length === 0) return "";
-    
+    if (factors.length === 0) return "1";
+
     const factorCount = {};
     factors.forEach(factor => {
       factorCount[factor] = (factorCount[factor] || 0) + 1;
@@ -281,7 +285,7 @@ function getNumbers() {
   const numbers = [];
   
   inputs.forEach((input, index) => {
-    const value = CalculatorUtils.validateInput(input.value, `Número ${index + 1}`);
+    const value = CalculatorUtils.parseInteger(input.value, `El número ${index + 1}`);
     if (value <= 0) {
       throw new Error(`El número ${index + 1} debe ser un entero positivo`);
     }
@@ -325,41 +329,43 @@ function generateSteps(numbers, results, type) {
   }
   
   // Prime factorization step
-  if (numbers.length <= 4) {
+  if (numbers.length <= 6) {
     steps.push({
-      number: 2,
+      number: steps.length + 1,
       content: "Factorización prima de cada número:",
-      formula: numbers.map(n => `${n} = ${MathOperations.formatPrimeFactorization(n)}`).join('\\n')
+      formula: numbers.map(n => `${n} = ${MathOperations.formatPrimeFactorization(n)}`).join('\n')
     });
   }
-  
+
   // Algorithm steps
   if (type === "gcd" || type === "both") {
-    const gcdSteps = results.gcdSteps || [];
+    const gcdSteps = (results.gcdSteps || []).filter(step => !step.final);
     if (gcdSteps.length > 0) {
       steps.push({
-        number: 3,
-        content: "Aplicamos el algoritmo de Euclides:",
-        formula: gcdSteps.slice(0, 3).map(step => step.equation).join('\\n')
+        number: steps.length + 1,
+        content: "Aplicamos el algoritmo de Euclides (dividimos hasta obtener residuo 0):",
+        formula: gcdSteps.map(step => step.equation).join('\n')
       });
     }
   }
-  
+
   if (type === "lcm" || type === "both") {
     steps.push({
-      number: type === "both" ? 4 : 3,
-      content: "Usamos la relación fundamental:",
-      formula: `MCM × MCD = producto de los números\\nMCM = producto / MCD`
+      number: steps.length + 1,
+      content: numbers.length === 2
+        ? "Usamos la relación fundamental entre MCM y MCD:"
+        : "Aplicamos la relación de dos en dos (MCM(a, b, c) = MCM(MCM(a, b), c)):",
+      formula: `MCM(a, b) = (a × b) ÷ MCD(a, b)`
     });
   }
-  
+
   // Final result
   const finalStepNumber = steps.length + 1;
   if (type === "both") {
     steps.push({
       number: finalStepNumber,
       content: "Resultados finales:",
-      formula: `MCD = ${results.gcd}\\nMCM = ${results.lcm}`
+      formula: `MCD = ${results.gcd}\nMCM = ${results.lcm}`
     });
   } else if (type === "gcd") {
     steps.push({
@@ -440,9 +446,12 @@ function displayResults(numbers, results) {
   
   // Display algorithm steps
   const algorithmStepsData = results.algorithmSteps || [];
-  if (algorithmStepsData.length > 0) {
-    displayAlgorithmSteps(algorithmStepsData);
-  }
+  algorithmSection.querySelector('h3').textContent =
+    calculatorType === "gcd" ? "Algoritmo de Euclides:"
+    : calculatorType === "lcm" ? "Cálculo del MCM:"
+    : "Algoritmo de Euclides y cálculo del MCM:";
+  algorithmSection.style.display = algorithmStepsData.length > 0 ? "block" : "none";
+  displayAlgorithmSteps(algorithmStepsData);
   
   // Generate and display explanation steps
   const steps = generateSteps(numbers, results, calculatorType);
@@ -501,11 +510,6 @@ async function performCalculation() {
   const maxNumber = Math.max(...numbers);
   if (maxNumber > 1e12) {
     throw new Error("Los números son demasiado grandes para procesar eficientemente");
-  }
-  
-  // Add delay for complex calculations
-  if (numbers.length > 5 || maxNumber > 1e6) {
-    await CalculatorUtils.delay(1000);
   }
   
   let results = {};

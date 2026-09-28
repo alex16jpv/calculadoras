@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de Longitud | Metros, Pies, Pulgadas, Km y Millas</title>
+    <meta
+      name="description"
+      content="Convierte unidades de longitud: metros, centímetros, kilómetros, pulgadas, pies, yardas, millas y millas náuticas. Resultado en todas las unidades a la vez."
+    />
+    <meta
+      name="keywords"
+      content="conversor de longitud, metros a pies, pies a metros, pulgadas a centímetros, km a millas, convertir unidades de longitud"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Conversor de Longitud - Metros, Pies, Pulgadas y Millas"
+    />
+    <meta
+      property="og:description"
+      content="Convierte entre unidades métricas e imperiales de longitud al instante."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/conversion-longitud.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Conversor de Longitud" />
+    <meta
+      name="twitter:description"
+      content="Metros, pies, pulgadas, kilómetros, millas y más."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/conversion-longitud.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Conversor de Longitud",
+        "url": "https://calculadoras.alexpiral.com/conversion-longitud.html",
+        "description": "Convierte entre unidades de longitud métricas e imperiales",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Unidades métricas e imperiales",
+          "Pies y pulgadas combinados",
+          "Resultado en todas las unidades",
+          "Factores de conversión exactos"
+        ],
+        "keywords": [
+          "conversor de longitud",
+          "metros a pies",
+          "pulgadas a centímetros",
+          "km a millas"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/conversion-longitud.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Conversor de Longitud</h1>
+        <p>
+          Convierte entre metros, centímetros, kilómetros, pulgadas, pies,
+          yardas, millas y más. Usa los factores de conversión internacionales
+          exactos.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Longitud a Convertir</h2>
+
+          <form id="unitForm">
+            <div class="input-group">
+              <label for="valueInput">Valor:</label>
+              <input
+                type="number"
+                class="input-field"
+                id="valueInput"
+                placeholder="Ej: 100"
+                step="any"
+                required
+              />
+            </div>
+
+            <div class="unit-pair">
+              <div class="input-group">
+                <label for="fromUnit">De:</label>
+                <select class="select-field" id="fromUnit"></select>
+              </div>
+              <button
+                type="button"
+                class="swap-btn"
+                onclick="swapUnits()"
+                aria-label="Intercambiar unidades"
+                title="Intercambiar unidades"
+              >
+                ⇄
+              </button>
+              <div class="input-group">
+                <label for="toUnit">A:</label>
+                <select class="select-field" id="toUnit"></select>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Convertir</button>
+
+            <div class="calculating">
+              <span>Convirtiendo...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              1 pulgada = 2.54 cm exactos y 1 pie = 12 pulgadas = 30.48 cm.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-note" id="extraNote" hidden></div>
+
+            <h3 class="table-title">En todas las unidades</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <tbody id="allUnitsTable"></tbody>
+              </table>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">📏</p>
+            <p>Ingresa un valor y elige las unidades para convertir</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample(1.75, 'm', 'ft')">
+            <h3 class="example-title">🧍 Estatura</h3>
+            <p class="example-description">1.75 m en pies y pulgadas</p>
+          </div>
+          <div class="example-card" onclick="loadExample(42.195, 'km', 'mi')">
+            <h3 class="example-title">🏃 Maratón</h3>
+            <p class="example-description">42.195 km en millas</p>
+          </div>
+          <div class="example-card" onclick="loadExample(55, 'in', 'cm')">
+            <h3 class="example-title">📺 Televisor de 55"</h3>
+            <p class="example-description">55 pulgadas de diagonal en centímetros</p>
+          </div>
+          <div class="example-card" onclick="loadExample(30000, 'ft', 'km')">
+            <h3 class="example-title">✈️ Altitud de vuelo</h3>
+            <p class="example-description">30,000 pies en kilómetros</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Equivalencias Comunes</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">m</div>
+              Sistema métrico
+            </h3>
+            <ul>
+              <li>1 km = 1,000 m</li>
+              <li>1 m = 100 cm = 1,000 mm</li>
+              <li>1 cm = 10 mm</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">ft</div>
+              Sistema imperial
+            </h3>
+            <ul>
+              <li>1 pie = 12 pulgadas = 30.48 cm</li>
+              <li>1 yarda = 3 pies = 0.9144 m</li>
+              <li>1 milla = 1,760 yardas = 1.609344 km</li>
+              <li>1 milla náutica = 1,852 m</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/conversion-longitud.js"></script>
+  </body>
+</html>

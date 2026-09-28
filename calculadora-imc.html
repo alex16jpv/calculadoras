@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de IMC | Índice de Masa Corporal Online</title>
+    <meta
+      name="description"
+      content="Calcula tu Índice de Masa Corporal (IMC) con peso y estatura en kg/cm o lb/pies. Conoce tu categoría según la OMS y tu rango de peso saludable."
+    />
+    <meta
+      name="keywords"
+      content="calculadora imc, índice de masa corporal, calcular imc, peso ideal, sobrepeso, obesidad, bmi"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de IMC - Índice de Masa Corporal"
+    />
+    <meta
+      property="og:description"
+      content="Calcula tu IMC y conoce tu rango de peso saludable según la OMS."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/calculadora-imc.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de IMC" />
+    <meta
+      name="twitter:description"
+      content="Índice de Masa Corporal con categorías de la OMS."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/calculadora-imc.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de IMC",
+        "url": "https://calculadoras.alexpiral.com/calculadora-imc.html",
+        "description": "Calcula el Índice de Masa Corporal y el rango de peso saludable según la OMS",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Sistema métrico e imperial",
+          "Categorías de la OMS",
+          "Rango de peso saludable",
+          "Explicación del cálculo"
+        ],
+        "keywords": [
+          "calculadora imc",
+          "índice de masa corporal",
+          "peso ideal",
+          "sobrepeso",
+          "obesidad"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/calculadora-imc.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de IMC</h1>
+        <p>
+          Calcula tu Índice de Masa Corporal, conoce en qué categoría te
+          encuentras según la Organización Mundial de la Salud y cuál es tu
+          rango de peso saludable.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Tus Datos</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="metric"
+              onclick="changeType('metric')"
+            >
+              Métrico (kg, cm)
+            </button>
+            <button
+              class="type-button"
+              data-type="imperial"
+              onclick="changeType('imperial')"
+            >
+              Imperial (lb, pies)
+            </button>
+          </div>
+
+          <form id="bmiForm">
+            <div id="metricInputs">
+              <div class="input-row">
+                <div class="input-group">
+                  <label for="weightKg">Peso (kg):</label>
+                  <input type="number" class="input-field" id="weightKg" placeholder="70" min="0" step="any" />
+                </div>
+                <div class="input-group">
+                  <label for="heightCm">Estatura (cm):</label>
+                  <input type="number" class="input-field" id="heightCm" placeholder="175" min="0" step="any" />
+                </div>
+              </div>
+            </div>
+
+            <div id="imperialInputs" hidden>
+              <div class="input-group">
+                <label for="weightLb">Peso (lb):</label>
+                <input type="number" class="input-field" id="weightLb" placeholder="154" min="0" step="any" />
+              </div>
+              <div class="input-row">
+                <div class="input-group">
+                  <label for="heightFt">Estatura (pies):</label>
+                  <input type="number" class="input-field" id="heightFt" placeholder="5" min="0" step="1" />
+                </div>
+                <div class="input-group">
+                  <label for="heightIn">Pulgadas:</label>
+                  <input type="number" class="input-field" id="heightIn" placeholder="9" min="0" max="11.99" step="any" />
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular IMC</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>⚠️ Importante:</strong>
+            <span>
+              El IMC es una referencia para adultos (18+ años). No distingue
+              entre músculo y grasa, y no aplica a embarazadas ni a niños. Consulta
+              a un profesional de la salud para una evaluación completa.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="bmi-category" id="bmiCategory"></p>
+
+            <div class="bmi-scale" aria-hidden="true">
+              <div class="bmi-segment under">&lt;18.5</div>
+              <div class="bmi-segment normal">18.5-24.9</div>
+              <div class="bmi-segment over">25-29.9</div>
+              <div class="bmi-segment obese">30+</div>
+              <div class="bmi-marker" id="bmiMarker"></div>
+            </div>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">⚖️</p>
+            <p>Ingresa tu peso y estatura para calcular tu IMC</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('metric', { weightKg: 70, heightCm: 175 })">
+            <h3 class="example-title">🟢 70 kg y 1.75 m</h3>
+            <p class="example-description">Un IMC dentro del rango normal</p>
+          </div>
+          <div class="example-card" onclick="loadExample('metric', { weightKg: 85, heightCm: 170 })">
+            <h3 class="example-title">🟠 85 kg y 1.70 m</h3>
+            <p class="example-description">Un IMC en la categoría de sobrepeso</p>
+          </div>
+          <div class="example-card" onclick="loadExample('imperial', { weightLb: 180, heightFt: 6, heightIn: 0 })">
+            <h3 class="example-title">🇺🇸 180 lb y 6 pies</h3>
+            <p class="example-description">Cálculo con unidades imperiales</p>
+          </div>
+          <div class="example-card" onclick="loadExample('metric', { weightKg: 50, heightCm: 168 })">
+            <h3 class="example-title">🔵 50 kg y 1.68 m</h3>
+            <p class="example-description">Un IMC por debajo del rango normal</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Clasificación del IMC (OMS)</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📊</div>
+              Categorías para adultos
+            </h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Categoría</th><th>IMC</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Bajo peso</td><td>&lt; 18.5</td></tr>
+                  <tr><td>Peso normal</td><td>18.5 – 24.9</td></tr>
+                  <tr><td>Sobrepeso</td><td>25 – 29.9</td></tr>
+                  <tr><td>Obesidad grado I</td><td>30 – 34.9</td></tr>
+                  <tr><td>Obesidad grado II</td><td>35 – 39.9</td></tr>
+                  <tr><td>Obesidad grado III</td><td>≥ 40</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🧮</div>
+              Fórmula
+            </h3>
+            <p>IMC = peso (kg) ÷ estatura² (m²)</p>
+            <ul>
+              <li>Ejemplo: 70 ÷ 1.75² = 70 ÷ 3.0625 = 22.9</li>
+              <li>Imperial: IMC = 703 × peso (lb) ÷ estatura² (in²)</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">ℹ️</div>
+              Limitaciones
+            </h3>
+            <ul>
+              <li>No distingue masa muscular de grasa (deportistas)</li>
+              <li>No considera la distribución de la grasa</li>
+              <li>En niños y adolescentes se usan percentiles por edad</li>
+              <li>Puede variar en adultos mayores y por etnia</li>
+            </ul>
+          </div>
+        </div>
+        <p class="disclaimer">
+          Esta herramienta es informativa y no reemplaza el consejo médico
+          profesional.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/calculadora-imc.js"></script>
+  </body>
+</html>

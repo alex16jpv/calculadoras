@@ -1,0 +1,66 @@
+/* Compound Interest Calculator specific styles */
+
+.schema-formula sup {
+  font-size: 0.7em;
+}
+
+/* Composition bar: principal / contributions / interest */
+.growth-bar {
+  display: flex;
+  height: 18px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--border-color);
+  margin-top: 1rem;
+}
+
+.growth-bar-principal {
+  background: var(--primary-color);
+}
+
+.growth-bar-contributions {
+  background: #93c5fd;
+}
+
+.growth-bar-interest {
+  background: var(--success-color);
+}
+
+.growth-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.growth-legend .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.35rem;
+}
+
+.dot.principal {
+  background: var(--primary-color);
+}
+
+.dot.contributions {
+  background: #93c5fd;
+}
+
+.dot.interest {
+  background: var(--success-color);
+}
+
+.table-title {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.results-card .table-wrapper {
+  max-height: 360px;
+  overflow-y: auto;
+}

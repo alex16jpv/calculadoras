@@ -9,44 +9,44 @@ This is a Spanish-language calculator hub website built with vanilla HTML, CSS, 
 ### Core Components
 
 - **index.html**: Main hub page with category navigation and search functionality
-- **regla-de-tres.html**: Full-featured rule of three calculator with step-by-step explanations
-- **porcentaje-calculadora.html**: Multi-type percentage calculator (percentage, discount, increase, what percent)
-- **numero-primo.html**: Prime number checker with factorization and mathematical analysis
-- **aritmetica-basica.html**: Basic arithmetic calculator with keypad interface and operation history
-- **raiz-potencia.html**: Root and power calculator for square roots, cube roots, nth roots, and exponential operations
-- **factorial.html**: Factorial calculator with large number support and combinatorial applications
-- **mcm-mcd.html**: LCM and GCD calculator for multiple numbers with Euclidean algorithm and prime factorization
-- **combinaciones-permutaciones.html**: Combinations and permutations calculator with C(n,r), P(n,r), variations, and circular permutations
-- **interes-simple.html**: Simple interest calculator for financial planning with multiple calculation modes
 
-#### CSS Architecture
+Every calculator is a page `<name>.html` with a matching `css/<name>.css` and `js/<name>.js`:
 
-- **css/shared.css**: Common styles for all calculator pages (header, footer, form components, responsive design)
+| Page | Category | Description |
+| --- | --- | --- |
+| regla-de-tres | Matemáticas | Direct and inverse rule of three with step-by-step explanation |
+| porcentaje-calculadora | Matemáticas | Percentage of a number, what percent, discount, increase, percentage change, total from part |
+| numero-primo | Matemáticas | Prime checker with factorization (up to 10^12) |
+| aritmetica-basica | Matemáticas | Keypad calculator with operation history |
+| raiz-potencia | Matemáticas | Square, cube and nth roots, powers (negative bases/exponents allowed) |
+| factorial | Matemáticas | Exact factorial with BigInt (up to 1000!) |
+| mcm-mcd | Matemáticas | LCM and GCD of several numbers, Euclidean algorithm |
+| combinaciones-permutaciones | Matemáticas | C(n,r), P(n,r), variations and combinations with repetition, circular (BigInt) |
+| calculadora-promedio | Matemáticas | Mean, median, mode, standard deviation and weighted average |
+| interes-simple | Finanzas | Simple interest solving for interest, principal, rate or time |
+| interes-compuesto | Finanzas | Compound interest with monthly contributions and yearly table |
+| calculadora-prestamo | Finanzas | Fixed installment loan (nominal or effective annual rate) with amortization table |
+| calculadora-iva | Finanzas | Add or remove VAT with standard rates per country |
+| conversion-bases | Conversiones | Binary, octal, decimal, hexadecimal and bases 2-36 (BigInt) |
+| fracciones-decimales | Conversiones | Fraction to decimal (repeating period detection) and back |
+| conversion-temperatura | Conversiones | Celsius, Fahrenheit, Kelvin, Rankine |
+| conversion-longitud | Conversiones | Metric and imperial length units |
+| conversion-peso | Conversiones | Metric and imperial mass units |
+| calculadora-imc | Salud | BMI with WHO categories (metric and imperial) |
+| calorias-diarias | Salud | Mifflin-St Jeor BMR and daily calories by goal |
+| frecuencia-cardiaca | Salud | Max heart rate and training zones (Karvonen) |
+| dias-entre-fechas | Fechas | Days between dates, business days, add/subtract periods |
+| calculadora-edad | Fechas | Exact age and next birthday |
+| zona-horaria | Fechas | Time zone conversion using the browser Intl API (DST aware) |
+
+The 4x1000 tax calculator is external (https://calculadora4x1000.alexpiral.com).
+
+#### Shared files
+
+- **css/shared.css**: Common styles for all calculator pages (header, footer, forms, type selector, result grid, data tables, responsive rules)
 - **css/style.css**: Main hub page specific styles
-- **css/regla-de-tres.css**: Rule of three calculator specific styles
-- **css/porcentaje-calculadora.css**: Percentage calculator specific styles
-- **css/numero-primo.css**: Prime number checker specific styles
-- **css/aritmetica-basica.css**: Basic arithmetic calculator specific styles
-- **css/raiz-potencia.css**: Root and power calculator specific styles
-- **css/factorial.css**: Factorial calculator specific styles
-- **css/mcm-mcd.css**: LCM and GCD calculator specific styles
-- **css/combinaciones-permutaciones.css**: Combinations and permutations calculator specific styles
-- **css/interes-simple.css**: Simple interest calculator specific styles
-
-#### JavaScript Architecture
-
-- **js/shared-calculator.js**: Common calculator utilities and shared functionality
-- **js/script.js**: Main hub search functionality and calculator data management
-- **js/regla-de-tres.js**: Rule of three calculator specific logic
-- **js/porcentaje-calculadora.js**: Percentage calculator specific logic
-- **js/numero-primo.js**: Prime number checker specific logic
-- **js/aritmetica-basica.js**: Basic arithmetic calculator specific logic
-- **js/raiz-potencia.js**: Root and power calculator specific logic
-- **js/factorial.js**: Factorial calculator specific logic
-- **js/mcm-mcd.js**: LCM and GCD calculator specific logic
-- **js/combinaciones-permutaciones.js**: Combinations and permutations calculator specific logic
-- **js/interes-simple.js**: Simple interest calculator specific logic
-
+- **js/shared-calculator.js**: `CalculatorUtils` (validation, number formatting, UI states, steps rendering, form submission)
+- **js/script.js**: Hub search and `calculatorData` keywords
 ### Key Features
 
 1. **Search System**: Real-time search with debouncing, keyword matching, and relevance scoring
@@ -81,16 +81,8 @@ Each calculator follows a consistent pattern:
 ### URL Structure
 
 - `/` - Main hub page
-- `/regla-de-tres.html` - Rule of three calculator
-- `/porcentaje-calculadora.html` - Percentage calculator
-- `/numero-primo.html` - Prime number checker
-- `/aritmetica-basica.html` - Basic arithmetic calculator
-- `/raiz-potencia.html` - Root and power calculator
-- `/factorial.html` - Factorial calculator
-- `/mcm-mcd.html` - LCM and GCD calculator
-- `/combinaciones-permutaciones.html` - Combinations and permutations calculator
-- `/interes-simple.html` - Simple interest calculator
-- External calculators link to separate domains (e.g., 4x1000 tax calculator)
+- `/<name>.html` - Each calculator from the table above
+- `sitemap.xml` lists every calculator page and is referenced from `robots.txt`
 
 ### Styling Conventions
 
@@ -116,6 +108,13 @@ Each calculator follows a consistent pattern:
 - Calculator-specific logic is isolated in separate files
 - Global functions for onclick handlers are explicitly exported to window object
 - DOM manipulation uses modern JavaScript (ES6+) features
+- Input parsing: `CalculatorUtils.validateInput` rejects negatives; use `parseNumber` when negatives are valid and `parseInteger(value, name, min)` for integers (never `parseInt`, which silently truncates decimals)
+- Output formatting: `CalculatorUtils.formatNumber` (thousands separators, trims float noise such as 0.30000000000000004) and `formatCurrency` (`$1,234.50`); do not use bare `toFixed` for displayed results
+- Use BigInt when results can exceed `Number.MAX_SAFE_INTEGER` (factorials, combinatorics, base conversion)
+- Step formulas are rendered with `white-space: pre-line`: use a real `"\n"` for line breaks, never `"\\n"`
+- Inputs hidden by a type selector must have `required` removed, otherwise the browser blocks the submit button
+- Errors thrown inside the `handleFormSubmission` callback are shown in `#errorMessage`
+- Anything that can come from the URL or user text must not be inserted with `innerHTML` unescaped
 
 ### Adding New Calculators
 
@@ -126,4 +125,5 @@ When adding new calculators or features:
 3. **JavaScript**: Use CalculatorUtils for common operations, create specific JS file for calculator logic
 4. **Consistency**: Maintain Spanish language content and mobile-first responsive approach
 5. **SEO**: Include proper meta tags, structured data, and semantic HTML
-6. **Claude Guidance**: Update this file with any new architecture changes or conventions
+6. **Hub**: Add a card in `index.html`, an entry in `calculatorData` in `js/script.js` and a URL in `sitemap.xml`
+7. **Claude Guidance**: Update this file with any new architecture changes or conventions

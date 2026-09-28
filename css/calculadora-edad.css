@@ -1,0 +1,10 @@
+/* Age Calculator specific styles */
+
+.birthday-card {
+  background: white;
+  border-radius: 0.75rem;
+  border: 2px dashed #f59e0b;
+  padding: 1rem;
+  text-align: center;
+  margin: 1rem 0;
+}

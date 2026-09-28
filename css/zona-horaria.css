@@ -1,0 +1,26 @@
+/* Time Zone Converter specific styles */
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-actions .secondary-btn {
+  flex: 1;
+}
+
+.table-title {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.data-table small {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.result-subtitle::first-letter {
+  text-transform: uppercase;
+}

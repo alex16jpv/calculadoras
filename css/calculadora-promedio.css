@@ -1,0 +1,51 @@
+/* Average Calculator specific styles */
+
+textarea.input-field {
+  width: 100%;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.weighted-header,
+.weighted-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 40px;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.weighted-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.weighted-row {
+  margin-bottom: 0.5rem;
+}
+
+.weighted-row .input-field {
+  min-width: 0;
+}
+
+.remove-row-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: var(--error-color);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.remove-row-btn:hover {
+  background: var(--error-color);
+  color: white;
+}
+
+.add-row-btn {
+  width: 100%;
+  margin: 0.5rem 0 1.5rem;
+}

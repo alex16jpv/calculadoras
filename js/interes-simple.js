@@ -115,23 +115,14 @@ const SimpleInterestCalculator = {
     return interest / (principal * rateDecimal);
   },
 
-  // Format currency
-  formatCurrency(amount, decimals = 2) {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    }).format(amount);
+  // Format currency ($10,000.00, same style used across the site)
+  formatCurrency(amount) {
+    return CalculatorUtils.formatCurrency(amount);
   },
 
   // Format percentage
   formatPercentage(rate, decimals = 2) {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'percent',
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    }).format(rate / 100);
+    return `${CalculatorUtils.formatNumber(rate, decimals)}%`;
   },
 
   // Format time with appropriate unit
@@ -195,28 +186,17 @@ function changeType(type) {
 function updateInputVisibility() {
   const config = calculatorConfigs[calculatorType];
   
-  // Show all groups first
+  // Show all groups first (hidden inputs must not stay "required" or the browser blocks submit)
   [principalGroup, rateGroup, timeGroup, interestGroup].forEach(group => {
     group.style.display = 'block';
     group.classList.remove('calculated');
+    group.querySelector('input').required = true;
   });
   
   // Hide the input being calculated
-  const hiddenInput = config.hiddenInput;
-  switch (hiddenInput) {
-    case "principal":
-      principalGroup.style.display = 'none';
-      break;
-    case "rate":
-      rateGroup.style.display = 'none';
-      break;
-    case "time":
-      timeGroup.style.display = 'none';
-      break;
-    case "interest":
-      interestGroup.style.display = 'none';
-      break;
-  }
+  const hiddenGroup = document.getElementById(config.hiddenInput + "Group");
+  hiddenGroup.style.display = 'none';
+  hiddenGroup.querySelector('input').required = false;
   
   // Mark required inputs
   config.requiredInputs.forEach(inputType => {
@@ -287,14 +267,17 @@ function generateKnownValuesFormula(values, type) {
     parts.push(`I = ${SimpleInterestCalculator.formatCurrency(values.interest)}`);
   }
   
-  return parts.join('\\n');
+  return parts.join('\n');
 }
 
 // Generate substitution formula
 function generateSubstitutionFormula(values, type) {
-  const timeDisplay = values.timeUnit !== "years" 
-    ? `${values.timeOriginal} ${values.timeUnit} = ${values.timeInYears.toFixed(4)} años`
-    : `${values.timeInYears} años`;
+  // Time is unknown when calculating it
+  const timeDisplay = values.timeInYears === undefined
+    ? ""
+    : values.timeUnit !== "years"
+    ? `${SimpleInterestCalculator.formatTime(values.timeOriginal, values.timeUnit)} (${CalculatorUtils.formatNumber(values.timeInYears, 4)} años)`
+    : SimpleInterestCalculator.formatTime(values.timeInYears, "years");
     
   switch (type) {
     case "interest":
@@ -333,14 +316,13 @@ function generateResultInterpretation(values, result, type) {
   switch (type) {
     case "interest":
       const totalAmount = values.principal + result.value;
-      return `Ganarás ${SimpleInterestCalculator.formatCurrency(result.value)} de interés.\\nMonto total: ${SimpleInterestCalculator.formatCurrency(totalAmount)}`;
+      return `Ganarás ${SimpleInterestCalculator.formatCurrency(result.value)} de interés.\nMonto total: ${SimpleInterestCalculator.formatCurrency(totalAmount)}`;
     case "principal":
       return `Necesitas invertir ${SimpleInterestCalculator.formatCurrency(result.value)} para ganar ${SimpleInterestCalculator.formatCurrency(values.interest)} de interés.`;
     case "rate":
       return `Necesitas una tasa de ${SimpleInterestCalculator.formatPercentage(result.value)} anual para alcanzar tu objetivo.`;
     case "time":
-      const timeInUnit = SimpleInterestCalculator.convertYearsToUnit(result.value, values.timeUnit);
-      return `Necesitas ${SimpleInterestCalculator.formatTime(timeInUnit, values.timeUnit)} para alcanzar tu objetivo.`;
+      return `Necesitas ${SimpleInterestCalculator.formatTime(result.value, "years")} (≈ ${SimpleInterestCalculator.formatTime(result.value * 12, "months", 1)}) para alcanzar tu objetivo.`;
     default:
       return "";
   }
@@ -510,7 +492,7 @@ function displayFormulaBreakdown(values, result) {
     },
     {
       title: "Valores conocidos",
-      content: generateKnownValuesFormula(values, calculatorType).replace(/\\n/g, '<br>'),
+      content: generateKnownValuesFormula(values, calculatorType).replace(/\n/g, '<br>'),
       final: false
     },
     {
@@ -618,8 +600,8 @@ async function performCalculation() {
   const config = calculatorConfigs[calculatorType];
   const values = {};
   
-  // Get time unit
-  values.timeUnit = timeUnitSelect.value;
+  // Get time unit (the unit selector is hidden when calculating time, so results are in years)
+  values.timeUnit = calculatorType === "time" ? "years" : timeUnitSelect.value;
   
   // Get values from visible inputs
   if (config.requiredInputs.includes("principal")) {
@@ -650,14 +632,6 @@ async function performCalculation() {
       throw new Error("El interés debe ser mayor que cero");
     }
   }
-  
-  // Additional validations
-  if (calculatorType === "rate" && values.interest >= values.principal) {
-    throw new Error("El interés no puede ser mayor o igual al capital inicial para períodos normales");
-  }
-  
-  // Add delay for better UX
-  await CalculatorUtils.delay(300);
   
   let result;
   
