@@ -261,7 +261,7 @@ function displayResults(number) {
 function loadExample(number) {
   numberInput.value = number;
   updateVisualSchema(number);
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

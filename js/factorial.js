@@ -314,7 +314,7 @@ function displayResults(n) {
 function loadExample(number) {
   numberInput.value = number;
   updateFactorialNotation(number);
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Input change handler

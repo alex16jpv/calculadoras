@@ -325,7 +325,7 @@ function loadExample(exampleId) {
     });
 
     // Auto calculate
-    form.dispatchEvent(new Event("submit"));
+    CalculatorUtils.submitForm(form);
   }
 }
 

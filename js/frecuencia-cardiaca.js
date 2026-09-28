@@ -32,7 +32,7 @@ function loadExample(age, resting) {
   ageInput.value = age;
   restingInput.value = resting;
   formulaSelect.value = "tanaka";
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

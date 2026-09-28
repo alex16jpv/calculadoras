@@ -284,7 +284,7 @@ function loadExample(type, values) {
     decimalInput.value = values.decimal;
     periodInput.value = values.period || "";
   }
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

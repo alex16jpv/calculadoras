@@ -114,6 +114,7 @@ Each calculator follows a consistent pattern:
 - Step formulas are rendered with `white-space: pre-line`: use a real `"\n"` for line breaks, never `"\\n"`
 - Inputs hidden by a type selector must have `required` removed, otherwise the browser blocks the submit button
 - Errors thrown inside the `handleFormSubmission` callback are shown in `#errorMessage`
+- To trigger a calculation from code (examples, shortcuts, URL params) use `CalculatorUtils.submitForm(form)`, never `form.dispatchEvent(new Event("submit"))`: a non-cancelable submit event ignores `preventDefault()` and some browsers reload the page, losing the form values
 - Anything that can come from the URL or user text must not be inserted with `innerHTML` unescaped
 
 ### Adding New Calculators

@@ -167,13 +167,20 @@ const CalculatorUtils = {
     return new Promise((resolve) => setTimeout(resolve, ms));
   },
 
+  // Trigger the form's submit handler without reloading the page.
+  // The event must be cancelable: otherwise preventDefault() is ignored and
+  // some browsers (e.g. Firefox) perform a real submission, losing the inputs.
+  submitForm(form) {
+    form.dispatchEvent(new Event("submit", { cancelable: true }));
+  },
+
   // Common keyboard shortcuts setup
   setupKeyboardShortcuts(form) {
     document.addEventListener("keydown", (e) => {
       // Ctrl/Cmd + Enter to calculate
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
         e.preventDefault();
-        form.dispatchEvent(new Event("submit"));
+        this.submitForm(form);
       }
 
       // Escape to clear

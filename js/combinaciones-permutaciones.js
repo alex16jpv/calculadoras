@@ -488,7 +488,7 @@ function loadExample(type, values) {
   }
 
   // Auto calculate
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

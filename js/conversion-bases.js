@@ -152,7 +152,7 @@ function loadExample(number, base) {
   fromBase.value = base;
   customBaseGroup.hidden = true;
   targetBase.value = "";
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

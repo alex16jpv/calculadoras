@@ -167,7 +167,7 @@ function loadExample(time, from, to) {
   timeInput.value = time;
   fromZone.value = from;
   toZone.value = to;
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

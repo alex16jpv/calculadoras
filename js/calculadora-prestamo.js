@@ -59,7 +59,7 @@ function loadExample(exampleId) {
   rateTypeSelect.value = example.type;
   termInput.value = example.term;
   termUnitSelect.value = example.unit;
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

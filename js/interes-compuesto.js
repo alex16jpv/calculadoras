@@ -172,7 +172,7 @@ function loadExample(exampleId) {
   yearsInput.value = example.years;
   frequencySelect.value = String(example.compounds);
 
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

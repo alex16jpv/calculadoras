@@ -564,7 +564,7 @@ function loadExample(type, exampleValues) {
     });
 
     // Auto calculate
-    form.dispatchEvent(new Event("submit"));
+    CalculatorUtils.submitForm(form);
   }, 100);
 }
 
