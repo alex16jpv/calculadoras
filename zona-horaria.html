@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de Zona Horaria | Diferencia Horaria entre Ciudades</title>
+    <meta
+      name="description"
+      content="Convierte la hora entre zonas horarias de todo el mundo. Considera automáticamente el horario de verano. Ideal para reuniones y llamadas internacionales."
+    />
+    <meta
+      name="keywords"
+      content="conversor zona horaria, diferencia horaria, hora en otro país, convertir hora, UTC, horario de verano, hora mundial"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Conversor de Zona Horaria - Diferencia Horaria Mundial"
+    />
+    <meta
+      property="og:description"
+      content="Convierte horas entre ciudades del mundo con horario de verano incluido."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/zona-horaria.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Conversor de Zona Horaria" />
+    <meta
+      name="twitter:description"
+      content="¿Qué hora es en otro país? Convierte horas entre zonas horarias."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/zona-horaria.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Conversor de Zona Horaria",
+        "url": "https://calculadoras.alexpiral.com/zona-horaria.html",
+        "description": "Convierte la hora entre zonas horarias del mundo considerando el horario de verano",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Conversión entre zonas horarias",
+          "Horario de verano automático",
+          "Hora en varias ciudades a la vez",
+          "Diferencia horaria en horas"
+        ],
+        "keywords": [
+          "zona horaria",
+          "diferencia horaria",
+          "convertir hora",
+          "UTC"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/zona-horaria.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Conversor de Zona Horaria</h1>
+        <p>
+          Convierte una hora de una ciudad a otra y compárala con las principales
+          ciudades del mundo. El horario de verano se aplica automáticamente.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Hora a Convertir</h2>
+
+          <form id="timezoneForm">
+            <div class="input-row">
+              <div class="input-group">
+                <label for="dateInput">Fecha:</label>
+                <input type="date" class="input-field" id="dateInput" required />
+              </div>
+              <div class="input-group">
+                <label for="timeInput">Hora:</label>
+                <input type="time" class="input-field" id="timeInput" required />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="fromZone">Zona de origen:</label>
+              <select class="select-field" id="fromZone"></select>
+            </div>
+
+            <div class="input-group">
+              <label for="toZone">Zona de destino:</label>
+              <select class="select-field" id="toZone"></select>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="secondary-btn" onclick="setNow()">Usar hora actual</button>
+              <button type="button" class="secondary-btn" onclick="swapZones()">⇄ Intercambiar</button>
+            </div>
+
+            <button type="submit" class="calculate-btn">Convertir</button>
+
+            <div class="calculating">
+              <span>Convirtiendo...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              La zona de origen se preselecciona con la zona horaria de tu
+              dispositivo.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <h3 class="table-title">La misma hora en otras ciudades</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Ciudad</th><th>Hora</th><th>UTC</th></tr>
+                </thead>
+                <tbody id="worldTable"></tbody>
+              </table>
+            </div>
+
+            <div class="steps-section">
+              <h3>Detalle del cálculo:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🌍</p>
+            <p>Elige una hora y las zonas para convertir</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('09:00', 'America/Bogota', 'Europe/Madrid')">
+            <h3 class="example-title">🇨🇴 → 🇪🇸 Reunión Bogotá–Madrid</h3>
+            <p class="example-description">9:00 a. m. en Bogotá, ¿qué hora es en Madrid?</p>
+          </div>
+          <div class="example-card" onclick="loadExample('20:00', 'America/Mexico_City', 'America/Argentina/Buenos_Aires')">
+            <h3 class="example-title">🇲🇽 → 🇦🇷 Partido de fútbol</h3>
+            <p class="example-description">8:00 p. m. en Ciudad de México en Buenos Aires</p>
+          </div>
+          <div class="example-card" onclick="loadExample('12:00', 'UTC', 'America/New_York')">
+            <h3 class="example-title">🌐 UTC → Nueva York</h3>
+            <p class="example-description">Mediodía UTC en la costa este de EE. UU.</p>
+          </div>
+          <div class="example-card" onclick="loadExample('18:00', 'America/Lima', 'Asia/Tokyo')">
+            <h3 class="example-title">🇵🇪 → 🇯🇵 Lima a Tokio</h3>
+            <p class="example-description">Una gran diferencia horaria que cambia el día</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Sobre las Zonas Horarias</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">UTC</div>
+              Tiempo Universal Coordinado
+            </h3>
+            <p>
+              Todas las zonas horarias se expresan como una diferencia respecto a
+              UTC. Por ejemplo, Bogotá está en UTC-5 y Madrid en UTC+1 (UTC+2 en
+              verano).
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">☀️</div>
+              Horario de verano
+            </h3>
+            <p>
+              Muchos países adelantan su reloj una hora en verano. Las fechas de
+              cambio son distintas en Europa, Norteamérica y el hemisferio sur,
+              por eso la diferencia entre dos ciudades puede variar durante el
+              año.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/zona-horaria.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+/* Temperature Converter specific styles */
+
+.result-item.source {
+  border-color: var(--primary-color);
+  background: #eff6ff;
+}
+
+.info-card .table-wrapper {
+  margin-top: 0.5rem;
+}

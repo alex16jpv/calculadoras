@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Préstamos | Cuota Mensual y Tabla de Amortización</title>
+    <meta
+      name="description"
+      content="Calcula la cuota mensual de un préstamo o crédito, el total de intereses y la tabla de amortización completa. Admite tasa nominal anual o efectiva anual (EA)."
+    />
+    <meta
+      name="keywords"
+      content="calculadora de préstamos, cuota mensual, tabla de amortización, simulador de crédito, crédito hipotecario, tasa efectiva anual, sistema francés"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Préstamos - Cuota y Tabla de Amortización"
+    />
+    <meta
+      property="og:description"
+      content="Simula tu crédito: cuota mensual, intereses totales y amortización mes a mes."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/calculadora-prestamo.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de Préstamos" />
+    <meta
+      name="twitter:description"
+      content="Cuota mensual y tabla de amortización de tu crédito."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/calculadora-prestamo.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Préstamos",
+        "url": "https://calculadoras.alexpiral.com/calculadora-prestamo.html",
+        "description": "Calcula la cuota mensual, los intereses y la tabla de amortización de un préstamo con cuota fija",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Cuota fija mensual (sistema francés)",
+          "Tasa nominal anual o efectiva anual (EA)",
+          "Tabla de amortización completa",
+          "Total de intereses pagados"
+        ],
+        "keywords": [
+          "calculadora de préstamos",
+          "cuota mensual",
+          "tabla de amortización",
+          "simulador de crédito"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/calculadora-prestamo.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Préstamos</h1>
+        <p>
+          Simula un crédito de consumo, vehicular o hipotecario: calcula la
+          cuota mensual fija, cuánto pagarás en intereses y cómo se reduce la
+          deuda mes a mes.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Datos del Préstamo</h2>
+
+          <form id="loanForm">
+            <div class="input-group">
+              <label for="amountInput">Monto del préstamo ($):</label>
+              <input type="number" class="input-field" id="amountInput" placeholder="20000" min="0" step="any" required />
+            </div>
+
+            <div class="input-row">
+              <div class="input-group">
+                <label for="rateInput">Tasa de interés anual (%):</label>
+                <input type="number" class="input-field" id="rateInput" placeholder="12" min="0" step="any" required />
+              </div>
+              <div class="input-group">
+                <label for="rateTypeSelect">Tipo de tasa:</label>
+                <select class="select-field" id="rateTypeSelect">
+                  <option value="nominal">Nominal (TNA)</option>
+                  <option value="effective">Efectiva (EA)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div class="input-group">
+                <label for="termInput">Plazo:</label>
+                <input type="number" class="input-field" id="termInput" placeholder="36" min="1" step="1" required />
+              </div>
+              <div class="input-group">
+                <label for="termUnitSelect">Unidad:</label>
+                <select class="select-field" id="termUnitSelect">
+                  <option value="months">Meses</option>
+                  <option value="years">Años</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular Cuota</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              En Colombia y otros países los bancos informan la tasa efectiva
+              anual (EA). En México y España es común la tasa nominal anual
+              (TNA/TIN). Revisa cuál aparece en tu oferta de crédito.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle">cuota mensual fija</p>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="split-bar" aria-hidden="true">
+              <div class="split-principal" id="barPrincipal"></div>
+              <div class="split-interest" id="barInterest"></div>
+            </div>
+            <div class="split-legend">
+              <span><i class="dot principal"></i>Capital</span>
+              <span><i class="dot interest"></i>Intereses</span>
+            </div>
+
+            <h3 class="table-title">Tabla de amortización</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Mes</th>
+                    <th>Cuota</th>
+                    <th>Interés</th>
+                    <th>Capital</th>
+                    <th>Saldo</th>
+                  </tr>
+                </thead>
+                <tbody id="amortizationTable"></tbody>
+              </table>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🏦</p>
+            <p>Ingresa los datos del préstamo para calcular la cuota</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('consumer')">
+            <h3 class="example-title">💳 Crédito de consumo</h3>
+            <p class="example-description">$10,000 al 24% EA a 24 meses</p>
+          </div>
+          <div class="example-card" onclick="loadExample('car')">
+            <h3 class="example-title">🚗 Crédito de vehículo</h3>
+            <p class="example-description">$25,000 al 12% nominal anual a 5 años</p>
+          </div>
+          <div class="example-card" onclick="loadExample('mortgage')">
+            <h3 class="example-title">🏠 Crédito hipotecario</h3>
+            <p class="example-description">$150,000 al 9% nominal anual a 20 años</p>
+          </div>
+          <div class="example-card" onclick="loadExample('zero')">
+            <h3 class="example-title">🆓 Sin intereses</h3>
+            <p class="example-description">$1,200 al 0% en 12 cuotas</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>¿Cómo se Calcula la Cuota?</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🧮</div>
+              Sistema francés (cuota fija)
+            </h3>
+            <p>Cuota = P × i ÷ (1 - (1 + i)<sup>-n</sup>)</p>
+            <ul>
+              <li>P = monto del préstamo</li>
+              <li>i = tasa de interés mensual</li>
+              <li>n = número de cuotas</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">%</div>
+              Tasa nominal vs. efectiva
+            </h3>
+            <ul>
+              <li>Nominal anual: i = TNA ÷ 12</li>
+              <li>Efectiva anual: i = (1 + EA)<sup>1/12</sup> - 1</li>
+              <li>Un 12% nominal equivale a ≈ 12.68% EA</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">📉</div>
+              ¿Cómo evoluciona la deuda?
+            </h3>
+            <p>
+              Al principio la mayor parte de la cuota paga intereses; con el
+              tiempo, cada vez más se destina a reducir el capital. Hacer abonos
+              extra al capital reduce el total de intereses.
+            </p>
+          </div>
+        </div>
+        <p class="disclaimer">
+          El cálculo no incluye seguros, comisiones, impuestos ni otros cargos que
+          el banco pueda sumar a la cuota. Consulta el costo total (CAT, TAE o
+          costo efectivo) con tu entidad financiera.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/calculadora-prestamo.js"></script>
+  </body>
+</html>

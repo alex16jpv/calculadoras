@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Promedio | Media, Mediana, Moda y Promedio Ponderado</title>
+    <meta
+      name="description"
+      content="Calcula el promedio (media), la mediana, la moda y la desviación estándar de una lista de números, o el promedio ponderado de tus notas con sus porcentajes."
+    />
+    <meta
+      name="keywords"
+      content="calculadora de promedio, calcular promedio, promedio ponderado, media aritmética, mediana, moda, desviación estándar, promedio de notas"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Promedio - Media, Mediana, Moda y Ponderado"
+    />
+    <meta
+      property="og:description"
+      content="Promedio simple y ponderado con estadísticas básicas explicadas paso a paso."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/calculadora-promedio.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de Promedio" />
+    <meta
+      name="twitter:description"
+      content="Media, mediana, moda y promedio ponderado de notas."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/calculadora-promedio.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Promedio",
+        "url": "https://calculadoras.alexpiral.com/calculadora-promedio.html",
+        "description": "Calcula media, mediana, moda, desviación estándar y promedio ponderado",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Media, mediana y moda",
+          "Desviación estándar y varianza",
+          "Promedio ponderado de notas",
+          "Explicación paso a paso"
+        ],
+        "keywords": [
+          "calculadora de promedio",
+          "promedio ponderado",
+          "media mediana moda",
+          "promedio de notas"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/calculadora-promedio.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Promedio</h1>
+        <p>
+          Obtén la media, mediana, moda y desviación estándar de una lista de
+          números, o calcula el promedio ponderado de tus notas según el
+          porcentaje de cada una.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Tipo de Promedio</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="simple"
+              onclick="changeType('simple')"
+            >
+              Promedio simple y estadísticas
+            </button>
+            <button
+              class="type-button"
+              data-type="weighted"
+              onclick="changeType('weighted')"
+            >
+              Promedio ponderado
+            </button>
+          </div>
+
+          <form id="averageForm">
+            <div id="simpleInputs">
+              <div class="input-group">
+                <label for="numbersInput">Números:</label>
+                <textarea
+                  class="input-field"
+                  id="numbersInput"
+                  rows="4"
+                  placeholder="Ej: 7, 8.5, 9, 6, 10"
+                ></textarea>
+                <div class="input-hint">
+                  Sepáralos con comas, espacios, punto y coma o saltos de línea.
+                </div>
+              </div>
+            </div>
+
+            <div id="weightedInputs" hidden>
+              <div class="weighted-header">
+                <span>Valor (nota)</span>
+                <span>Peso (% o créditos)</span>
+                <span></span>
+              </div>
+              <div id="weightedRows"></div>
+              <button type="button" class="secondary-btn add-row-btn" onclick="addRow()">
+                + Agregar fila
+              </button>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular Promedio</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText">
+              La mediana es más representativa que la media cuando hay valores
+              extremos (por ejemplo, en salarios o precios de vivienda).
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="result-note" id="neededNote" hidden></div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">📊</p>
+            <p>Ingresa tus números para calcular el promedio</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('grades')">
+            <h3 class="example-title">📝 Notas del semestre</h3>
+            <p class="example-description">Promedio simple de 5 calificaciones</p>
+          </div>
+          <div class="example-card" onclick="loadExample('salaries')">
+            <h3 class="example-title">💼 Salarios con un valor extremo</h3>
+            <p class="example-description">Compara la media con la mediana</p>
+          </div>
+          <div class="example-card" onclick="loadExample('course')">
+            <h3 class="example-title">🎓 Nota final de una materia</h3>
+            <p class="example-description">Parciales y final con distintos porcentajes</p>
+          </div>
+          <div class="example-card" onclick="loadExample('credits')">
+            <h3 class="example-title">📚 Promedio por créditos</h3>
+            <p class="example-description">Promedio académico ponderado por créditos</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Medidas de Tendencia Central</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">x̄</div>
+              Media (promedio)
+            </h3>
+            <p>Suma de todos los valores dividida entre la cantidad de valores.</p>
+            <ul>
+              <li>(7 + 8 + 9) ÷ 3 = 8</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">Me</div>
+              Mediana
+            </h3>
+            <p>
+              El valor central de los datos ordenados. Si la cantidad es par, es
+              el promedio de los dos centrales.
+            </p>
+            <ul>
+              <li>1, 3, <strong>5</strong>, 8, 100 → 5</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">Mo</div>
+              Moda
+            </h3>
+            <p>
+              El valor que más se repite. Puede haber varias modas o ninguna si
+              todos aparecen la misma cantidad de veces.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">Σw</div>
+              Promedio ponderado
+            </h3>
+            <p>
+              Cada valor se multiplica por su peso, se suman los productos y se
+              divide entre la suma de los pesos.
+            </p>
+            <ul>
+              <li>(4.0×30 + 3.5×30 + 4.5×40) ÷ 100 = 4.05</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/calculadora-promedio.js"></script>
+  </body>
+</html>

@@ -67,6 +67,21 @@ const calculatorData = [
     keywords: ["combinacion", "permutacion", "combinatoria", "probabilidad"],
     url: "/combinaciones-permutaciones.html",
   },
+  {
+    category: "matematicas",
+    title: "Promedio y Estadística",
+    keywords: [
+      "promedio",
+      "media",
+      "mediana",
+      "moda",
+      "ponderado",
+      "notas",
+      "desviacion",
+      "estadistica",
+    ],
+    url: "/calculadora-promedio.html",
+  },
   // Finance
   {
     category: "finanzas",
@@ -93,6 +108,26 @@ const calculatorData = [
     title: "Interés Compuesto",
     keywords: ["interes", "compuesto", "inversion", "ahorro", "rendimiento"],
     url: "/interes-compuesto.html",
+  },
+  {
+    category: "finanzas",
+    title: "Préstamos y Créditos",
+    keywords: [
+      "prestamo",
+      "credito",
+      "cuota",
+      "amortizacion",
+      "hipoteca",
+      "banco",
+      "tasa",
+    ],
+    url: "/calculadora-prestamo.html",
+  },
+  {
+    category: "finanzas",
+    title: "Calculadora de IVA",
+    keywords: ["iva", "impuesto", "igv", "precio", "factura", "base"],
+    url: "/calculadora-iva.html",
   },
   // Conversions
   {
@@ -132,6 +167,12 @@ const calculatorData = [
       "millas",
     ],
     url: "/conversion-longitud.html",
+  },
+  {
+    category: "conversiones",
+    title: "Conversión de Peso",
+    keywords: ["peso", "masa", "kilos", "libras", "onzas", "gramos", "kg", "lb"],
+    url: "/conversion-peso.html",
   },
   // Health
   {
@@ -259,7 +300,7 @@ function performSearch(query) {
     if (!hasResults) {
       noResults.innerHTML = `
                 <h3>No se encontraron resultados</h3>
-                <p>No encontramos calculadoras que coincidan con "<strong>${query}</strong>"</p>
+                <p>No encontramos calculadoras que coincidan con "<strong>${escapeHtml(query)}</strong>"</p>
                 <p>Intenta con otros términos o navega por las categorías.</p>
             `;
       noResults.classList.add("active");
@@ -267,6 +308,13 @@ function performSearch(query) {
       noResults.classList.remove("active");
     }
   }
+}
+
+// The query can come from the ?q= URL parameter, so it must never reach innerHTML raw
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function normalizeText(text) {

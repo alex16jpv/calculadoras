@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convertir Fracciones a Decimales y Decimales a Fracciones | Online</title>
+    <meta
+      name="description"
+      content="Convierte fracciones a números decimales y decimales a fracciones simplificadas. Detecta decimales periódicos y muestra el procedimiento paso a paso."
+    />
+    <meta
+      name="keywords"
+      content="fracción a decimal, decimal a fracción, convertir fracciones, simplificar fracciones, decimal periódico, fracción mixta"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Conversor de Fracciones a Decimales y Viceversa"
+    />
+    <meta
+      property="og:description"
+      content="Convierte fracciones y decimales con simplificación automática y decimales periódicos."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/fracciones-decimales.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Fracciones a Decimales y Viceversa" />
+    <meta
+      name="twitter:description"
+      content="Convierte fracciones y decimales con explicación paso a paso."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/fracciones-decimales.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Conversor de Fracciones a Decimales",
+        "url": "https://calculadoras.alexpiral.com/fracciones-decimales.html",
+        "description": "Convierte fracciones a decimales y decimales (incluidos periódicos) a fracciones simplificadas",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Fracción a decimal con detección de periodo",
+          "Decimal a fracción simplificada",
+          "Decimales periódicos puros y mixtos",
+          "Fracciones mixtas y porcentaje"
+        ],
+        "keywords": [
+          "fracción a decimal",
+          "decimal a fracción",
+          "simplificar fracciones",
+          "decimal periódico"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/fracciones-decimales.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Fracciones a Decimales y Decimales a Fracciones</h1>
+        <p>
+          Convierte cualquier fracción a número decimal (detectando la parte
+          periódica) o cualquier decimal a su fracción irreducible, con el
+          procedimiento explicado.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Tipo de Conversión</h2>
+
+          <div class="type-selector">
+            <button
+              class="type-button active"
+              data-type="toDecimal"
+              onclick="changeType('toDecimal')"
+            >
+              Fracción → Decimal
+            </button>
+            <button
+              class="type-button"
+              data-type="toFraction"
+              onclick="changeType('toFraction')"
+            >
+              Decimal → Fracción
+            </button>
+          </div>
+
+          <form id="fractionForm">
+            <div id="fractionInputs">
+              <div class="fraction-input">
+                <input
+                  type="number"
+                  class="input-field"
+                  id="numeratorInput"
+                  placeholder="Numerador"
+                  step="1"
+                  aria-label="Numerador"
+                />
+                <div class="fraction-bar"></div>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="denominatorInput"
+                  placeholder="Denominador"
+                  step="1"
+                  aria-label="Denominador"
+                />
+              </div>
+            </div>
+
+            <div id="decimalInputs" hidden>
+              <div class="input-group">
+                <label for="decimalInput">Número decimal:</label>
+                <input
+                  type="text"
+                  class="input-field"
+                  id="decimalInput"
+                  placeholder="Ej: 0.75"
+                  inputmode="decimal"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="input-group">
+                <label for="periodInput">Parte periódica (opcional):</label>
+                <input
+                  type="text"
+                  class="input-field"
+                  id="periodInput"
+                  placeholder="Ej: 3 para 0.3333..."
+                  inputmode="numeric"
+                  autocomplete="off"
+                />
+                <div class="input-hint">
+                  Dígitos que se repiten indefinidamente después del decimal.
+                  Ej: 0.1666... → decimal 0.1 y periodo 6.
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Convertir</button>
+
+            <div class="calculating">
+              <span>Convirtiendo...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span id="helpText">
+              Una fracción da un decimal exacto solo si su denominador
+              (simplificado) tiene únicamente los factores 2 y 5.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">½</p>
+            <p>Ingresa una fracción o un decimal para convertirlo</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('toDecimal', { numerator: 3, denominator: 8 })">
+            <h3 class="example-title">🍕 3/8 a decimal</h3>
+            <p class="example-description">Un decimal exacto: 0.375</p>
+          </div>
+          <div class="example-card" onclick="loadExample('toDecimal', { numerator: 1, denominator: 7 })">
+            <h3 class="example-title">🔁 1/7 a decimal</h3>
+            <p class="example-description">Un decimal periódico con 6 cifras que se repiten</p>
+          </div>
+          <div class="example-card" onclick="loadExample('toFraction', { decimal: '0.625' })">
+            <h3 class="example-title">📏 0.625 a fracción</h3>
+            <p class="example-description">Se simplifica hasta 5/8</p>
+          </div>
+          <div class="example-card" onclick="loadExample('toFraction', { decimal: '0.1', period: '6' })">
+            <h3 class="example-title">➗ 0.1666... a fracción</h3>
+            <p class="example-description">Un decimal periódico mixto que equivale a 1/6</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>¿Cómo se Convierte?</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">÷</div>
+              Fracción a decimal
+            </h3>
+            <p>Se divide el numerador entre el denominador.</p>
+            <ul>
+              <li>3/4 = 3 ÷ 4 = 0.75 (exacto)</li>
+              <li>2/3 = 0.666... = 0.(6) (periódico puro)</li>
+              <li>5/6 = 0.8333... = 0.8(3) (periódico mixto)</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">.</div>
+              Decimal exacto a fracción
+            </h3>
+            <p>
+              Se escribe el número sin punto sobre 1 seguido de tantos ceros como
+              decimales tenga, y se simplifica.
+            </p>
+            <ul>
+              <li>0.75 = 75/100 = 3/4</li>
+              <li>1.2 = 12/10 = 6/5</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔁</div>
+              Decimal periódico a fracción
+            </h3>
+            <p>
+              Numerador: el número completo menos la parte no periódica.
+              Denominador: tantos 9 como cifras periódicas y tantos 0 como
+              cifras no periódicas.
+            </p>
+            <ul>
+              <li>0.(3) = 3/9 = 1/3</li>
+              <li>0.1(6) = (16 - 1)/90 = 15/90 = 1/6</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/fracciones-decimales.js"></script>
+  </body>
+</html>

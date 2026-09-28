@@ -1,0 +1,42 @@
+/* Weight Converter specific styles */
+
+.unit-pair {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.swap-btn {
+  margin-bottom: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  background: white;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.swap-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.table-title {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 480px) {
+  .unit-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .swap-btn {
+    margin: -0.75rem auto 0.75rem;
+    transform: rotate(90deg);
+  }
+}

@@ -11,6 +11,9 @@ const valueC = document.getElementById("valueC");
 const valueX = document.getElementById("valueX");
 const helpText = document.getElementById("helpText");
 
+// Short alias for number formatting
+const fmt = (value) => CalculatorUtils.formatNumber(value);
+
 // Change calculator type
 function changeType(type) {
   calculatorType = type;
@@ -28,6 +31,7 @@ function changeType(type) {
   }
 
   // Clear results
+  resetSchema();
   CalculatorUtils.clearResults();
 }
 
@@ -54,17 +58,17 @@ function generateSteps(a, b, c, x, type) {
     steps.push({
       number: 2,
       content: "Planteamos la proporción:",
-      formula: `${a} → ${b}\n${c} → X`,
+      formula: `${fmt(a)} → ${fmt(b)}\n${fmt(c)} → X`,
     });
     steps.push({
       number: 3,
-      content: "Aplicamos la fórmula de regla de tres directa:",
-      formula: `X = (${b} × ${c}) ÷ ${a}`,
+      content: "Aplicamos la fórmula de regla de tres directa (multiplicamos en cruz):",
+      formula: `X = (${fmt(b)} × ${fmt(c)}) ÷ ${fmt(a)}`,
     });
     steps.push({
       number: 4,
       content: "Realizamos las operaciones:",
-      formula: `X = ${b * c} ÷ ${a} = ${x.toFixed(2)}`,
+      formula: `X = ${fmt(b * c)} ÷ ${fmt(a)} = ${fmt(x)}`,
     });
   } else {
     steps.push({
@@ -76,33 +80,42 @@ function generateSteps(a, b, c, x, type) {
     steps.push({
       number: 2,
       content: "Planteamos la proporción inversa:",
-      formula: `${a} → ${b}\n${c} → X`,
+      formula: `${fmt(a)} → ${fmt(b)}\n${fmt(c)} → X`,
     });
     steps.push({
       number: 3,
-      content: "Aplicamos la fórmula de regla de tres inversa:",
-      formula: `X = (${a} × ${b}) ÷ ${c}`,
+      content: "Aplicamos la fórmula de regla de tres inversa (multiplicamos en línea):",
+      formula: `X = (${fmt(a)} × ${fmt(b)}) ÷ ${fmt(c)}`,
     });
     steps.push({
       number: 4,
       content: "Realizamos las operaciones:",
-      formula: `X = ${a * b} ÷ ${c} = ${x.toFixed(2)}`,
+      formula: `X = ${fmt(a * b)} ÷ ${fmt(c)} = ${fmt(x)}`,
     });
   }
 
   return steps;
 }
 
+// Reset the visual schema placeholders
+function resetSchema() {
+  document.getElementById("schema-a").textContent = "A";
+  document.getElementById("schema-b").textContent = "B";
+  document.getElementById("schema-c").textContent = "C";
+  document.getElementById("schema-x").textContent = "X";
+  valueX.value = "";
+}
+
 // Display results
 function displayResults(a, b, c, x) {
   // Update schema values
-  document.getElementById("schema-a").textContent = a;
-  document.getElementById("schema-b").textContent = b;
-  document.getElementById("schema-c").textContent = c;
-  document.getElementById("schema-x").textContent = x.toFixed(2);
+  document.getElementById("schema-a").textContent = fmt(a);
+  document.getElementById("schema-b").textContent = fmt(b);
+  document.getElementById("schema-c").textContent = fmt(c);
+  document.getElementById("schema-x").textContent = fmt(x);
 
   // Show result value
-  CalculatorUtils.displayResultValue(x.toFixed(2));
+  CalculatorUtils.displayResultValue(fmt(x));
 
   // Generate and display steps
   const steps = generateSteps(a, b, c, x, calculatorType);
@@ -112,22 +125,12 @@ function displayResults(a, b, c, x) {
   CalculatorUtils.showResults();
 }
 
-// Validate input specific to rule of three
-function validateInput(value, fieldName) {
-  if (isNaN(value) || value === "") {
-    throw new Error(`Por favor ingresa un número válido en ${fieldName}`);
-  }
-  if (value === 0) {
-    throw new Error(`El valor de ${fieldName} no puede ser cero`);
-  }
-  return parseFloat(value);
-}
-
 // Load example
 function loadExample(exampleId) {
   const examples = {
     direct1: { a: 3, b: 12, c: 5, type: "direct" },
-    direct2: { a: 20, b: 300, c: 30, type: "direct" },
+    // 300 km -> 20 L, 450 km -> X L
+    direct2: { a: 300, b: 20, c: 450, type: "direct" },
     inverse1: { a: 4, b: 6, c: 8, type: "inverse" },
     inverse2: { a: 60, b: 2, c: 80, type: "inverse" },
   };
@@ -146,16 +149,24 @@ function loadExample(exampleId) {
 
 // Calculation callback for form submission
 async function performCalculation() {
-  // Validate inputs
-  const a = validateInput(valueA.value, "A");
-  const b = validateInput(valueB.value, "B");
-  const c = validateInput(valueC.value, "C");
+  // Validate inputs (negative values are valid in a proportion)
+  const a = CalculatorUtils.parseNumber(valueA.value, "A");
+  const b = CalculatorUtils.parseNumber(valueB.value, "B");
+  const c = CalculatorUtils.parseNumber(valueC.value, "C");
+
+  // The divisor differs per type: A for direct, C for inverse
+  if (calculatorType === "direct" && a === 0) {
+    throw new Error("El valor de A no puede ser cero (se divide entre A)");
+  }
+  if (calculatorType === "inverse" && c === 0) {
+    throw new Error("El valor de C no puede ser cero (se divide entre C)");
+  }
 
   // Calculate result
   const x = calculate(a, b, c, calculatorType);
 
   // Update X field
-  valueX.value = x.toFixed(2);
+  valueX.value = CalculatorUtils.round(x);
 
   // Display results
   displayResults(a, b, c, x);

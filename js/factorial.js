@@ -8,6 +8,9 @@ const factorialExpression = document.getElementById("factorialExpression");
 const breakdownDisplay = document.getElementById("breakdownDisplay");
 const propertiesGrid = document.getElementById("propertiesGrid");
 
+// BigInt keeps results exact; 1000! has 2,568 digits and renders instantly
+const MAX_FACTORIAL = 1000;
+
 // Factorial calculation utilities
 const FactorialCalculator = {
   // Calculate factorial using BigInt for large numbers
@@ -72,7 +75,7 @@ const FactorialCalculator = {
     
     // Growth factor (if n > 1)
     if (n > 1) {
-      const previous = this.calculate(n - 1).result;
+
       properties.push({
         label: "Factor de crecimiento",
         value: `×${n}`
@@ -346,15 +349,8 @@ async function performCalculation() {
     throw new Error("El factorial solo está definido para números enteros");
   }
   
-  if (number > 170) {
-    throw new Error("Número demasiado grande. El límite es 170 para evitar desbordamiento");
-  }
-  
-  // Add delay for large numbers
-  if (number > 50) {
-    await CalculatorUtils.delay(1000);
-  } else if (number > 20) {
-    await CalculatorUtils.delay(500);
+  if (number > MAX_FACTORIAL) {
+    throw new Error(`Número demasiado grande. El límite es ${MAX_FACTORIAL}`);
   }
   
   // Display results

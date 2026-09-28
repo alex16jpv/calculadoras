@@ -12,6 +12,9 @@ const factorizationDisplay = document.getElementById("factorizationDisplay");
 const factorsSection = document.getElementById("factorsSection");
 const factorsList = document.getElementById("factorsList");
 
+// Trial division up to √n stays fast (≤ 1,000,000 iterations) below this limit
+const MAX_NUMBER = 1e12;
+
 // Prime checking algorithms
 const PrimeChecker = {
   // Check if a number is prime
@@ -228,7 +231,7 @@ function displayResults(number) {
     factorizationSection.style.display = "none";
   } else if (isPrime) {
     factorizationSection.style.display = "block";
-    factorizationDisplay.textContent = `${number} = ${number} × 1`;
+    factorizationDisplay.textContent = `${number} = ${number} (ya es primo)`;
   } else {
     factorizationSection.style.display = "block";
     factorizationDisplay.textContent = `${number} = ${PrimeChecker.formatPrimeFactorization(primeFactors)}`;
@@ -263,25 +266,20 @@ function loadExample(number) {
 
 // Calculation callback for form submission
 async function performCalculation() {
-  const number = parseInt(numberInput.value);
-  
-  // Validate input
-  if (isNaN(number) || number < 1) {
+  const number = Number(numberInput.value);
+
+  // Validate input (decimals are rejected instead of silently truncated)
+  if (numberInput.value.trim() === "" || !Number.isInteger(number) || number < 1) {
     throw new Error("Por favor ingresa un número entero positivo");
   }
-  
-  if (number > 1000000) {
-    throw new Error("Por favor ingresa un número menor o igual a 1,000,000");
+
+  if (number > MAX_NUMBER) {
+    throw new Error("Por favor ingresa un número menor o igual a 1,000,000,000,000");
   }
-  
+
   // Update visual schema to show analyzing state
   updateVisualSchema(number, "analyzing");
-  
-  // Small delay for visual feedback on larger numbers
-  if (number > 1000) {
-    await CalculatorUtils.delay(500);
-  }
-  
+
   // Display results
   displayResults(number);
 }

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Interés Compuesto | Con Aportes Mensuales Online</title>
+    <meta
+      name="description"
+      content="Calcula el interés compuesto de tus ahorros e inversiones con aportes mensuales. Elige la frecuencia de capitalización y ve la evolución año a año."
+    />
+    <meta
+      name="keywords"
+      content="interés compuesto, calculadora interés compuesto, calcular interés compuesto, aportes mensuales, inversión, ahorro, capitalización"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Interés Compuesto Online - Con Aportes Mensuales"
+    />
+    <meta
+      property="og:description"
+      content="Proyecta el crecimiento de tus inversiones con interés compuesto y aportes periódicos."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/interes-compuesto.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de Interés Compuesto" />
+    <meta
+      name="twitter:description"
+      content="Calcula cuánto crecerá tu dinero con interés compuesto y aportes mensuales."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/interes-compuesto.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Interés Compuesto",
+        "url": "https://calculadoras.alexpiral.com/interes-compuesto.html",
+        "description": "Calculadora online de interés compuesto con aportes periódicos y tabla de evolución anual",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Interés compuesto con distintas frecuencias de capitalización",
+          "Aportes mensuales opcionales",
+          "Tabla de evolución año a año",
+          "Explicación paso a paso"
+        ],
+        "keywords": [
+          "interés compuesto",
+          "calculadora interés compuesto",
+          "aportes mensuales",
+          "inversión",
+          "ahorro"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/interes-compuesto.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Interés Compuesto</h1>
+        <p>
+          Proyecta el crecimiento de tus ahorros e inversiones. Incluye aportes
+          mensuales, distintas frecuencias de capitalización y la evolución de
+          tu dinero año a año.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Datos de la Inversión</h2>
+
+          <div class="visual-schema">
+            <div class="schema-formula">M = C × (1 + r/n)<sup>n·t</sup></div>
+            <div class="schema-description">
+              Los intereses generan nuevos intereses en cada periodo
+            </div>
+          </div>
+
+          <form id="compoundForm">
+            <div class="input-group">
+              <label for="principalInput">Capital inicial ($):</label>
+              <input
+                type="number"
+                class="input-field"
+                id="principalInput"
+                placeholder="10000"
+                min="0"
+                step="any"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="contributionInput">Aporte mensual ($):</label>
+              <input
+                type="number"
+                class="input-field"
+                id="contributionInput"
+                placeholder="0"
+                min="0"
+                step="any"
+              />
+              <div class="input-hint">Opcional. Se suma al final de cada mes.</div>
+            </div>
+
+            <div class="input-row">
+              <div class="input-group">
+                <label for="rateInput">Tasa de interés anual (%):</label>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="rateInput"
+                  placeholder="8"
+                  min="0"
+                  step="any"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label for="yearsInput">Plazo (años):</label>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="yearsInput"
+                  placeholder="10"
+                  min="0"
+                  max="100"
+                  step="any"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="frequencySelect">Capitalización:</label>
+              <select class="select-field" id="frequencySelect">
+                <option value="1">Anual (1 vez al año)</option>
+                <option value="2">Semestral (2 veces al año)</option>
+                <option value="4">Trimestral (4 veces al año)</option>
+                <option value="12" selected>Mensual (12 veces al año)</option>
+                <option value="365">Diaria (365 veces al año)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Mientras más frecuente sea la capitalización, mayor será el monto
+              final para la misma tasa nominal anual.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle">Monto final acumulado</p>
+
+            <div class="result-grid" id="summaryGrid"></div>
+
+            <div class="growth-bar" aria-hidden="true">
+              <div class="growth-bar-principal" id="barPrincipal"></div>
+              <div class="growth-bar-contributions" id="barContributions"></div>
+              <div class="growth-bar-interest" id="barInterest"></div>
+            </div>
+            <div class="growth-legend">
+              <span><i class="dot principal"></i>Capital inicial</span>
+              <span><i class="dot contributions"></i>Aportes</span>
+              <span><i class="dot interest"></i>Intereses</span>
+            </div>
+
+            <h3 class="table-title">Evolución año a año</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Año</th>
+                    <th>Aportado</th>
+                    <th>Intereses</th>
+                    <th>Saldo</th>
+                  </tr>
+                </thead>
+                <tbody id="yearTable"></tbody>
+              </table>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">📈</p>
+            <p>Ingresa los datos y presiona "Calcular" para ver la proyección</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample('savings')">
+            <h3 class="example-title">🏦 Ahorro a Largo Plazo</h3>
+            <p class="example-description">
+              $1,000 iniciales + $200 al mes al 7% anual durante 20 años
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('cdt')">
+            <h3 class="example-title">📄 Depósito a Plazo</h3>
+            <p class="example-description">
+              $10,000 al 10% anual capitalizable trimestralmente por 3 años
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('retirement')">
+            <h3 class="example-title">👴 Plan de Retiro</h3>
+            <p class="example-description">
+              $0 iniciales + $300 al mes al 8% anual durante 30 años
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('double')">
+            <h3 class="example-title">✖️2 Duplicar el Dinero</h3>
+            <p class="example-description">
+              $5,000 al 6% anual durante 12 años (regla del 72)
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>¿Qué es el Interés Compuesto?</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">🔁</div>
+              Intereses sobre intereses
+            </h3>
+            <p>
+              A diferencia del interés simple, en el interés compuesto los
+              intereses de cada periodo se suman al capital y generan nuevos
+              intereses en el periodo siguiente.
+            </p>
+            <ul>
+              <li>M = monto final</li>
+              <li>C = capital inicial</li>
+              <li>r = tasa nominal anual (en decimal)</li>
+              <li>n = capitalizaciones por año, t = años</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">72</div>
+              La Regla del 72
+            </h3>
+            <p>
+              Para estimar cuántos años tarda tu dinero en duplicarse, divide 72
+              entre la tasa anual.
+            </p>
+            <ul>
+              <li>Al 6% anual: 72 ÷ 6 ≈ 12 años</li>
+              <li>Al 8% anual: 72 ÷ 8 ≈ 9 años</li>
+              <li>Al 12% anual: 72 ÷ 12 ≈ 6 años</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">%</div>
+              Tasa Efectiva Anual
+            </h3>
+            <p>
+              La tasa efectiva anual (TEA) muestra el rendimiento real de un año
+              considerando la capitalización:
+            </p>
+            <ul>
+              <li>TEA = (1 + r/n)<sup>n</sup> - 1</li>
+              <li>12% nominal mensual ≈ 12.68% efectivo</li>
+              <li>Úsala para comparar productos financieros</li>
+            </ul>
+          </div>
+        </div>
+        <p class="disclaimer">
+          Los resultados son una proyección teórica con tasa constante. No
+          incluyen impuestos, comisiones ni inflación.
+        </p>
+      </section>
+
+      <!-- Instructions Section -->
+      <section class="info-section" id="como-usar">
+        <h2>¿Cómo usar la calculadora?</h2>
+        <div class="calculator-card">
+          <ol style="line-height: 2; margin-left: 1.5rem">
+            <li>
+              <strong>Capital inicial:</strong> la cantidad con la que empiezas.
+            </li>
+            <li>
+              <strong>Aporte mensual:</strong> lo que agregarás cada mes (puede
+              ser 0).
+            </li>
+            <li>
+              <strong>Tasa y plazo:</strong> la tasa nominal anual y el número de
+              años.
+            </li>
+            <li>
+              <strong>Capitalización:</strong> cada cuánto se suman los
+              intereses al capital.
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/interes-compuesto.js"></script>
+  </body>
+</html>

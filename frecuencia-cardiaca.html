@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Frecuencia Cardíaca | Zonas de Entrenamiento</title>
+    <meta
+      name="description"
+      content="Calcula tu frecuencia cardíaca máxima y tus zonas de entrenamiento por edad. Usa el método de Karvonen si conoces tu pulso en reposo."
+    />
+    <meta
+      name="keywords"
+      content="frecuencia cardíaca máxima, zonas de frecuencia cardíaca, pulsaciones ejercicio, método Karvonen, zona quema grasa, ritmo cardíaco"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Calculadora de Frecuencia Cardíaca y Zonas de Entrenamiento"
+    />
+    <meta
+      property="og:description"
+      content="Tu frecuencia cardíaca máxima y tus 5 zonas de entrenamiento en segundos."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/frecuencia-cardiaca.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Calculadora de Frecuencia Cardíaca" />
+    <meta
+      name="twitter:description"
+      content="Frecuencia cardíaca máxima y zonas de entrenamiento por edad."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/frecuencia-cardiaca.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Frecuencia Cardíaca",
+        "url": "https://calculadoras.alexpiral.com/frecuencia-cardiaca.html",
+        "description": "Calcula la frecuencia cardíaca máxima y las zonas de entrenamiento",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Frecuencia cardíaca máxima (Tanaka y 220 - edad)",
+          "5 zonas de entrenamiento",
+          "Método de Karvonen con pulso en reposo",
+          "Explicación del cálculo"
+        ],
+        "keywords": [
+          "frecuencia cardíaca máxima",
+          "zonas de entrenamiento",
+          "método Karvonen",
+          "pulsaciones"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/frecuencia-cardiaca.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Calculadora de Frecuencia Cardíaca</h1>
+        <p>
+          Calcula tu frecuencia cardíaca máxima estimada y las pulsaciones de
+          cada zona de entrenamiento para entrenar con la intensidad adecuada.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Tus Datos</h2>
+
+          <form id="heartForm">
+            <div class="input-row">
+              <div class="input-group">
+                <label for="ageInput">Edad (años):</label>
+                <input type="number" class="input-field" id="ageInput" placeholder="30" min="10" max="100" step="1" required />
+              </div>
+              <div class="input-group">
+                <label for="restingInput">Pulso en reposo (lpm):</label>
+                <input type="number" class="input-field" id="restingInput" placeholder="Opcional, ej: 65" min="30" max="120" step="1" />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="formulaSelect">Fórmula de frecuencia máxima:</label>
+              <select class="select-field" id="formulaSelect">
+                <option value="tanaka" selected>Tanaka: 208 - 0.7 × edad (recomendada)</option>
+                <option value="classic">Clásica: 220 - edad</option>
+              </select>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calcular Zonas</button>
+
+            <div class="calculating">
+              <span>Calculando...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Mide tu pulso en reposo al despertar, antes de levantarte, durante
+              60 segundos. Si lo ingresas, las zonas se calculan con el método de
+              Karvonen, que es más personalizado.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle">frecuencia cardíaca máxima estimada</p>
+
+            <div class="zones" id="zonesList"></div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">❤️</p>
+            <p>Ingresa tu edad para calcular tus zonas de entrenamiento</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample(25, '')">
+            <h3 class="example-title">🧑 25 años</h3>
+            <p class="example-description">Zonas por porcentaje de la frecuencia máxima</p>
+          </div>
+          <div class="example-card" onclick="loadExample(40, 60)">
+            <h3 class="example-title">🏃 40 años, reposo 60 lpm</h3>
+            <p class="example-description">Zonas con el método de Karvonen</p>
+          </div>
+          <div class="example-card" onclick="loadExample(55, 72)">
+            <h3 class="example-title">🚴 55 años, reposo 72 lpm</h3>
+            <p class="example-description">Entrenamiento personalizado para mayores de 50</p>
+          </div>
+          <div class="example-card" onclick="loadExample(35, 50)">
+            <h3 class="example-title">🏅 Atleta de 35 años</h3>
+            <p class="example-description">Pulso en reposo bajo de 50 lpm</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Las Zonas de Entrenamiento</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">1-2</div>
+              Zonas suaves (50-70%)
+            </h3>
+            <p>
+              Recuperación y resistencia aeróbica básica. Se puede mantener una
+              conversación. Es donde el cuerpo usa más grasa como combustible.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">3</div>
+              Zona aeróbica (70-80%)
+            </h3>
+            <p>
+              Mejora la capacidad cardiovascular. La respiración se acelera pero
+              aún controlada.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">4-5</div>
+              Zonas intensas (80-100%)
+            </h3>
+            <p>
+              Umbral anaeróbico y esfuerzo máximo. Solo para intervalos cortos y
+              personas entrenadas.
+            </p>
+          </div>
+        </div>
+        <p class="disclaimer">
+          Las fórmulas son estimaciones poblacionales (±10 lpm). Si tienes una
+          condición cardíaca o tomas medicamentos que afecten el pulso, consulta
+          a tu médico antes de entrenar por zonas.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/frecuencia-cardiaca.js"></script>
+  </body>
+</html>

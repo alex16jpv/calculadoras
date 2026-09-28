@@ -139,6 +139,20 @@
             >
               Aumento
             </button>
+            <button
+              class="type-button"
+              data-type="change"
+              onclick="changeType('change')"
+            >
+              Variación Porcentual
+            </button>
+            <button
+              class="type-button"
+              data-type="original"
+              onclick="changeType('original')"
+            >
+              Valor Total (inverso)
+            </button>
           </div>
 
           <div class="visual-schema">
@@ -227,6 +241,18 @@
               Completaste 8 de 10 tareas. ¿Qué porcentaje de eficiencia tienes?
             </p>
           </div>
+          <div class="example-card" onclick="loadExample('change1')">
+            <h3 class="example-title">📈 Variación de Precio</h3>
+            <p class="example-description">
+              Un producto pasó de $80 a $100. ¿En qué porcentaje subió?
+            </p>
+          </div>
+          <div class="example-card" onclick="loadExample('original1')">
+            <h3 class="example-title">🔍 Valor Total</h3>
+            <p class="example-description">
+              Pagaste $30 de anticipo, que es el 20% del total. ¿Cuánto es el total?
+            </p>
+          </div>
         </div>
       </section>
 
@@ -284,6 +310,32 @@
             </p>
             <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
               <strong>Ejemplo:</strong> $100 con 15% aumento = $115
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">Δ</div>
+              Variación Porcentual
+            </h3>
+            <p>Mide cuánto cambió un valor respecto a su valor inicial.</p>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
+              <strong>Fórmula:</strong> (Final - Inicial) ÷ |Inicial| × 100
+            </p>
+            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
+              <strong>Ejemplo:</strong> de 80 a 100 = +25%
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">↺</div>
+              Valor Total (inverso)
+            </h3>
+            <p>Encuentra el total cuando conoces una parte y su porcentaje.</p>
+            <p style="margin-top: 1rem; color: #6b7280; font-size: 0.9rem">
+              <strong>Fórmula:</strong> Parte × 100 ÷ Porcentaje
+            </p>
+            <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.9rem">
+              <strong>Ejemplo:</strong> 30 es el 20% de 150
             </p>
           </div>
         </div>

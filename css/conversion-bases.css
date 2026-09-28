@@ -1,0 +1,59 @@
+/* Number Base Converter specific styles */
+
+.mono,
+.base-value {
+  font-family: "Courier New", monospace;
+}
+
+.base-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.base-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 0.75rem;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.base-row.source {
+  border-color: var(--primary-color);
+}
+
+.base-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.base-value {
+  grid-column: 1;
+  font-size: 1.15rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.copy-btn {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--primary-color);
+  background: white;
+  color: var(--primary-color);
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.copy-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}

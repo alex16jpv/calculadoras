@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de Temperatura | Celsius, Fahrenheit y Kelvin Online</title>
+    <meta
+      name="description"
+      content="Convierte temperaturas entre grados Celsius, Fahrenheit, Kelvin y Rankine al instante, con las fórmulas y el procedimiento paso a paso."
+    />
+    <meta
+      name="keywords"
+      content="conversor temperatura, celsius a fahrenheit, fahrenheit a celsius, kelvin a celsius, convertir grados, temperatura"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Conversor de Temperatura - Celsius, Fahrenheit y Kelvin"
+    />
+    <meta
+      property="og:description"
+      content="Convierte grados Celsius, Fahrenheit y Kelvin con fórmulas explicadas."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/conversion-temperatura.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Conversor de Temperatura" />
+    <meta
+      name="twitter:description"
+      content="Celsius, Fahrenheit, Kelvin y Rankine al instante."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/conversion-temperatura.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Conversor de Temperatura",
+        "url": "https://calculadoras.alexpiral.com/conversion-temperatura.html",
+        "description": "Convierte temperaturas entre Celsius, Fahrenheit, Kelvin y Rankine",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Celsius, Fahrenheit, Kelvin y Rankine",
+          "Fórmulas paso a paso",
+          "Validación del cero absoluto",
+          "Tabla de temperaturas de referencia"
+        ],
+        "keywords": [
+          "conversor temperatura",
+          "celsius a fahrenheit",
+          "fahrenheit a celsius",
+          "kelvin"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/conversion-temperatura.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Conversor de Temperatura</h1>
+        <p>
+          Convierte entre grados Celsius, Fahrenheit, Kelvin y Rankine. Obtén el
+          resultado en todas las escalas a la vez, con la fórmula aplicada.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Temperatura a Convertir</h2>
+
+          <form id="temperatureForm">
+            <div class="input-row">
+              <div class="input-group">
+                <label for="valueInput">Valor:</label>
+                <input
+                  type="number"
+                  class="input-field"
+                  id="valueInput"
+                  placeholder="Ej: 25"
+                  step="any"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label for="unitSelect">Escala:</label>
+                <select class="select-field" id="unitSelect">
+                  <option value="C" selected>Celsius (°C)</option>
+                  <option value="F">Fahrenheit (°F)</option>
+                  <option value="K">Kelvin (K)</option>
+                  <option value="R">Rankine (°R)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Convertir</button>
+
+            <div class="calculating">
+              <span>Convirtiendo...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              Para una estimación rápida de °C a °F: duplica y suma 30. Ej: 20 °C
+              ≈ 70 °F (el valor exacto es 68 °F).
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-grid" id="conversionGrid"></div>
+
+            <div class="thermometer-note result-note" id="thermometerNote"></div>
+
+            <div class="steps-section">
+              <h3>Fórmulas aplicadas:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">🌡️</p>
+            <p>Ingresa una temperatura para convertirla a todas las escalas</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample(37, 'C')">
+            <h3 class="example-title">🤒 Temperatura corporal</h3>
+            <p class="example-description">37 °C en Fahrenheit y Kelvin</p>
+          </div>
+          <div class="example-card" onclick="loadExample(350, 'F')">
+            <h3 class="example-title">🍰 Horno a 350 °F</h3>
+            <p class="example-description">Temperatura típica de recetas en EE. UU.</p>
+          </div>
+          <div class="example-card" onclick="loadExample(0, 'K')">
+            <h3 class="example-title">🧊 Cero absoluto</h3>
+            <p class="example-description">0 K, la temperatura más baja posible</p>
+          </div>
+          <div class="example-card" onclick="loadExample(-40, 'C')">
+            <h3 class="example-title">❄️ -40 grados</h3>
+            <p class="example-description">El punto donde °C y °F coinciden</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Fórmulas de Conversión</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">°C</div>
+              Desde Celsius
+            </h3>
+            <ul>
+              <li>°F = °C × 9/5 + 32</li>
+              <li>K = °C + 273.15</li>
+              <li>°R = (°C + 273.15) × 9/5</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">°F</div>
+              Desde Fahrenheit
+            </h3>
+            <ul>
+              <li>°C = (°F - 32) × 5/9</li>
+              <li>K = (°F - 32) × 5/9 + 273.15</li>
+              <li>°R = °F + 459.67</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">K</div>
+              Temperaturas de referencia
+            </h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Referencia</th><th>°C</th><th>°F</th><th>K</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Cero absoluto</td><td>-273.15</td><td>-459.67</td><td>0</td></tr>
+                  <tr><td>Congelación del agua</td><td>0</td><td>32</td><td>273.15</td></tr>
+                  <tr><td>Ambiente</td><td>20</td><td>68</td><td>293.15</td></tr>
+                  <tr><td>Cuerpo humano</td><td>37</td><td>98.6</td><td>310.15</td></tr>
+                  <tr><td>Ebullición del agua</td><td>100</td><td>212</td><td>373.15</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/conversion-temperatura.js"></script>
+  </body>
+</html>

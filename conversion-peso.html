@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de Peso y Masa | Kilos, Libras, Onzas y Gramos</title>
+    <meta
+      name="description"
+      content="Convierte unidades de peso y masa: kilogramos, gramos, libras, onzas, toneladas y stones. Resultado en todas las unidades a la vez."
+    />
+    <meta
+      name="keywords"
+      content="conversor de peso, kilos a libras, libras a kilos, onzas a gramos, convertir unidades de masa, kg a lb"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Conversor de Peso - Kilos, Libras, Onzas y Gramos"
+    />
+    <meta
+      property="og:description"
+      content="Convierte entre unidades métricas e imperiales de peso al instante."
+    />
+    <meta
+      property="og:url"
+      content="https://calculadoras.alexpiral.com/conversion-peso.html"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Conversor de Peso" />
+    <meta
+      name="twitter:description"
+      content="Kilogramos, libras, onzas, gramos y más."
+    />
+
+    <!-- Canonical URL -->
+    <link
+      rel="canonical"
+      href="https://calculadoras.alexpiral.com/conversion-peso.html"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Conversor de Peso",
+        "url": "https://calculadoras.alexpiral.com/conversion-peso.html",
+        "description": "Convierte entre unidades de peso y masa métricas e imperiales",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Unidades métricas e imperiales",
+          "Libras y onzas combinadas",
+          "Resultado en todas las unidades",
+          "Factores de conversión exactos"
+        ],
+        "keywords": [
+          "conversor de peso",
+          "kilos a libras",
+          "onzas a gramos",
+          "libras a kilos"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/css/shared.css" />
+    <link rel="stylesheet" href="/css/conversion-peso.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo"> 📊 Hub de Calculadoras </a>
+        <nav class="nav-links">
+          <a href="/">Todas las Herramientas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Conversor de Peso y Masa</h1>
+        <p>
+          Convierte entre kilogramos, gramos, libras, onzas, toneladas y más.
+          Usa los factores de conversión internacionales exactos.
+        </p>
+      </section>
+
+      <div class="calculator-container">
+        <!-- Calculator Input Section -->
+        <div class="calculator-card">
+          <h2>Peso a Convertir</h2>
+
+          <form id="unitForm">
+            <div class="input-group">
+              <label for="valueInput">Valor:</label>
+              <input
+                type="number"
+                class="input-field"
+                id="valueInput"
+                placeholder="Ej: 100"
+                step="any"
+                required
+              />
+            </div>
+
+            <div class="unit-pair">
+              <div class="input-group">
+                <label for="fromUnit">De:</label>
+                <select class="select-field" id="fromUnit"></select>
+              </div>
+              <button
+                type="button"
+                class="swap-btn"
+                onclick="swapUnits()"
+                aria-label="Intercambiar unidades"
+                title="Intercambiar unidades"
+              >
+                ⇄
+              </button>
+              <div class="input-group">
+                <label for="toUnit">A:</label>
+                <select class="select-field" id="toUnit"></select>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Convertir</button>
+
+            <div class="calculating">
+              <span>Convirtiendo...</span>
+            </div>
+
+            <div class="error-message" id="errorMessage" role="alert"></div>
+          </form>
+
+          <div class="help-text">
+            <strong>💡 Tip:</strong>
+            <span>
+              1 libra = 453.59237 g exactos y 1 kg ≈ 2.2046 libras.
+            </span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="calculator-card results-card">
+          <h2>Resultado</h2>
+
+          <div id="resultSection" style="display: none">
+            <div class="result-value" id="resultValue">-</div>
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-note" id="extraNote" hidden></div>
+
+            <h3 class="table-title">En todas las unidades</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <tbody id="allUnitsTable"></tbody>
+              </table>
+            </div>
+
+            <div class="steps-section">
+              <h3>Explicación paso a paso:</h3>
+              <div id="stepsContainer"></div>
+            </div>
+          </div>
+
+          <div
+            id="emptyResult"
+            style="text-align: center; padding: 2rem; color: #6b7280"
+          >
+            <p style="font-size: 3rem; margin-bottom: 1rem">⚖️</p>
+            <p>Ingresa un valor y elige las unidades para convertir</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <section class="examples-section">
+        <h2>Ejemplos Prácticos</h2>
+        <div class="examples-grid">
+          <div class="example-card" onclick="loadExample(70, 'kg', 'lb')">
+            <h3 class="example-title">🧍 Peso corporal</h3>
+            <p class="example-description">70 kg en libras</p>
+          </div>
+          <div class="example-card" onclick="loadExample(8, 'oz', 'g')">
+            <h3 class="example-title">🥩 Receta en onzas</h3>
+            <p class="example-description">8 onzas de carne en gramos</p>
+          </div>
+          <div class="example-card" onclick="loadExample(50, 'lb', 'kg')">
+            <h3 class="example-title">🧳 Límite de equipaje</h3>
+            <p class="example-description">50 libras en kilogramos</p>
+          </div>
+          <div class="example-card" onclick="loadExample(2.5, 't', 'kg')">
+            <h3 class="example-title">🚚 Carga</h3>
+            <p class="example-description">2.5 toneladas en kilogramos</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h2>Equivalencias Comunes</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">kg</div>
+              Sistema métrico
+            </h3>
+            <ul>
+              <li>1 tonelada = 1,000 kg</li>
+              <li>1 kg = 1,000 g</li>
+              <li>1 g = 1,000 mg</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>
+              <div class="info-icon">lb</div>
+              Sistema imperial
+            </h3>
+            <ul>
+              <li>1 libra = 16 onzas = 453.59237 g</li>
+              <li>1 onza = 28.349523125 g</li>
+              <li>1 stone = 14 libras ≈ 6.35 kg</li>
+              <li>1 kg ≈ 2.20462 libras</li>
+            </ul>
+          </div>
+        </div>
+        <p class="disclaimer">
+          En el lenguaje cotidiano se dice "peso", aunque técnicamente estas
+          unidades miden masa. La "libra" de mercado en algunos países
+          (500 g) no es la libra internacional (453.59 g).
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>
+          &copy; 2024 Hub de Calculadoras. Herramienta gratuita de cálculo
+          online.
+        </p>
+        <div class="footer-links">
+          <a href="/">Volver al Hub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/shared-calculator.js"></script>
+    <script src="/js/conversion-peso.js"></script>
+  </body>
+</html>
