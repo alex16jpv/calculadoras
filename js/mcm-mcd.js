@@ -494,7 +494,7 @@ function loadExample(type, exampleNumbers) {
   
   // Auto calculate
   setTimeout(() => {
-    form.dispatchEvent(new Event("submit"));
+    CalculatorUtils.submitForm(form);
   }, 100);
 }
 

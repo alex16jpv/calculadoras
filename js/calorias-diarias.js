@@ -46,7 +46,7 @@ function loadExample(sex, age, weight, height, activity) {
   weightInput.value = weight;
   heightInput.value = height;
   activitySelect.value = activity;
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

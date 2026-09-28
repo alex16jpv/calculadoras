@@ -56,7 +56,7 @@ function feetAndInches(meters) {
 // Swap source and target units
 function swapUnits() {
   [fromUnit.value, toUnit.value] = [toUnit.value, fromUnit.value];
-  if (valueInput.value.trim() !== "") form.dispatchEvent(new Event("submit"));
+  if (valueInput.value.trim() !== "") CalculatorUtils.submitForm(form);
 }
 
 // Load example
@@ -64,7 +64,7 @@ function loadExample(value, from, to) {
   valueInput.value = value;
   fromUnit.value = from;
   toUnit.value = to;
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

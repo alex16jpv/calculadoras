@@ -311,7 +311,7 @@ function loadExample(exampleId) {
     default:
       return;
   }
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

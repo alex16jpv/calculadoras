@@ -72,7 +72,7 @@ function describe(celsius) {
 function loadExample(value, unit) {
   valueInput.value = value;
   unitSelect.value = unit;
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

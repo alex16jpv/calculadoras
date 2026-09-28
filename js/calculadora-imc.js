@@ -70,7 +70,7 @@ function loadExample(type, values) {
   Object.entries(values).forEach(([id, value]) => {
     document.getElementById(id).value = value;
   });
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission

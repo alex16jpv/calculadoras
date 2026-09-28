@@ -143,7 +143,7 @@ function loadExample(exampleId) {
     valueC.value = example.c;
 
     // Auto calculate
-    form.dispatchEvent(new Event("submit"));
+    CalculatorUtils.submitForm(form);
   }
 }
 

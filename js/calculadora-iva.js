@@ -73,7 +73,7 @@ function loadExample(type, amount, country) {
   rateInput.value = COUNTRIES.find((c) => c.code === country).rate;
   changeType(type);
   amountInput.value = amount;
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Render summary cards

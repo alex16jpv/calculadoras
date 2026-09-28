@@ -78,7 +78,7 @@ function plural(value, singular, pluralForm) {
 function loadExample(birth, reference) {
   birthDate.value = birth;
   referenceDate.value = reference || DateUtils.toInputValue(DateUtils.today());
-  form.dispatchEvent(new Event("submit"));
+  CalculatorUtils.submitForm(form);
 }
 
 // Calculation callback for form submission
